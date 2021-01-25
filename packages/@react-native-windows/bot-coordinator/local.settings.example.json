@@ -1,7 +1,0 @@
-{
-  "IsEncrypted": false,
-  "Values": {
-    "AzureWebJobsStorage": "[Azure Storage Connection String here]",
-    "FUNCTIONS_WORKER_RUNTIME": "node"
-  }
-}

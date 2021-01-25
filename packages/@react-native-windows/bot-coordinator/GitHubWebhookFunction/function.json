@@ -1,0 +1,18 @@
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "route": "receiveGitHubEvent"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    }
+    
+  ],
+  "scriptFile": "../lib-commonjs/GitHubWebhookFunction/index.js"
+}

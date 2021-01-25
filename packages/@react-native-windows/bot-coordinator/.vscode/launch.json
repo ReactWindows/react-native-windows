@@ -8,20 +8,5 @@
       "port": 9229,
       "preLaunchTask": "func: host start"
     },
-    {
-      "name": "vscode-jest-tests",
-      "type": "node",
-      "request": "launch",
-      "runtimeArgs": [
-        "--inspect-brk",
-        "../../../node_modules/jest/bin/jest.js",
-        "--runInBand",
-        "--config",
-        "../../@rnw-scripts/jest-debug-config/jest.debug.config.js",
-      ],
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen",
-      "port": 9229,
-    },
   ]
 }

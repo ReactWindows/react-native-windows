@@ -1,0 +1,18 @@
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "route": "raiseEvent"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    }
+    
+  ],
+  "scriptFile": "../lib-commonjs/RaiseEventFunction/index.js"
+}
