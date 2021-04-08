@@ -562,7 +562,7 @@ bool IsCharacterBefore(winrt::TextPointer textPointer, winrt::Point point) {
   const auto rect = textPointer.GetCharacterRect(winrt::LogicalDirection::Forward);
   const auto bottom = rect.Y + rect.Height;
 
-  // The character Rect always had Width = 0, so we need to use the X-dimension
+  // The character Rect always has Width = 0, so we need to use the X-dimension
   // of the next character on the same line. If the next character is not on
   // the same line, we use the rightmost boundary of the TextBlock.
   //
@@ -581,17 +581,25 @@ bool IsCharacterBefore(winrt::TextPointer textPointer, winrt::Point point) {
   // The character is before the point if the Y-coordinate of the point is
   // below (greater than) the bottom of the character rect, or if the
   // Y-coordinate is below (greater than) the top of the character rect and
-  // the X-coordinate is greater than the right side of the character rect.
+  // the X-coordinate is greater than the right side of the character rect:
+  // ┌───────────┐
+  // │     ┌─────┘
+  // └─────┘ (x,y)
   return point.Y > bottom || (point.Y > rect.Y && point.X > right);
 }
 
 bool IsCharacterAfter(winrt::TextPointer textPointer, winrt::Point point) {
   const auto rect = textPointer.GetCharacterRect(winrt::LogicalDirection::Forward);
   const auto bottom = rect.Y + rect.Height;
+
   // The character is after the point if the Y-coordinate of the point is above
   // (less than) the top of the character rect, or if the Y-coordinate is above
   // (less than) the bottom of the character rect and the X-coordinate is less
-  // than the left side of the character rect.
+  // than the left side of the character rect:
+  //       
+  // (x,y) ┌─────┐
+  // ┌─────┘     │
+  // └───────────┘
   return point.Y < rect.Y || (point.Y < bottom && point.X < rect.X);
 }
 
