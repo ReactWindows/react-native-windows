@@ -533,8 +533,16 @@ bool TouchEventHandler::TagFromOriginalSource(
 
         const auto childTag = textPointer.Parent().ReadLocalValue(xaml::FrameworkElement::TagProperty());
         if (childTag != xaml::DependencyProperty::UnsetValue()) {
-          const auto finerTag = childTag.try_as<winrt::IPropertyValue>();
+          auto finerTag = childTag.try_as<winrt::IPropertyValue>();
           if (finerTag) {
+            // React Native doesn't like when the target is a raw text node
+            if (auto uiManager = GetNativeUIManager(*m_context).lock()) {
+              const auto node = static_cast<ShadowNodeBase *>(uiManager->getHost()->FindShadowNodeForTag(finerTag.GetInt64()));
+              if (!std::wcscmp(node->GetViewManager()->GetName(), L"RCTRawText")) {
+                finerTag = winrt::PropertyValue::CreateInt64(node->GetParent()).try_as<winrt::IPropertyValue>();
+              }
+            }
+
             tag = finerTag;
           }
         }
