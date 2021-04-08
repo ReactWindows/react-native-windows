@@ -537,7 +537,8 @@ bool TouchEventHandler::TagFromOriginalSource(
           if (finerTag) {
             // React Native doesn't like when the target is a raw text node
             if (auto uiManager = GetNativeUIManager(*m_context).lock()) {
-              const auto node = static_cast<ShadowNodeBase *>(uiManager->getHost()->FindShadowNodeForTag(finerTag.GetInt64()));
+              const auto node =
+                  static_cast<ShadowNodeBase *>(uiManager->getHost()->FindShadowNodeForTag(finerTag.GetInt64()));
               if (!std::wcscmp(node->GetViewManager()->GetName(), L"RCTRawText")) {
                 finerTag = winrt::PropertyValue::CreateInt64(node->GetParent()).try_as<winrt::IPropertyValue>();
               }
@@ -604,7 +605,7 @@ bool IsCharacterAfter(winrt::TextPointer textPointer, winrt::Point point) {
   // (less than) the top of the character rect, or if the Y-coordinate is above
   // (less than) the bottom of the character rect and the X-coordinate is less
   // than the left side of the character rect:
-  //       
+  //
   // (x,y) ┌─────┐
   // ┌─────┘     │
   // └───────────┘
