@@ -519,13 +519,24 @@ bool TouchEventHandler::TagFromOriginalSource(
       // while the content of the <Text> becomes a list of XAML <Run> elements.
       // However, we should report the Text element as the target, not the contexts of the text.
       if (const auto textBlock = sourceElement.try_as<xaml::Controls::TextBlock>()) {
-        const auto pointerPos = args.GetCurrentPoint(textBlock).RawPosition();
-        const auto inlines = textBlock.Inlines().GetView();
+        if (textBlock.Inlines().Size() == 0) {
+          // No need to hit test if TextBlock does not use Inlines
+          break;
+        }
 
-        bool isHit = false;
-        const auto finerTag = TestHit(inlines, pointerPos, isHit);
-        if (finerTag) {
-          tag = finerTag;
+        const auto pointerPos = args.GetCurrentPoint(textBlock).RawPosition();
+        const auto textPointer = GetPositionFromPoint(textBlock, pointerPos);
+        if (!textPointer) {
+          // Did not find a matching character in the hit test
+          break;
+        }
+
+        const auto childTag = textPointer.Parent().ReadLocalValue(xaml::FrameworkElement::TagProperty());
+        if (childTag != xaml::DependencyProperty::UnsetValue()) {
+          const auto finerTag = childTag.try_as<winrt::IPropertyValue>();
+          if (finerTag) {
+            tag = finerTag;
+          }
         }
       }
 
@@ -547,49 +558,68 @@ bool TouchEventHandler::TagFromOriginalSource(
   return true;
 }
 
-winrt::IPropertyValue TouchEventHandler::TestHit(
-    const winrt::Collections::IVectorView<xaml::Documents::Inline> &inlines,
-    const winrt::Point &pointerPos,
-    bool &isHit) {
-  winrt::IPropertyValue tag(nullptr);
+bool IsCharacterBefore(winrt::TextPointer textPointer, winrt::Point point) {
+  const auto rect = textPointer.GetCharacterRect(winrt::LogicalDirection::Forward);
+  const auto bottom = rect.Y + rect.Height;
 
-  for (const auto &el : inlines) {
-    if (const auto span = el.try_as<xaml::Documents::Span>()) {
-      auto resTag = TestHit(span.Inlines().GetView(), pointerPos, isHit);
-
-      if (resTag)
-        return resTag;
-
-      if (isHit) {
-        tag = el.GetValue(xaml::FrameworkElement::TagProperty()).try_as<winrt::IPropertyValue>();
-        if (tag) {
-          return tag;
-        }
-      }
-    } else if (const auto run = el.try_as<xaml::Documents::Run>()) {
-      const auto start = el.ContentStart();
-      const auto end = el.ContentEnd();
-
-      auto startRect = start.GetCharacterRect(xaml::Documents::LogicalDirection::Forward);
-      auto endRect = end.GetCharacterRect(xaml::Documents::LogicalDirection::Forward);
-
-      // Swap rectangles in RTL scenarios.
-      if (startRect.X > endRect.X) {
-        const auto tempRect = startRect;
-        startRect = endRect;
-        endRect = tempRect;
-      }
-
-      // Approximate the bounding rect (for now, don't account for text wrapping).
-      if ((startRect.X <= pointerPos.X) && (endRect.X + endRect.Width >= pointerPos.X) &&
-          (startRect.Y <= pointerPos.Y) && (endRect.Y + endRect.Height >= pointerPos.Y)) {
-        isHit = true;
-        return nullptr;
-      }
+  // The character Rect always had Width = 0, so we need to use the X-dimension
+  // of the next character on the same line. If the next character is not on
+  // the same line, we use the rightmost boundary of the TextBlock.
+  //
+  // The side-effect is that wrapped text may have additional valid hit box
+  // space at the end of a line, but it's better than the alternative of the
+  // hit box excluding the last character on a line.
+  const auto nextPointer = textPointer.GetPositionAtOffset(1, winrt::LogicalDirection::Forward);
+  auto right = textPointer.VisualParent().Width();
+  if (nextPointer != nullptr) {
+    const auto nextRect = nextPointer.GetCharacterRect(winrt::LogicalDirection::Forward);
+    if (rect.Y == nextRect.Y) {
+      right = nextRect.X;
     }
   }
 
-  return tag;
+  // The character is before the point if the Y-coordinate of the point is
+  // below (greater than) the bottom of the character rect, or if the
+  // Y-coordinate is below (greater than) the top of the character rect and
+  // the X-coordinate is greater than the right side of the character rect.
+  return point.Y > bottom || (point.Y > rect.Y && point.X > right);
+}
+
+bool IsCharacterAfter(winrt::TextPointer textPointer, winrt::Point point) {
+  const auto rect = textPointer.GetCharacterRect(winrt::LogicalDirection::Forward);
+  const auto bottom = rect.Y + rect.Height;
+  // The character is after the point if the Y-coordinate of the point is above
+  // (less than) the top of the character rect, or if the Y-coordinate is above
+  // (less than) the bottom of the character rect and the X-coordinate is less
+  // than the left side of the character rect.
+  return point.Y < rect.Y || (point.Y < bottom && point.X < rect.X);
+}
+
+winrt::TextPointer TouchEventHandler::GetPositionFromPoint(winrt::TextBlock textBlock, winrt::Point point) {
+  // Since characters in a TextBlock are sorted from top-left to bottom-right,
+  // we can use binary search to find the character whose bounds contains the
+  // pointer point.
+  //
+  // This algorithm currently makes the following assumptions:
+  // 1. Characters on the same line have the same Rect::X value
+  // 2. The text is left-to-right
+  auto textPointer = textBlock.ContentStart();
+  auto L = 0;
+  auto R = /* n - 1 */ textBlock.ContentEnd().Offset();
+  while (L <= R) {
+    const auto m = /* floor */ (L + R) / 2;
+    const auto relativeOffset = m - textPointer.Offset();
+    textPointer = textPointer.GetPositionAtOffset(relativeOffset, winrt::LogicalDirection::Forward);
+    if (IsCharacterBefore(textPointer, point) /* A[m] < T */) {
+      L = m + 1;
+    } else if (IsCharacterAfter(textPointer, point) /* A[m] > T */) {
+      R = m - 1;
+    } else {
+      return textPointer;
+    }
+  }
+
+  return nullptr;
 }
 
 //

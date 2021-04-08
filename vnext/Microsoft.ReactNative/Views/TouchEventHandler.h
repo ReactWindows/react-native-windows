@@ -98,10 +98,7 @@ class TouchEventHandler {
   int64_t m_touchId = 0;
 
   bool TagFromOriginalSource(const winrt::PointerRoutedEventArgs &args, int64_t *pTag, xaml::UIElement *pSourceElement);
-  winrt::IPropertyValue TestHit(
-      const winrt::Collections::IVectorView<xaml::Documents::Inline> &inlines,
-      const winrt::Point &pointerPos,
-      bool &isHit);
+  static winrt::TextPointer GetPositionFromPoint(winrt::TextBlock textBlock, winrt::Point point);
 
   XamlView m_xamlView;
   Mso::CntPtr<const Mso::React::IReactContext> m_context;
