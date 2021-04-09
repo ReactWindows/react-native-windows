@@ -110,7 +110,8 @@ bool IsRTL(const winrt::TextPointer &textPointer) {
 }
 
 winrt::TextPointer TextHitTestUtils::GetPositionFromPoint(
-    const winrt::TextBlock &textBlock,
+    const winrt::TextPointer &start,
+    const winrt::TextPointer &end,
     const winrt::Point &targetPoint) {
   // Since characters in a TextBlock are sorted from top-left to bottom-right
   // (or top-right to bottom-left for RTL), we can use binary search to find
@@ -118,11 +119,11 @@ winrt::TextPointer TextHitTestUtils::GetPositionFromPoint(
   //
   // This algorithm currently makes the following assumptions:
   // 1. Characters on the same line have the same Rect::Y value
-  const auto width = textBlock.Width();
-  auto textPointer = textBlock.ContentStart();
-  const auto isRtl = IsRTL(textPointer);
-  auto L = 0;
-  auto R = /* n - 1 */ textBlock.ContentEnd().Offset();
+  const auto width = start.VisualParent().Width();
+  const auto isRtl = IsRTL(start);
+  auto textPointer = start;
+  auto L = start.Offset();
+  auto R = end.Offset();
   while (L <= R) {
     const auto m = /* floor */ (L + R) / 2;
     const auto relativeOffset = m - textPointer.Offset();

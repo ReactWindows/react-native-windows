@@ -7,12 +7,13 @@
 #include <UI.Xaml.Documents.h>
 
 namespace winrt {
-  using namespace Windows::UI::Xaml::Controls;
-  using namespace Windows::UI::Xaml::Documents;
-}
+using namespace Windows::UI::Xaml::Controls;
+using namespace Windows::UI::Xaml::Documents;
+} // namespace winrt
 
 namespace Microsoft::ReactNative {
 struct TextHitTestUtils final {
-  static winrt::TextPointer GetPositionFromPoint(const winrt::TextBlock &textBlock, const winrt::Point &targetPoint);
+  static winrt::TextPointer
+  GetPositionFromPoint(const winrt::TextPointer &start, const winrt::TextPointer &end, const winrt::Point &targetPoint);
 };
 } // namespace Microsoft::ReactNative

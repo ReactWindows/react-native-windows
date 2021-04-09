@@ -145,7 +145,8 @@ class TextShadowNode final : public ShadowNodeBase {
 
   int64_t GetReactTagAtPoint(const winrt::Point &point) {
     const auto textBlock = GetView().as<xaml::Controls::TextBlock>();
-    const auto textPointer = TextHitTestUtils::GetPositionFromPoint(textBlock, point);
+    const auto textPointer =
+        TextHitTestUtils::GetPositionFromPoint(textBlock.ContentStart(), textBlock.ContentEnd(), point);
     if (textPointer != nullptr) {
       auto inlineTag = GetTag(textPointer.Parent());
       if (inlineTag != -1) {
