@@ -534,7 +534,8 @@ bool TouchEventHandler::TagFromOriginalSource(
         if (inlineTag != -1) {
           if (auto uiManager = GetNativeUIManager(*m_context).lock()) {
             const auto node = static_cast<ShadowNodeBase *>(uiManager->getHost()->FindShadowNodeForTag(inlineTag));
-            // React Native doesn't like when the target is a raw text node, get the parent instead
+            // React Native does not support events targeted to raw text nodes.
+            // Get the parent tag instead.
             if (!std::wcscmp(node->GetViewManager()->GetName(), L"RCTRawText")) {
               inlineTag = node->GetParent();
             }
@@ -562,8 +563,12 @@ bool TouchEventHandler::TagFromOriginalSource(
   return true;
 }
 
-bool IsPointAfterCharacter(const winrt::Point &point, const winrt::TextPointer &textPointer, double width, bool isRtl) {
-  const auto rect = textPointer.GetCharacterRect(winrt::LogicalDirection::Forward);
+bool IsPointAfterCharacter(
+    const winrt::Point &point,
+    const winrt::TextPointer &textPointer,
+    winrt::Rect rect,
+    double width,
+    bool isRtl) {
   const auto bottom = rect.Y + rect.Height;
 
   auto right = width;
@@ -601,9 +606,9 @@ bool IsPointAfterCharacter(const winrt::Point &point, const winrt::TextPointer &
 bool IsPointBeforeCharacter(
     const winrt::Point &point,
     const winrt::TextPointer &textPointer,
+    winrt::Rect rect,
     double width,
     bool isRtl) {
-  const auto rect = textPointer.GetCharacterRect(winrt::LogicalDirection::Forward);
   const auto bottom = rect.Y + rect.Height;
 
   auto right = width;
@@ -676,9 +681,10 @@ winrt::TextPointer TouchEventHandler::GetPositionFromPoint(
     const auto m = /* floor */ (L + R) / 2;
     const auto relativeOffset = m - textPointer.Offset();
     textPointer = textPointer.GetPositionAtOffset(relativeOffset, winrt::LogicalDirection::Forward);
-    if (IsPointAfterCharacter(targetPoint, textPointer, width, isRtl) /* A[m] < T */) {
+    const auto rect = textPointer.GetCharacterRect(winrt::LogicalDirection::Forward);
+    if (IsPointAfterCharacter(targetPoint, textPointer, rect, width, isRtl) /* A[m] < T */) {
       L = m + 1;
-    } else if (IsPointBeforeCharacter(targetPoint, textPointer, width, isRtl) /* A[m] > T */) {
+    } else if (IsPointBeforeCharacter(targetPoint, textPointer, rect, width, isRtl) /* A[m] > T */) {
       R = m - 1;
     } else {
       return textPointer;
