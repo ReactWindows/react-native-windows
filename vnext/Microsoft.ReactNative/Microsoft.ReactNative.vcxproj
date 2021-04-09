@@ -179,6 +179,7 @@
     <ClInclude Include="Base\CxxReactIncludes.h" />
     <ClInclude Include="Base\FollyIncludes.h" />
     <ClInclude Include="ReactHost\JSCallInvokerScheduler.h" />
+    <ClInclude Include="Utils\TextHitTestUtils.h" />
     <ClInclude Include="Utils\BatchingEventEmitter.h" />
     <ClInclude Include="DevMenuControl.h">
       <DependentUpon>DevMenuControl.xaml</DependentUpon>
@@ -491,6 +492,7 @@
     <ClCompile Include="ABIViewManager.cpp" />
     <ClCompile Include="Base\CoreNativeModules.cpp" />
     <ClCompile Include="Base\CoreUIManagers.cpp" />
+    <ClCompile Include="Utils\TextHitTestUtils.cpp" />
     <ClCompile Include="Utils\BatchingEventEmitter.cpp" />
     <ClCompile Include="CxxReactUWP\JSBigString.cpp" />
     <ClCompile Include="DevMenuControl.cpp">
