@@ -147,12 +147,12 @@ class TextShadowNode final : public ShadowNodeBase {
 
   int64_t GetReactTagAtPoint(const winrt::Point &point) {
     const auto textPointer = pressableCount > 0
-      ? useBlockHitTest ? TextHitTestUtils::GetPositionFromPoint(GetView().as<winrt::TextBlock>(), point)
+      ? useBlockHitTest ? TextHitTestUtils::GetPositionFromPoint(GetView().as<xaml::Controls::TextBlock>(), point)
                         : VirtualTextShadowNode::HitTest(*this, point)
       : nullptr;
 
     if (textPointer != nullptr) {
-      const auto inlineTag = GetTag(textPointer.Parent());
+      auto inlineTag = GetTag(textPointer.Parent());
       if (inlineTag != -1) {
         if (auto uiManager = GetNativeUIManager(GetViewManager()->GetReactContext()).lock()) {
           const auto node = static_cast<ShadowNodeBase *>(uiManager->getHost()->FindShadowNodeForTag(inlineTag));
@@ -161,7 +161,6 @@ class TextShadowNode final : public ShadowNodeBase {
           if (!std::wcscmp(node->GetViewManager()->GetName(), L"RCTRawText")) {
             inlineTag = node->GetParent();
           }
-
           return inlineTag;
         }
       }

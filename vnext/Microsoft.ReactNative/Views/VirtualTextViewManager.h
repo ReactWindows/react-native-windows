@@ -19,6 +19,7 @@ struct VirtualTextShadowNode final : public ShadowNodeBase {
   void onDropViewInstance() override;
 
   void AddToPressableCount(int pressableCount);
+  void SetPressable(bool isPressable);
 
   static void ApplyTextTransform(ShadowNodeBase &node, TextTransform transform, bool forceUpdate, bool isRoot);
 

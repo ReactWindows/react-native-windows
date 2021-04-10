@@ -56,6 +56,16 @@ void VirtualTextShadowNode::AddToPressableCount(int count) {
   }
 }
 
+void VirtualTextShadowNode::SetPressable(bool isPressable) {
+  const auto wasPressable = m_isPressable;
+  m_isPressable = isPressable;
+  if (!wasPressable && isPressable) {
+    AddToPressableCount(1);
+  } else if (wasPressable && !isPressable) {
+    AddToPressableCount(-1);
+  }
+}
+
 void VirtualTextShadowNode::ApplyTextTransform(
     ShadowNodeBase &node,
     TextTransform transform,
@@ -111,12 +121,15 @@ xaml::Documents::TextPointer VirtualTextShadowNode::HitTest(const ShadowNodeBase
   const auto viewManager = node.GetViewManager();
   const auto nodeType = viewManager->GetName();
   if (!std::wcscmp(nodeType, L"RCTRawText")) {
+    // Check if the point is within the bounds of the Run
     const auto run = node.GetView().as<winrt::Run>();
     return TextHitTestUtils::GetPositionFromPoint(run, point);
   } else {
+    // If the node is a nested Text component, skip if it has no pressable descendants.
     const auto isVirtualText = !std::wcscmp(nodeType, L"RCTVirtualText");
     if (!isVirtualText || static_cast<const VirtualTextShadowNode &>(node).m_pressableCount > 0) {
       if (auto uiManager = GetNativeUIManager(viewManager->GetReactContext()).lock()) {
+        // Otherwise, visit each child
         for (const auto childTag : node.m_children) {
           const auto childNode = static_cast<ShadowNodeBase *>(uiManager->getHost()->FindShadowNodeForTag(childTag));
           const auto textPointer = HitTest(*childNode, point);
@@ -166,21 +179,7 @@ bool VirtualTextViewManager::UpdateProperty(
       static_cast<VirtualTextShadowNode *>(nodeToUpdate)->m_highlightData.backgroundColor = ColorFrom(propertyValue);
     }
   } else if (propertyName == "isPressable") {
-    auto node = static_cast<VirtualTextShadowNode *>(nodeToUpdate);
-    const auto wasPressable = node->m_isPressable;
-    if (propertyValue.Type() == winrt::Microsoft::ReactNative::JSValueType::Boolean) {
-      node->m_isPressable = propertyValue.AsBoolean();
-      if (!wasPressable && node->m_isPressable) {
-        node->AddToPressableCount(1);
-      } else if (wasPressable && !node->m_isPressable) {
-        node->AddToPressableCount(-1);
-      }
-    } else if (propertyValue.IsNull()) {
-      node->m_isPressable = false;
-      if (wasPressable) {
-        node->AddToPressableCount(-1);
-      }
-    }
+    static_cast<VirtualTextShadowNode *>(nodeToUpdate)->SetPressable(propertyValue.AsBoolean());
   } else {
     return Super::UpdateProperty(nodeToUpdate, propertyName, propertyValue);
   }

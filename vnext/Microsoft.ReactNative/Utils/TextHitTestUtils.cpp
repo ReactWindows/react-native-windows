@@ -5,12 +5,14 @@
 
 #include "TextHitTestUtils.h"
 
+#include <UI.Xaml.Documents.h>
+
 namespace Microsoft::ReactNative {
 
 static bool IsPointAfterCharacter(
     const winrt::Point &point,
-    const winrt::TextPointer &textPointer,
-    winrt::Rect rect,
+    const xaml::Documents::TextPointer &textPointer,
+    const winrt::Rect &rect,
     double width,
     bool isRtl) {
   const auto bottom = rect.Y + rect.Height;
@@ -24,9 +26,9 @@ static bool IsPointAfterCharacter(
     // The side-effect is that LTR text may have additional hit box space at
     // the end of a line, but it's better than the alternative of the hit box
     // excluding the last character on a line.
-    const auto nextPointer = textPointer.GetPositionAtOffset(1, winrt::LogicalDirection::Forward);
+    const auto nextPointer = textPointer.GetPositionAtOffset(1, xaml::Documents::LogicalDirection::Forward);
     if (nextPointer != nullptr) {
-      const auto nextRect = nextPointer.GetCharacterRect(winrt::LogicalDirection::Forward);
+      const auto nextRect = nextPointer.GetCharacterRect(xaml::Documents::LogicalDirection::Forward);
       if (rect.Y == nextRect.Y) {
         right = nextRect.X;
       }
@@ -49,7 +51,7 @@ static bool IsPointAfterCharacter(
 
 static bool IsPointBeforeCharacter(
     const winrt::Point &point,
-    const winrt::TextPointer &textPointer,
+    const xaml::Documents::TextPointer &textPointer,
     winrt::Rect rect,
     double width,
     bool isRtl) {
@@ -64,9 +66,9 @@ static bool IsPointBeforeCharacter(
     // The side-effect is that RTL text may have additional valid hit box
     // space at the end of a line, but it's better than the alternative of the
     // hit box excluding the last character on a line.
-    const auto prevPointer = textPointer.GetPositionAtOffset(-1, winrt::LogicalDirection::Forward);
+    const auto prevPointer = textPointer.GetPositionAtOffset(-1, xaml::Documents::LogicalDirection::Forward);
     if (prevPointer != nullptr) {
-      const auto prevRect = prevPointer.GetCharacterRect(winrt::LogicalDirection::Forward);
+      const auto prevRect = prevPointer.GetCharacterRect(xaml::Documents::LogicalDirection::Forward);
       if (rect.Y == prevRect.Y) {
         right = prevRect.X;
       }
@@ -87,12 +89,12 @@ static bool IsPointBeforeCharacter(
   return point.Y < rect.Y || (point.Y < bottom && isBeforeX);
 }
 
-static bool IsRTL(const winrt::TextPointer &textPointer) {
-  auto currentPointer = textPointer.GetPositionAtOffset(1, winrt::LogicalDirection::Forward);
-  auto currentRect = textPointer.GetCharacterRect(winrt::LogicalDirection::Forward);
+static bool IsRTL(const xaml::Documents::TextPointer &textPointer) {
+  auto currentPointer = textPointer.GetPositionAtOffset(1, xaml::Documents::LogicalDirection::Forward);
+  auto currentRect = textPointer.GetCharacterRect(xaml::Documents::LogicalDirection::Forward);
   auto firstCharacterRect = currentRect;
   while (currentPointer != nullptr) {
-    currentRect = currentPointer.GetCharacterRect(winrt::LogicalDirection::Forward);
+    currentRect = currentPointer.GetCharacterRect(xaml::Documents::LogicalDirection::Forward);
     // If we haven't figured out the direction by the time we reach the end of
     // a line, try again for the next line.
     if (currentRect.Y != firstCharacterRect.Y) {
@@ -101,7 +103,7 @@ static bool IsRTL(const winrt::TextPointer &textPointer) {
       return currentRect.X < firstCharacterRect.X;
     }
 
-    currentPointer = currentPointer.GetPositionAtOffset(1, winrt::LogicalDirection::Forward);
+    currentPointer = currentPointer.GetPositionAtOffset(1, xaml::Documents::LogicalDirection::Forward);
   }
 
   // Assume LTR if there are not enough characters to determine LTR vs. RTL.
@@ -109,9 +111,9 @@ static bool IsRTL(const winrt::TextPointer &textPointer) {
   return false;
 }
 
-static winrt::TextPointer GetPositionFromPointCore(
-    const winrt::TextPointer &start,
-    const winrt::TextPointer &end,
+static xaml::Documents::TextPointer GetPositionFromPointCore(
+    const xaml::Documents::TextPointer &start,
+    const xaml::Documents::TextPointer &end,
     const winrt::Point &targetPoint) {
   // Since characters in a TextBlock are sorted from top-left to bottom-right
   // (or top-right to bottom-left for RTL), we can use binary search to find
@@ -128,8 +130,8 @@ static winrt::TextPointer GetPositionFromPointCore(
   while (L <= R) {
     const auto m = /* floor */ (L + R) / 2;
     const auto relativeOffset = m - textPointer.Offset();
-    textPointer = textPointer.GetPositionAtOffset(relativeOffset, winrt::LogicalDirection::Forward);
-    const auto rect = textPointer.GetCharacterRect(winrt::LogicalDirection::Forward);
+    textPointer = textPointer.GetPositionAtOffset(relativeOffset, xaml::Documents::LogicalDirection::Forward);
+    const auto rect = textPointer.GetCharacterRect(xaml::Documents::LogicalDirection::Forward);
     if (IsPointAfterCharacter(targetPoint, textPointer, rect, width, isRtl) /* A[m] < T */) {
       L = m + 1;
     } else if (IsPointBeforeCharacter(targetPoint, textPointer, rect, width, isRtl) /* A[m] > T */) {
@@ -142,11 +144,15 @@ static winrt::TextPointer GetPositionFromPointCore(
   return nullptr;
 }
 
-winrt::TextPointer TextHitTestUtils::GetPositionFromPoint(const winrt::TextBlock &textBlock, const winrt::Point &targetPoint) {
+xaml::Documents::TextPointer TextHitTestUtils::GetPositionFromPoint(
+    const xaml::Controls::TextBlock &textBlock,
+    const winrt::Point &targetPoint) {
   return GetPositionFromPointCore(textBlock.ContentStart(), textBlock.ContentEnd(), targetPoint);
 }
 
-winrt::TextPointer TextHitTestUtils::GetPositionFromPoint(const winrt::Run &run, const winrt::Point &targetPoint) {
+xaml::Documents::TextPointer TextHitTestUtils::GetPositionFromPoint(
+    const xaml::Documents::Run &run,
+    const winrt::Point &targetPoint) {
   const auto start = run.ContentStart();
   const auto end = run.ContentEnd();
 
