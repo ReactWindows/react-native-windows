@@ -28,6 +28,8 @@ class TextViewManager : public FrameworkElementViewManager {
 
   TextTransform GetTextTransformValue(ShadowNodeBase *node);
 
+  void AddToPressableCount(ShadowNodeBase *node, int pressableCount);
+
   static int64_t GetReactTagAtPoint(ShadowNodeBase *node, const winrt::Point &point);
 
  protected:

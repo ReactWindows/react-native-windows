@@ -4,8 +4,8 @@
 #include "pch.h"
 
 #include "VirtualTextViewManager.h"
-
-#include <Views/RawTextViewManager.h>
+#include "RawTextViewManager.h"
+#include "TextViewManager.h"
 
 #include <Modules/NativeUIManager.h>
 #include <Modules/PaperUIManagerModule.h>
@@ -30,8 +30,29 @@ void VirtualTextShadowNode::AddView(ShadowNode &child, int64_t index) {
   if (auto span = childNode.GetView().try_as<xaml::Documents::Span>()) {
     auto &childVTSN = static_cast<VirtualTextShadowNode &>(child);
     m_highlightData.data.emplace_back(childVTSN.m_highlightData);
+    AddToPressableCount(childVTSN.m_pressableCount);
   }
   Super::AddView(child, index);
+}
+
+void VirtualTextShadowNode::onDropViewInstance() {
+  AddToPressableCount(-m_pressableCount);
+  Super::onDropViewInstance();
+}
+
+void VirtualTextShadowNode::AddToPressableCount(int count) {
+  m_pressableCount += count;
+  if (const auto uiManager = GetNativeUIManager(GetViewManager()->GetReactContext()).lock()) {
+    if (m_parent != -1) {
+      const auto parentNode = static_cast<ShadowNodeBase *>(uiManager->getHost()->FindShadowNodeForTag(m_parent));
+      const auto viewManager = parentNode->GetViewManager();
+      if (!std::wcscmp(viewManager->GetName(), L"RCTText")) {
+        static_cast<TextViewManager *>(viewManager)->AddToPressableCount(parentNode, count);
+      } else if (!std::wcscmp(parentNode->GetViewManager()->GetName(), L"RCTVirtualText")) {
+        static_cast<VirtualTextShadowNode *>(parentNode)->AddToPressableCount(count);
+      }
+    }
+  }
 }
 
 void VirtualTextShadowNode::ApplyTextTransform(
@@ -118,6 +139,22 @@ bool VirtualTextViewManager::UpdateProperty(
   } else if (propertyName == "backgroundColor") {
     if (IsValidColorValue(propertyValue)) {
       static_cast<VirtualTextShadowNode *>(nodeToUpdate)->m_highlightData.backgroundColor = ColorFrom(propertyValue);
+    }
+  } else if (propertyName == "isPressable") {
+    auto node = static_cast<VirtualTextShadowNode *>(nodeToUpdate);
+    const auto wasPressable = node->m_isPressable;
+    if (propertyValue.Type() == winrt::Microsoft::ReactNative::JSValueType::Boolean) {
+      node->m_isPressable = propertyValue.AsBoolean();
+      if (!wasPressable && node->m_isPressable) {
+        node->AddToPressableCount(1);
+      } else if (wasPressable && !node->m_isPressable) {
+        node->AddToPressableCount(-1);
+      }
+    } else if (propertyValue.IsNull()) {
+      node->m_isPressable = false;
+      if (wasPressable) {
+        node->AddToPressableCount(-1);
+      }
     }
   } else {
     return Super::UpdateProperty(nodeToUpdate, propertyName, propertyValue);

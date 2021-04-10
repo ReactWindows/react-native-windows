@@ -167,6 +167,7 @@ class TextShadowNode final : public ShadowNodeBase {
   }
 
   TextTransform textTransform{TextTransform::Undefined};
+  int pressableCount{0};
 };
 
 TextViewManager::TextViewManager(const Mso::React::IReactContext &context) : Super(context) {}
@@ -314,6 +315,13 @@ TextTransform TextViewManager::GetTextTransformValue(ShadowNodeBase *node) {
   }
 
   return TextTransform::Undefined;
+}
+
+void TextViewManager::AddToPressableCount(ShadowNodeBase* node, int pressableCount) {
+  if (!std::wcscmp(node->GetViewManager()->GetName(), GetName())) {
+    const auto textNode = static_cast<TextShadowNode *>(node);
+    textNode->pressableCount += pressableCount;
+  }
 }
 
 int64_t TextViewManager::GetReactTagAtPoint(ShadowNodeBase *node, const winrt::Point &point) {
