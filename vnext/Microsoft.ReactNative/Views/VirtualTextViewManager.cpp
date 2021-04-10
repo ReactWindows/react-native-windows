@@ -3,9 +3,9 @@
 
 #include "pch.h"
 
-#include "VirtualTextViewManager.h"
 #include "RawTextViewManager.h"
 #include "TextViewManager.h"
+#include "VirtualTextViewManager.h"
 
 #include <Modules/NativeUIManager.h>
 #include <Modules/PaperUIManagerModule.h>

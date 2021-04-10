@@ -146,22 +146,23 @@ class TextShadowNode final : public ShadowNodeBase {
   }
 
   int64_t GetReactTagAtPoint(const winrt::Point &point) {
-    const auto textPointer = pressableCount > 0
-      ? useBlockHitTest ? TextHitTestUtils::GetPositionFromPoint(GetView().as<xaml::Controls::TextBlock>(), point)
-                        : VirtualTextShadowNode::HitTest(*this, point)
-      : nullptr;
+    if (pressableCount > 0) {
+      const auto textPointer = useBlockHitTest
+          ? TextHitTestUtils::GetPositionFromPoint(GetView().as<xaml::Controls::TextBlock>(), point)
+          : VirtualTextShadowNode::HitTest(*this, point);
 
-    if (textPointer != nullptr) {
-      auto inlineTag = GetTag(textPointer.Parent());
-      if (inlineTag != -1) {
-        if (auto uiManager = GetNativeUIManager(GetViewManager()->GetReactContext()).lock()) {
-          const auto node = static_cast<ShadowNodeBase *>(uiManager->getHost()->FindShadowNodeForTag(inlineTag));
-          // React Native does not support events targeted to raw text nodes.
-          // Get the parent tag instead.
-          if (!std::wcscmp(node->GetViewManager()->GetName(), L"RCTRawText")) {
-            inlineTag = node->GetParent();
+      if (textPointer != nullptr) {
+        auto inlineTag = GetTag(textPointer.Parent());
+        if (inlineTag != -1) {
+          if (auto uiManager = GetNativeUIManager(GetViewManager()->GetReactContext()).lock()) {
+            const auto node = static_cast<ShadowNodeBase *>(uiManager->getHost()->FindShadowNodeForTag(inlineTag));
+            // React Native does not support events targeted to raw text nodes.
+            // Get the parent tag instead.
+            if (!std::wcscmp(node->GetViewManager()->GetName(), L"RCTRawText")) {
+              inlineTag = node->GetParent();
+            }
+            return inlineTag;
           }
-          return inlineTag;
         }
       }
     }
@@ -327,7 +328,7 @@ TextTransform TextViewManager::GetTextTransformValue(ShadowNodeBase *node) {
   return TextTransform::Undefined;
 }
 
-void TextViewManager::AddToPressableCount(ShadowNodeBase* node, int pressableCount) {
+void TextViewManager::AddToPressableCount(ShadowNodeBase *node, int pressableCount) {
   if (!std::wcscmp(node->GetViewManager()->GetName(), GetName())) {
     const auto textNode = static_cast<TextShadowNode *>(node);
     textNode->pressableCount += pressableCount;
