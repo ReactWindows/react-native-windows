@@ -149,7 +149,7 @@ class TextShadowNode final : public ShadowNodeBase {
     if (pressableCount > 0) {
       const auto textPointer = useBlockHitTest
           ? TextHitTestUtils::GetPositionFromPoint(GetView().as<xaml::Controls::TextBlock>(), point)
-          : VirtualTextShadowNode::HitTest(*this, point);
+          : VirtualTextShadowNode::HitTest(*this, point, /* hasPressableParent = */ false);
 
       if (textPointer != nullptr) {
         auto inlineTag = GetTag(textPointer.Parent());

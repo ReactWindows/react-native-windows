@@ -117,7 +117,7 @@ void VirtualTextShadowNode::ApplyTextTransform(
   }
 }
 
-xaml::Documents::TextPointer VirtualTextShadowNode::HitTest(const ShadowNodeBase &node, const winrt::Point &point) {
+xaml::Documents::TextPointer VirtualTextShadowNode::HitTest(const ShadowNodeBase &node, const winrt::Point &point, bool hasPressableParent) {
   const auto viewManager = node.GetViewManager();
   const auto nodeType = viewManager->GetName();
   if (!std::wcscmp(nodeType, L"RCTRawText")) {
@@ -125,17 +125,27 @@ xaml::Documents::TextPointer VirtualTextShadowNode::HitTest(const ShadowNodeBase
     const auto run = node.GetView().as<winrt::Run>();
     return TextHitTestUtils::GetPositionFromPoint(run, point);
   } else {
-    // If the node is a nested Text component, skip if it has no pressable descendants.
     const auto isVirtualText = !std::wcscmp(nodeType, L"RCTVirtualText");
-    if (!isVirtualText || static_cast<const VirtualTextShadowNode &>(node).m_pressableCount > 0) {
-      if (auto uiManager = GetNativeUIManager(viewManager->GetReactContext()).lock()) {
-        // Otherwise, visit each child
-        for (const auto childTag : node.m_children) {
-          const auto childNode = static_cast<ShadowNodeBase *>(uiManager->getHost()->FindShadowNodeForTag(childTag));
-          const auto textPointer = HitTest(*childNode, point);
-          if (textPointer != nullptr) {
-            return textPointer;
-          }
+    auto isPressable = hasPressableParent;
+    if (isVirtualText) {
+      const auto &virtualTextNode = static_cast<const VirtualTextShadowNode &>(node);
+      if (virtualTextNode.m_isPressable) {
+        isPressable = true;
+      }
+
+      // If the node is a nested Text component, skip if it has no pressable
+      // descendants and it is not contained inside pressable text.
+      if (!isPressable && virtualTextNode.m_pressableCount == 0) {
+        return nullptr;
+      }
+    }
+
+    if (auto uiManager = GetNativeUIManager(viewManager->GetReactContext()).lock()) {
+      for (const auto childTag : node.m_children) {
+        const auto childNode = static_cast<ShadowNodeBase *>(uiManager->getHost()->FindShadowNodeForTag(childTag));
+        const auto textPointer = HitTest(*childNode, point, isPressable);
+        if (textPointer != nullptr) {
+          return textPointer;
         }
       }
     }
