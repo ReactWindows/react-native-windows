@@ -22,6 +22,8 @@ struct VirtualTextShadowNode final : public ShadowNodeBase {
 
   static void ApplyTextTransform(ShadowNodeBase &node, TextTransform transform, bool forceUpdate, bool isRoot);
 
+  static xaml::Documents::TextPointer HitTest(const ShadowNodeBase &node, const winrt::Point &point);
+
   struct HighlightData {
     std::vector<HighlightData> data;
     size_t spanIdx = 0;

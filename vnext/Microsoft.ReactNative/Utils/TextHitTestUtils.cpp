@@ -7,7 +7,7 @@
 
 namespace Microsoft::ReactNative {
 
-bool IsPointAfterCharacter(
+static bool IsPointAfterCharacter(
     const winrt::Point &point,
     const winrt::TextPointer &textPointer,
     winrt::Rect rect,
@@ -47,7 +47,7 @@ bool IsPointAfterCharacter(
   return point.Y > bottom || (point.Y > rect.Y && isAfterX);
 }
 
-bool IsPointBeforeCharacter(
+static bool IsPointBeforeCharacter(
     const winrt::Point &point,
     const winrt::TextPointer &textPointer,
     winrt::Rect rect,
@@ -87,7 +87,7 @@ bool IsPointBeforeCharacter(
   return point.Y < rect.Y || (point.Y < bottom && isBeforeX);
 }
 
-bool IsRTL(const winrt::TextPointer &textPointer) {
+static bool IsRTL(const winrt::TextPointer &textPointer) {
   auto currentPointer = textPointer.GetPositionAtOffset(1, winrt::LogicalDirection::Forward);
   auto currentRect = textPointer.GetCharacterRect(winrt::LogicalDirection::Forward);
   auto firstCharacterRect = currentRect;
@@ -109,7 +109,7 @@ bool IsRTL(const winrt::TextPointer &textPointer) {
   return false;
 }
 
-winrt::TextPointer TextHitTestUtils::GetPositionFromPoint(
+static winrt::TextPointer GetPositionFromPointCore(
     const winrt::TextPointer &start,
     const winrt::TextPointer &end,
     const winrt::Point &targetPoint) {
@@ -119,6 +119,7 @@ winrt::TextPointer TextHitTestUtils::GetPositionFromPoint(
   //
   // This algorithm currently makes the following assumptions:
   // 1. Characters on the same line have the same Rect::Y value
+  // 2. Search space is over only LTR or only RTL characters
   const auto width = start.VisualParent().Width();
   const auto isRtl = IsRTL(start);
   auto textPointer = start;
@@ -139,6 +140,37 @@ winrt::TextPointer TextHitTestUtils::GetPositionFromPoint(
   }
 
   return nullptr;
+}
+
+winrt::TextPointer TextHitTestUtils::GetPositionFromPoint(const winrt::TextBlock &textBlock, const winrt::Point &targetPoint) {
+  return GetPositionFromPointCore(textBlock.ContentStart(), textBlock.ContentEnd(), targetPoint);
+}
+
+winrt::TextPointer TextHitTestUtils::GetPositionFromPoint(const winrt::Run &run, const winrt::Point &targetPoint) {
+  const auto start = run.ContentStart();
+  const auto end = run.ContentEnd();
+
+  auto startRect = start.GetCharacterRect(xaml::Documents::LogicalDirection::Forward);
+  auto endRect = end.GetCharacterRect(xaml::Documents::LogicalDirection::Forward);
+
+  // For runs on the same line, we can use a simple bounding box test
+  if (startRect.Y == endRect.Y) {
+    // Swap rectangles in RTL scenarios.
+    if (startRect.X > endRect.X) {
+      const auto tempRect = startRect;
+      startRect = endRect;
+      endRect = tempRect;
+    }
+
+    if ((startRect.X <= targetPoint.X) && (endRect.X + endRect.Width >= targetPoint.X) &&
+        (startRect.Y <= targetPoint.Y) && (endRect.Y + endRect.Height >= targetPoint.Y)) {
+      return start;
+    }
+
+    return nullptr;
+  }
+
+  return GetPositionFromPointCore(start, end, targetPoint);
 }
 
 } // namespace Microsoft::ReactNative

@@ -82,8 +82,10 @@ class TextShadowNode final : public ShadowNodeBase {
       }
       m_prevCursorEnd += run.Text().size();
     } else if (auto span = static_cast<ShadowNodeBase &>(child).GetView().try_as<winrt::Span>()) {
+      const auto &virtualTextNode = static_cast<VirtualTextShadowNode &>(child);
       AddNestedTextHighlighter(
-          m_backgroundColor, m_foregroundColor, span, static_cast<VirtualTextShadowNode &>(child).m_highlightData);
+        m_backgroundColor, m_foregroundColor, span, virtualTextNode.m_highlightData);
+      pressableCount += virtualTextNode.m_pressableCount;
     }
   }
 
@@ -144,11 +146,13 @@ class TextShadowNode final : public ShadowNodeBase {
   }
 
   int64_t GetReactTagAtPoint(const winrt::Point &point) {
-    const auto textBlock = GetView().as<xaml::Controls::TextBlock>();
-    const auto textPointer =
-        TextHitTestUtils::GetPositionFromPoint(textBlock.ContentStart(), textBlock.ContentEnd(), point);
+    const auto textPointer = pressableCount > 0
+      ? useBlockHitTest ? TextHitTestUtils::GetPositionFromPoint(GetView().as<winrt::TextBlock>(), point)
+                        : VirtualTextShadowNode::HitTest(*this, point)
+      : nullptr;
+
     if (textPointer != nullptr) {
-      auto inlineTag = GetTag(textPointer.Parent());
+      const auto inlineTag = GetTag(textPointer.Parent());
       if (inlineTag != -1) {
         if (auto uiManager = GetNativeUIManager(GetViewManager()->GetReactContext()).lock()) {
           const auto node = static_cast<ShadowNodeBase *>(uiManager->getHost()->FindShadowNodeForTag(inlineTag));
@@ -157,9 +161,9 @@ class TextShadowNode final : public ShadowNodeBase {
           if (!std::wcscmp(node->GetViewManager()->GetName(), L"RCTRawText")) {
             inlineTag = node->GetParent();
           }
-        }
 
-        return inlineTag;
+          return inlineTag;
+        }
       }
     }
 
@@ -168,6 +172,7 @@ class TextShadowNode final : public ShadowNodeBase {
 
   TextTransform textTransform{TextTransform::Undefined};
   int pressableCount{0};
+  bool useBlockHitTest{false};
 };
 
 TextViewManager::TextViewManager(const Mso::React::IReactContext &context) : Super(context) {}
@@ -256,6 +261,12 @@ bool TextViewManager::UpdateProperty(
   } else if (propertyName == "backgroundColor") {
     if (IsValidColorValue(propertyValue)) {
       static_cast<TextShadowNode *>(nodeToUpdate)->m_backgroundColor = ColorFrom(propertyValue);
+    }
+  } else if (propertyName == "hitTestStrategy") {
+    if (propertyValue.Type() == winrt::Microsoft::ReactNative::JSValueType::String) {
+      static_cast<TextShadowNode *>(nodeToUpdate)->useBlockHitTest = propertyValue.AsString() == "block";
+    } else if (propertyValue.IsNull()) {
+      static_cast<TextShadowNode *>(nodeToUpdate)->useBlockHitTest = false;
     }
   } else {
     return Super::UpdateProperty(nodeToUpdate, propertyName, propertyValue);
