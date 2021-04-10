@@ -13,19 +13,15 @@ static bool IsPointAfterCharacter(
     const winrt::Point &point,
     const xaml::Documents::TextPointer &textPointer,
     const winrt::Rect &rect,
-    double width,
     bool isRtl) {
   const auto bottom = rect.Y + rect.Height;
 
-  auto right = width;
+  auto right = rect.X + rect.Width;
   if (!isRtl) {
     // The character Rect always has Width = 0, so we use the X-dimension of
     // the next character on the same line. If the next character is not on the
-    // same line, we use the rightmost boundary of the TextBlock.
-    //
-    // The side-effect is that LTR text may have additional hit box space at
-    // the end of a line, but it's better than the alternative of the hit box
-    // excluding the last character on a line.
+    // same line, use the right dimension of the rect. This can lead to hit box
+    // test failures in the first character after a line break.
     const auto nextPointer = textPointer.GetPositionAtOffset(1, xaml::Documents::LogicalDirection::Forward);
     if (nextPointer != nullptr) {
       const auto nextRect = nextPointer.GetCharacterRect(xaml::Documents::LogicalDirection::Forward);
@@ -53,19 +49,15 @@ static bool IsPointBeforeCharacter(
     const winrt::Point &point,
     const xaml::Documents::TextPointer &textPointer,
     winrt::Rect rect,
-    double width,
     bool isRtl) {
   const auto bottom = rect.Y + rect.Height;
 
-  auto right = width;
+  auto right = rect.X + rect.Width;
   if (isRtl) {
     // The character Rect always has Width = 0, so we use the X-dimension of
     // the previous character on the same line. If the previous character is
-    // not on the same line, we use the rightmost boundary of the TextBlock.
-    //
-    // The side-effect is that RTL text may have additional valid hit box
-    // space at the end of a line, but it's better than the alternative of the
-    // hit box excluding the last character on a line.
+    // not on the same line, use the right dimension of the rect. This can lead
+    // to hit box test failures in the first character after a line break.
     const auto prevPointer = textPointer.GetPositionAtOffset(-1, xaml::Documents::LogicalDirection::Forward);
     if (prevPointer != nullptr) {
       const auto prevRect = prevPointer.GetCharacterRect(xaml::Documents::LogicalDirection::Forward);
@@ -122,7 +114,6 @@ static xaml::Documents::TextPointer GetPositionFromPointCore(
   // This algorithm currently makes the following assumptions:
   // 1. Characters on the same line have the same Rect::Y value
   // 2. Search space is over only LTR or only RTL characters
-  const auto width = start.VisualParent().Width();
   const auto isRtl = IsRTL(start);
   auto textPointer = start;
   auto L = start.Offset();
@@ -132,9 +123,9 @@ static xaml::Documents::TextPointer GetPositionFromPointCore(
     const auto relativeOffset = m - textPointer.Offset();
     textPointer = textPointer.GetPositionAtOffset(relativeOffset, xaml::Documents::LogicalDirection::Forward);
     const auto rect = textPointer.GetCharacterRect(xaml::Documents::LogicalDirection::Forward);
-    if (IsPointAfterCharacter(targetPoint, textPointer, rect, width, isRtl) /* A[m] < T */) {
+    if (IsPointAfterCharacter(targetPoint, textPointer, rect, isRtl) /* A[m] < T */) {
       L = m + 1;
-    } else if (IsPointBeforeCharacter(targetPoint, textPointer, rect, width, isRtl) /* A[m] > T */) {
+    } else if (IsPointBeforeCharacter(targetPoint, textPointer, rect, isRtl) /* A[m] > T */) {
       R = m - 1;
     } else {
       return textPointer;
