@@ -14,7 +14,26 @@ static bool IsPointAfterCharacter(
     const xaml::Documents::TextPointer &textPointer,
     const winrt::Rect &rect,
     bool isRtl) {
+  // The character is before the point if the Y-coordinate of the point is
+  // below (greater than) the bottom of the character rect, or if the
+  // Y-coordinate is below (greater than) the top of the character rect and
+  // the X-coordinate is "after" the end of the character rect (greater than
+  // the right side for LTR or less than the left for RTL):
+  // ┌────> X
+  // │ ┌───────────┐  ┌───────────┐
+  // ↓ │     ┌─────┘  └─────┐     │
+  // Y └─────┘ (x,y)  (x,y) └─────┘
+  //        LTR            RTL
+  if (point.Y < rect.Y) {
+    // Point is above the top of the character.
+    return false;
+  }
+
   const auto bottom = rect.Y + rect.Height;
+  if (point.Y > bottom) {
+    // Point is below the bottom of the character.
+    return true;
+  }
 
   auto right = rect.X + rect.Width;
   if (!isRtl) {
@@ -31,18 +50,7 @@ static bool IsPointAfterCharacter(
     }
   }
 
-  // The character is before the point if the Y-coordinate of the point is
-  // below (greater than) the bottom of the character rect, or if the
-  // Y-coordinate is below (greater than) the top of the character rect and
-  // the X-coordinate is "after" the end of the character rect (greater than
-  // the right side for LTR or less than the left for RTL):
-  // ┌────> X
-  // │ ┌───────────┐  ┌───────────┐
-  // ↓ │     ┌─────┘  └─────┐     │
-  // Y └─────┘ (x,y)  (x,y) └─────┘
-  //        LTR            RTL
-  const auto isAfterX = !isRtl ? point.X > right : point.X < rect.X;
-  return point.Y > bottom || (point.Y > rect.Y && isAfterX);
+  return !isRtl ? point.X > right : point.X < rect.X;
 }
 
 static bool IsPointBeforeCharacter(
@@ -50,7 +58,26 @@ static bool IsPointBeforeCharacter(
     const xaml::Documents::TextPointer &textPointer,
     winrt::Rect rect,
     bool isRtl) {
+  // The character is after the point if the Y-coordinate of the point is above
+  // (less than) the top of the character rect, or if the Y-coordinate is above
+  // (less than) the bottom of the character rect and the X-coordinate is
+  // "before" the beginning of the character rect (less than the left side for
+  // LTR or greater than the right for RTL):
+  // ┌────> X
+  // │ (x,y) ┌─────┐  ┌─────┐ (x,y)
+  // ↓ ┌─────┘     │  │     └─────┐
+  // Y └───────────┘  └───────────┘
+  //        LTR            RTL
+  if (point.Y < rect.Y) {
+    // Point is above the top of the character.
+    return true;
+  }
+
   const auto bottom = rect.Y + rect.Height;
+  if (point.Y > bottom) {
+    // Point is below the bottom of the character.
+    return false;
+  }
 
   auto right = rect.X + rect.Width;
   if (isRtl) {
@@ -67,18 +94,7 @@ static bool IsPointBeforeCharacter(
     }
   }
 
-  // The character is after the point if the Y-coordinate of the point is above
-  // (less than) the top of the character rect, or if the Y-coordinate is above
-  // (less than) the bottom of the character rect and the X-coordinate is
-  // "before" the beginning of the character rect (less than the left side for
-  // LTR or greater than the right for RTL):
-  // ┌────> X
-  // │ (x,y) ┌─────┐  ┌─────┐ (x,y)
-  // ↓ ┌─────┘     │  │     └─────┐
-  // Y └───────────┘  └───────────┘
-  //        LTR            RTL
-  const auto isBeforeX = !isRtl ? point.X < rect.X : point.X > right;
-  return point.Y < rect.Y || (point.Y < bottom && isBeforeX);
+  return !isRtl ? point.X < rect.X : point.X > right;
 }
 
 static bool IsRTL(const xaml::Documents::TextPointer &textPointer) {
