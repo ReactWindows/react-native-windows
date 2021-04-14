@@ -173,14 +173,16 @@ interface IPressableTextState {
   addView: boolean;
   isPressable: boolean;
 }
-export class PressableTextDemo extends React.Component<{}, IPressableTextState> {
+export class PressableTextDemo extends React.Component<
+  {},
+  IPressableTextState> {
   constructor(props: any) {
     super(props);
     this.state = {
       count: 0,
       addView: false,
       isPressable: true,
-    }
+    };
   }
   public render() {
     const pressableStyle = {backgroundColor: 'yellow'};
@@ -220,13 +222,13 @@ export class PressableTextDemo extends React.Component<{}, IPressableTextState> 
         <Text>
           Multiline pressable test:{' '}
           <Text onPress={increment} style={pressableStyle}>
-            {"Click here\nor click here."}
+            {'Click here\nor click here.'}
           </Text>
         </Text>
         <Text>
           Multiline pressable RTL text:
           <Text onPress={increment} style={pressableStyle}>
-            {"أحب اللغة\nالعربية"}
+            {'أحب اللغة\nالعربية'}
           </Text>
         </Text>
         <Text>
@@ -264,15 +266,11 @@ export class PressableTextDemo extends React.Component<{}, IPressableTextState> 
           <Text onPress={() => this.setState({addView: !this.state.addView})} style={pressableStyle}>
             Click to add{' '}
           </Text>
-          {
-            this.state.addView
-              ?
-                (
-                  <Text onPress={() => this.setState({addView: false})} style={alternateStyle}>
-                    Click to <Text>remove</Text>
-                  </Text>
-                )
-              : null
+          { this.state.addView ? (
+            <Text onPress={() => this.setState({addView: false})} style={alternateStyle}>
+              Click to <Text>remove</Text>
+            </Text>
+          ) : null
           }
         </Text>
         <TouchableWithoutFeedback onPress={() => this.setState({isPressable: !this.state.isPressable})}>

@@ -29,6 +29,12 @@
       "issue": 7591
     },
     {
+      "type": "derived",
+      "file": "src/Libraries/Text/TextNativeComponent.windows.js",
+      "baseFile": "Libraries/Text/TextNativeComponent.js",
+      "baseHash": "1a196691fb0e9b656c348b7d42427c1c6163c9bb"
+    },
+    {
       "type": "patch",
       "file": "ReactCommon/Yoga.cpp",
       "baseFile": "ReactCommon/yoga/yoga/Yoga.cpp",
