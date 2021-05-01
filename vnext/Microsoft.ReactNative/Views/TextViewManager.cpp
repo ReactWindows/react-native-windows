@@ -147,12 +147,9 @@ class TextShadowNode final : public ShadowNodeBase {
 
   int64_t GetReactTagAtPoint(const winrt::Point &point) {
     if (pressableCount > 0) {
-      const auto textPointer = useBlockHitTest
-          ? TextHitTestUtils::GetPositionFromPoint(GetView().as<xaml::Controls::TextBlock>(), point)
-          : VirtualTextShadowNode::HitTest(*this, point, /* hasPressableParent = */ false);
-
-      if (textPointer != nullptr) {
-        auto inlineTag = GetTag(textPointer.Parent());
+      const auto hitTarget = VirtualTextShadowNode::HitTest(*this, point, /* hasPressableParent = */ false);
+      if (hitTarget != nullptr) {
+        auto inlineTag = GetTag(hitTarget);
         if (inlineTag != -1) {
           if (auto uiManager = GetNativeUIManager(GetViewManager()->GetReactContext()).lock()) {
             const auto node = static_cast<ShadowNodeBase *>(uiManager->getHost()->FindShadowNodeForTag(inlineTag));
@@ -172,7 +169,6 @@ class TextShadowNode final : public ShadowNodeBase {
 
   TextTransform textTransform{TextTransform::Undefined};
   int pressableCount{0};
-  bool useBlockHitTest{false};
 };
 
 TextViewManager::TextViewManager(const Mso::React::IReactContext &context) : Super(context) {}
@@ -261,12 +257,6 @@ bool TextViewManager::UpdateProperty(
   } else if (propertyName == "backgroundColor") {
     if (IsValidColorValue(propertyValue)) {
       static_cast<TextShadowNode *>(nodeToUpdate)->m_backgroundColor = ColorFrom(propertyValue);
-    }
-  } else if (propertyName == "hitTestStrategy") {
-    if (propertyValue.Type() == winrt::Microsoft::ReactNative::JSValueType::String) {
-      static_cast<TextShadowNode *>(nodeToUpdate)->useBlockHitTest = propertyValue.AsString() == "block";
-    } else if (propertyValue.IsNull()) {
-      static_cast<TextShadowNode *>(nodeToUpdate)->useBlockHitTest = false;
     }
   } else {
     return Super::UpdateProperty(nodeToUpdate, propertyName, propertyValue);

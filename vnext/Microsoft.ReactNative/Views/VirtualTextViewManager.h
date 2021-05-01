@@ -23,7 +23,7 @@ struct VirtualTextShadowNode final : public ShadowNodeBase {
 
   static void ApplyTextTransform(ShadowNodeBase &node, TextTransform transform, bool forceUpdate, bool isRoot);
 
-  static xaml::Documents::TextPointer
+  static xaml::DependencyObject
   HitTest(const ShadowNodeBase &node, const winrt::Point &point, bool hasPressableParent);
 
   struct HighlightData {

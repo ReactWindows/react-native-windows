@@ -117,14 +117,14 @@ void VirtualTextShadowNode::ApplyTextTransform(
   }
 }
 
-xaml::Documents::TextPointer
+xaml::DependencyObject
 VirtualTextShadowNode::HitTest(const ShadowNodeBase &node, const winrt::Point &point, bool hasPressableParent) {
   const auto viewManager = node.GetViewManager();
   const auto nodeType = viewManager->GetName();
   if (!std::wcscmp(nodeType, L"RCTRawText")) {
     // Check if the point is within the bounds of the Run
     const auto run = node.GetView().as<winrt::Run>();
-    return TextHitTestUtils::GetPositionFromPoint(run, point);
+    return TextHitTestUtils::HitTest(run, point) ? run : nullptr;
   } else {
     const auto isVirtualText = !std::wcscmp(nodeType, L"RCTVirtualText");
     auto isPressable = hasPressableParent;
@@ -144,9 +144,9 @@ VirtualTextShadowNode::HitTest(const ShadowNodeBase &node, const winrt::Point &p
     if (auto uiManager = GetNativeUIManager(viewManager->GetReactContext()).lock()) {
       for (const auto childTag : node.m_children) {
         const auto childNode = static_cast<ShadowNodeBase *>(uiManager->getHost()->FindShadowNodeForTag(childTag));
-        const auto textPointer = HitTest(*childNode, point, isPressable);
-        if (textPointer != nullptr) {
-          return textPointer;
+        const auto hitTarget = HitTest(*childNode, point, isPressable);
+        if (hitTarget != nullptr) {
+          return hitTarget;
         }
       }
     }
