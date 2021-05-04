@@ -165,9 +165,10 @@ static bool IsRTL(const xaml::Documents::TextPointer &textPointer, const winrt::
 }
 
 /**
- * Determine if the character is either the first or last character of a line in the given direction. 
+ * Determine if the character is either the first or last character of a line in the given direction.
  */
-static std::optional<winrt::Rect> GetBoundaryCharacter(const xaml::Documents::TextPointer &textPointer, const winrt::Rect &rect, int direction) {
+static std::optional<winrt::Rect>
+GetBoundaryCharacter(const xaml::Documents::TextPointer &textPointer, const winrt::Rect &rect, int direction) {
   const auto nextPosition = textPointer.GetPositionAtOffset(direction, xaml::Documents::LogicalDirection::Forward);
   if (nextPosition) {
     const auto nextRect = nextPosition.GetCharacterRect(xaml::Documents::LogicalDirection::Forward);
@@ -179,7 +180,7 @@ static std::optional<winrt::Rect> GetBoundaryCharacter(const xaml::Documents::Te
   return std::nullopt;
 }
 
-bool IsInBounds(const winrt::Point& point, float left, float right, float top, float bottom) {
+bool IsInBounds(const winrt::Point &point, float left, float right, float top, float bottom) {
   return left <= point.X && right >= point.X && top <= point.Y && bottom >= point.Y;
 }
 
