@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <AppProjectExperimentalFeaturesProps Condition="'$(AppProjectExperimentalFeaturesProps)' == ''">$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), 'windows\ExperimentalFeatures.props'))\windows\ExperimentalFeatures.props</AppProjectExperimentalFeaturesProps>
-  </PropertyGroup>
-  <Import Project="$(AppProjectExperimentalFeaturesProps)" Condition="Exists('$(AppProjectExperimentalFeaturesProps)')"/>
+
+  <!--
+    Application projects contain a file with this name to specify some important settings
+    that will apply globally for the app and *all* native modules the app consumes. These
+    values are set by the app developer.
+  -->
+
 </Project>

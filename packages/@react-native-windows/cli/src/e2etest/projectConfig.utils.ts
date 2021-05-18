@@ -27,6 +27,7 @@ export async function ensureWinUI3Project(folder: string) {
     projectGuidLower: testProjectGuid.toLowerCase(),
     useWinUI3: false,
     useHermes: false,
+    useExperimentalNuget: false,
     packagesConfigCppNugetPackages: [
       {
         id: 'Microsoft.ReactNative.Cxx',
