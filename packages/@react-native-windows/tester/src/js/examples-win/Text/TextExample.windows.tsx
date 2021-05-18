@@ -175,7 +175,8 @@ interface IPressableTextState {
 }
 export class PressableTextDemo extends React.Component<
   {},
-  IPressableTextState> {
+  IPressableTextState
+> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -189,8 +190,7 @@ export class PressableTextDemo extends React.Component<
     const alternateStyle = {backgroundColor: 'pink'};
     const increment = () => this.setState({count: this.state.count + 1});
     const toggledProps = this.state.isPressable
-      ?
-        {
+      ? {
           onPress: (e: GestureResponderEvent) => {
             increment();
             e.stopPropagation();
@@ -258,32 +258,33 @@ export class PressableTextDemo extends React.Component<
         <Text>
           Bidirectional text in separate runs:{' '}
           <Text onPress={increment} style={pressableStyle}>
-            {'أحب اللغة العربية'}{' hello'}
+            {'أحب اللغة العربية'}
+            {' hello'}
           </Text>
         </Text>
         <Text>
           Add pressable inline text child:{' '}
-          <Text onPress={() => this.setState({addView: !this.state.addView})} style={pressableStyle}>
+          <Text
+            onPress={() => this.setState({addView: !this.state.addView})}
+            style={pressableStyle}>
             Click to add{' '}
           </Text>
-          { this.state.addView ? (
-            <Text onPress={() => this.setState({addView: false})} style={alternateStyle}>
+          {this.state.addView ? (
+            <Text
+              onPress={() => this.setState({addView: false})}
+              style={alternateStyle}>
               Click to <Text>remove</Text>
             </Text>
-          ) : null
-          }
+          ) : null}
         </Text>
-        <TouchableWithoutFeedback onPress={() => this.setState({isPressable: !this.state.isPressable})}>
+        <TouchableWithoutFeedback
+          onPress={() => this.setState({isPressable: !this.state.isPressable})}>
           <Text>
             Click anywhere to toggle pressability:{' '}
-            <Text {...toggledProps}>
-              Click here
-            </Text>
+            <Text {...toggledProps}>Click here</Text>
           </Text>
         </TouchableWithoutFeedback>
-        <Text>
-          Wrapped text pressability:
-        </Text>
+        <Text>Wrapped text pressability:</Text>
         <View style={{flexDirection: 'row'}}>
           <Text style={{maxWidth: 35, direction: 'rtl'}}>
             <Text onPress={increment} style={pressableStyle}>
