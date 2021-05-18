@@ -264,7 +264,7 @@ bool TextHitTestUtils::HitTest(const xaml::Documents::Run &run, const winrt::Poi
 
     auto right = maxRight;
     if (isSingleLine && characterAfterEnd.has_value()) {
-      // TODO: last LTR character is ignored because width is always 0
+      // TODO(#7792): last LTR character is ignored because width is always 0
       right = endBoundary.ltrRect.X + endBoundary.ltrRect.Width;
     }
 
@@ -277,7 +277,7 @@ bool TextHitTestUtils::HitTest(const xaml::Documents::Run &run, const winrt::Poi
   // Optimization b: Skip if no LTR characters in last line
   if (!isSingleLine && endBoundary.ltrPointer) {
     const auto left = 0;
-    // TODO: last LTR character is ignored because width is always 0
+    // TODO(#7792): last LTR character is ignored because width is always 0
     auto right = endBoundary.ltrRect.X + endBoundary.ltrRect.Width;
     if (!characterAfterEnd.has_value()) {
       right = maxRight;
@@ -291,7 +291,7 @@ bool TextHitTestUtils::HitTest(const xaml::Documents::Run &run, const winrt::Poi
   // Step 4: The initial RTL characters on the first line
   // Optimization c: Skip if first line starts with LTR
   if (isStartRTL) {
-    // TODO: last RTL character is ignored because width is always 0
+    // TODO(#7792): last RTL character is ignored because width is always 0
     auto left = startBoundary.rtlRect.X + startBoundary.rtlRect.Width;
     if (!characterBeforeStart.has_value()) {
       left = maxLeft;
@@ -310,7 +310,7 @@ bool TextHitTestUtils::HitTest(const xaml::Documents::Run &run, const winrt::Poi
   // Step 5: The final RTL characters on the last line
   // Optimization d: Skip if last line ends with LTR
   if (isEndRTL) {
-    // TODO: last RTL character is ignored because width is always 0
+    // TODO(#7792): last RTL character is ignored because width is always 0
     const auto left = endRect.X + endRect.Width;
     auto right = endBoundary.rtlRect.X;
     if (!characterAfterEnd.has_value()) {
