@@ -18,6 +18,7 @@ import {type TextProps} from './TextProps';
 type NativeTextProps = $ReadOnly<{
   ...TextProps,
   isHighlighted?: ?boolean,
+  isPressable?: ?boolean, // [Windows]
   selectionColor?: ?ProcessedColorValue,
 }>;
 
@@ -28,6 +29,7 @@ export const NativeText: HostComponent<NativeTextProps> = (createReactNativeComp
     validAttributes: {
       ...ReactNativeViewAttributes.UIView,
       isHighlighted: true,
+      isPressable: true, // [Windows]
       numberOfLines: true,
       ellipsizeMode: true,
       allowFontScaling: true,
@@ -42,7 +44,6 @@ export const NativeText: HostComponent<NativeTextProps> = (createReactNativeComp
       onInlineViewLayout: true,
       dataDetectorType: true,
       android_hyphenationFrequency: true,
-      hitTestStrategy: true, // [Windows]
     },
     directEventTypes: {
       topTextLayout: {
