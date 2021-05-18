@@ -83,8 +83,7 @@ class TextShadowNode final : public ShadowNodeBase {
       m_prevCursorEnd += run.Text().size();
     } else if (auto span = static_cast<ShadowNodeBase &>(child).GetView().try_as<winrt::Span>()) {
       const auto &virtualTextNode = static_cast<VirtualTextShadowNode &>(child);
-      AddNestedTextHighlighter(
-        m_backgroundColor, m_foregroundColor, span, virtualTextNode.m_highlightData);
+      AddNestedTextHighlighter(m_backgroundColor, m_foregroundColor, span, virtualTextNode.m_highlightData);
       pressableCount += virtualTextNode.m_pressableCount;
     }
   }
