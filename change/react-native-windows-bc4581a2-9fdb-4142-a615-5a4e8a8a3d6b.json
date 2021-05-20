@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Allow pointer events on selectable Text",
+  "packageName": "react-native-windows",
+  "email": "erozell@outlook.com",
+  "dependentChangeType": "patch"
+}
