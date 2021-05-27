@@ -5,6 +5,8 @@
 
 #include "TextViewManager.h"
 
+#include <Modules/NativeUIManager.h>
+#include <Modules/PaperUIManagerModule.h>
 #include <Views/RawTextViewManager.h>
 #include <Views/ShadowNodeBase.h>
 #include <Views/VirtualTextViewManager.h>
@@ -14,6 +16,7 @@
 #include <UI.Xaml.Controls.h>
 #include <UI.Xaml.Documents.h>
 #include <Utils/PropertyUtils.h>
+#include <Utils/TextHitTestUtils.h>
 #include <Utils/TransformableText.h>
 #include <Utils/ValueUtils.h>
 
@@ -79,8 +82,9 @@ class TextShadowNode final : public ShadowNodeBase {
       }
       m_prevCursorEnd += run.Text().size();
     } else if (auto span = static_cast<ShadowNodeBase &>(child).GetView().try_as<winrt::Span>()) {
-      AddNestedTextHighlighter(
-          m_backgroundColor, m_foregroundColor, span, static_cast<VirtualTextShadowNode &>(child).m_highlightData);
+      const auto &virtualTextNode = static_cast<VirtualTextShadowNode &>(child);
+      AddNestedTextHighlighter(m_backgroundColor, m_foregroundColor, span, virtualTextNode.m_highlightData);
+      pressableCount += virtualTextNode.m_pressableCount;
     }
   }
 
@@ -140,7 +144,30 @@ class TextShadowNode final : public ShadowNodeBase {
     Super::RemoveChildAt(indexToRemove);
   }
 
+  int64_t GetReactTagAtPoint(const winrt::Point &point) {
+    if (pressableCount > 0) {
+      const auto hitTarget = VirtualTextShadowNode::HitTest(*this, point, /* hasPressableParent = */ false);
+      if (hitTarget != nullptr) {
+        auto inlineTag = GetTag(hitTarget);
+        if (inlineTag != -1) {
+          if (auto uiManager = GetNativeUIManager(GetViewManager()->GetReactContext()).lock()) {
+            const auto node = static_cast<ShadowNodeBase *>(uiManager->getHost()->FindShadowNodeForTag(inlineTag));
+            // React Native does not support events targeted to raw text nodes.
+            // Get the parent tag instead.
+            if (!std::wcscmp(node->GetViewManager()->GetName(), L"RCTRawText")) {
+              inlineTag = node->GetParent();
+            }
+            return inlineTag;
+          }
+        }
+      }
+    }
+
+    return m_tag;
+  }
+
   TextTransform textTransform{TextTransform::Undefined};
+  int pressableCount{0};
 };
 
 TextViewManager::TextViewManager(const Mso::React::IReactContext &context) : Super(context) {}
@@ -288,6 +315,22 @@ TextTransform TextViewManager::GetTextTransformValue(ShadowNodeBase *node) {
   }
 
   return TextTransform::Undefined;
+}
+
+void TextViewManager::AddToPressableCount(ShadowNodeBase *node, int pressableCount) {
+  if (!std::wcscmp(node->GetViewManager()->GetName(), GetName())) {
+    const auto textNode = static_cast<TextShadowNode *>(node);
+    textNode->pressableCount += pressableCount;
+  }
+}
+
+int64_t TextViewManager::GetReactTagAtPoint(ShadowNodeBase *node, const winrt::Point &point) {
+  if (!std::wcscmp(node->GetViewManager()->GetName(), L"RCTText")) {
+    const auto textNode = static_cast<TextShadowNode *>(node);
+    return textNode->GetReactTagAtPoint(point);
+  }
+
+  return node->m_tag;
 }
 
 } // namespace Microsoft::ReactNative

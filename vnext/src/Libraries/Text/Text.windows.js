@@ -153,6 +153,7 @@ const Text: React.AbstractComponent<
         {...restProps}
         {...eventHandlersForText}
         isHighlighted={isHighlighted}
+        isPressable={isPressable}
         selectionColor={selectionColor}
         style={style}
         ref={forwardedRef}

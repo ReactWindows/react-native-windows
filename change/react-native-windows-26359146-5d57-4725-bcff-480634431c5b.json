@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Refines algorithm for hit testing Text",
+  "packageName": "react-native-windows",
+  "email": "erozell@outlook.com",
+  "dependentChangeType": "patch"
+}

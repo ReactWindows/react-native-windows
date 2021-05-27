@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 import {
+  GestureResponderEvent,
   /*Image,*/ StyleSheet,
   Text,
   View,
@@ -162,6 +163,140 @@ export class BackgroundColorDemo extends React.Component<{}> {
           </Text>{' '}
           attributes.
         </Text>
+      </View>
+    );
+  }
+}
+
+interface IPressableTextState {
+  count: number;
+  addView: boolean;
+  isPressable: boolean;
+}
+export class PressableTextDemo extends React.Component<
+  {},
+  IPressableTextState
+> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      count: 0,
+      addView: false,
+      isPressable: true,
+    };
+  }
+  public render() {
+    const pressableStyle = {backgroundColor: 'yellow'};
+    const alternateStyle = {backgroundColor: 'pink'};
+    const increment = () => this.setState({count: this.state.count + 1});
+    const toggledProps = this.state.isPressable
+      ? {
+          onPress: (e: GestureResponderEvent) => {
+            increment();
+            e.stopPropagation();
+          },
+          style: alternateStyle,
+        }
+      : {};
+    return (
+      <View>
+        <Text>Pressed: {this.state.count} times.</Text>
+        <Text>
+          Nested{' '}
+          <Text>
+            pressable{' '}
+            <Text>
+              text:{' '}
+              <Text onPress={increment} style={pressableStyle}>
+                Click here
+              </Text>
+            </Text>
+          </Text>
+        </Text>
+        <Text>
+          Nested text inside pressable text:{' '}
+          <Text onPress={increment} style={pressableStyle}>
+            <Text>Click here</Text>
+          </Text>
+        </Text>
+        <Text>
+          Multiline pressable test:{' '}
+          <Text onPress={increment} style={pressableStyle}>
+            {'Click here\nor click here.'}
+          </Text>
+        </Text>
+        <Text>
+          Multiline pressable RTL text:
+          <Text onPress={increment} style={pressableStyle}>
+            {'أحب اللغة\nالعربية'}
+          </Text>
+        </Text>
+        <Text>
+          RTL text in LTR flow direction:{' '}
+          <Text onPress={increment} style={pressableStyle}>
+            أحب اللغة العربية
+          </Text>
+        </Text>
+        <Text style={{direction: 'rtl', alignSelf: 'flex-start'}}>
+          RTL text in RTL flow direction:{' '}
+          <Text onPress={increment} style={pressableStyle}>
+            أحب اللغة العربية
+          </Text>
+        </Text>
+        <Text style={{direction: 'rtl', alignSelf: 'flex-start'}}>
+          LTR text in RTL flow direction:{' '}
+          <Text onPress={increment} style={pressableStyle}>
+            Click here
+          </Text>
+        </Text>
+        <Text>
+          Bidirectional text in a single run:{' '}
+          <Text onPress={increment} style={pressableStyle}>
+            أحب اللغة العربية hello
+          </Text>
+        </Text>
+        <Text>
+          Bidirectional text in separate runs:{' '}
+          <Text onPress={increment} style={pressableStyle}>
+            {'أحب اللغة العربية'}
+            {' hello'}
+          </Text>
+        </Text>
+        <Text>
+          Add pressable inline text child:{' '}
+          <Text
+            onPress={() => this.setState({addView: !this.state.addView})}
+            style={pressableStyle}>
+            Click to add{' '}
+          </Text>
+          {this.state.addView ? (
+            <Text
+              onPress={() => this.setState({addView: false})}
+              style={alternateStyle}>
+              Click to <Text>remove</Text>
+            </Text>
+          ) : null}
+        </Text>
+        <TouchableWithoutFeedback
+          onPress={() => this.setState({isPressable: !this.state.isPressable})}>
+          <Text>
+            Click anywhere to toggle pressability:{' '}
+            <Text {...toggledProps}>Click here</Text>
+          </Text>
+        </TouchableWithoutFeedback>
+        <Text>Wrapped text pressability:</Text>
+        <View style={{flexDirection: 'row'}}>
+          <Text style={{maxWidth: 35, direction: 'rtl'}}>
+            <Text onPress={increment} style={pressableStyle}>
+              abcdef
+            </Text>
+          </Text>
+          <Text style={{marginLeft: 10, maxWidth: 45, direction: 'rtl'}}>
+            <Text onPress={increment} style={pressableStyle}>
+              فأسقيناكموه
+            </Text>
+          </Text>
+        </View>
       </View>
     );
   }
@@ -791,6 +926,9 @@ export class TextExample extends React.Component<
               normal text.
             </Text>
           </View>
+        </RNTesterBlock>
+        <RNTesterBlock title="Pressable edge cases">
+          <PressableTextDemo />
         </RNTesterBlock>
       </RNTesterPage>
     );
