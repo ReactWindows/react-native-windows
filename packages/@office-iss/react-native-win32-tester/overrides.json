@@ -27,6 +27,10 @@
       "baseHash": "e0c08f622a9d7d12e2115ec16698c8612572a8e1"
     },
     {
+      "type": "platform",
+      "file": "src/js/examples/PlatformColor/PlatformColorExample.win32.js"
+    },
+    {
       "type": "copy",
       "file": "src/js/RNTesterApp.win32.js",
       "baseFile": "packages/rn-tester/js/RNTesterApp.android.js",

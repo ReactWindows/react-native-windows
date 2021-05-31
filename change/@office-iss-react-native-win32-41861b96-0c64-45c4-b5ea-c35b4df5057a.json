@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Remove use strict from PlatformColorValueTypesWin32.d.ts",
+  "packageName": "@office-iss/react-native-win32",
+  "email": "ppatboyd@outlook.com",
+  "dependentChangeType": "patch"
+}

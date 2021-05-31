@@ -8,8 +8,6 @@
  * @flow strict-local
  */
 
-'use strict';
-
 // Use ColorValue typings when available in 0.63
 // import {ColorValue} from 'react-native';
 
