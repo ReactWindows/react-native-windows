@@ -37,8 +37,8 @@ module.exports = {
 
   testEnvironmentOptions: {
     app: execSync(
-      `powershell (Get-AppxPackage -Name ReactNative.InitTest).PackageFamilyName`.trim(),
-    ),
+      `powershell (Get-AppxPackage -Name ReactNative.InitTest).PackageFamilyName`,
+    ).trim(),
     webdriverOptions: {
       // Level of logging verbosity: trace | debug | info | warn | error
       logLevel: 'error',
