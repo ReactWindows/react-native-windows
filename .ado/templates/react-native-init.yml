@@ -122,6 +122,13 @@ steps:
       workingDirectory: $(Agent.BuildDirectory)\testcli
     condition: and(succeeded(), eq(variables['localProjectType'], 'lib'))
 
+  - powershell: |
+      [xml] $manifest = Get-Content .\Package.appxmanifest
+      $experimentalFeatures.Package.Idenity.Name = 'ReactNative.InitTest'
+      $experimentalFeatures.Save("$pwd\Package.appxmanifest")
+    displayName: Set AppX Package Name to "ReactNative.InitTest"
+    workingDirectory: $(Agent.BuildDirectory)\testcli\windows\testcli
+
   - script: |
       npm set registry http://localhost:4873
     displayName: Modify default npm config to point to local verdaccio server
@@ -229,6 +236,11 @@ steps:
       script: npx --no-install react-native bundle --entry-file index.js --platform windows --bundle-output test.bundle
       workingDirectory: $(Agent.BuildDirectory)\testcli
     condition: and(succeeded(), eq(variables['localProjectType'], 'app'))
+
+  - script: npx jest --color
+    displayName: Launch new app
+    workingDirectory: packages\@rnw-scripts\new-app-tests
+    condition: eq(variables['verifyAppLaynch'], 'true')
 
   # We are experiencing random package restore failures.
   # We want to uploading the vedaccio logs to aid in diagnosing if it is verdaccio or npmjs.org
