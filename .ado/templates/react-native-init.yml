@@ -241,7 +241,7 @@ steps:
   - script: npx jest --color
     displayName: Launch new app
     workingDirectory: packages\@rnw-scripts\new-app-tests
-    condition: eq(variables['verifyAppLaynch'], 'true')
+    condition: eq(variables['verifyAppLaunch'], 'true')
 
   # We are experiencing random package restore failures.
   # We want to uploading the vedaccio logs to aid in diagnosing if it is verdaccio or npmjs.org
