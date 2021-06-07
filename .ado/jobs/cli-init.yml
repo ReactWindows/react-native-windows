@@ -83,7 +83,7 @@ jobs:
             projectType: app
             additionalInitArguments: --namespace MyCompany.MyApplication.MyComponent
             additionalRunArguments:
-            verifyAppLaunch: true
+            verifyAppLaunch: false
           # Start Continuous only
           ${{ if eq(parameters.buildEnvironment, 'Continuous') }}:
             X86ReleaseCpp:
@@ -109,7 +109,7 @@ jobs:
               projectType: app
               additionalInitArguments:
               additionalRunArguments:
-              verifyAppLaunch: true
+              verifyAppLaunch: false
             X64DebugCs:
               language: cs
               configuration: Debug
@@ -117,7 +117,7 @@ jobs:
               projectType: app
               additionalInitArguments:
               additionalRunArguments:
-              verifyAppLaunch: true
+              verifyAppLaunch: false
           # End Continuous only
 
           X86DebugCppLib:
