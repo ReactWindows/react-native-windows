@@ -8,6 +8,17 @@
 
 const {execSync} = require('child_process');
 
+const packageName = 'ReactNative.InitTest';
+const packageFamilyName = execSync(
+  `powershell (Get-AppxPackage -Name ${packageName}).PackageFamilyName`,
+)
+  .toString()
+  .trim();
+
+if (packageFamilyName.length === 0) {
+  throw new Error(`Could not find package "${packageName}"`);
+}
+
 // For a detailed explanation regarding each configuration property, visit:
 // https://jestjs.io/docs/en/configuration.html
 
@@ -36,11 +47,7 @@ module.exports = {
   verbose: true,
 
   testEnvironmentOptions: {
-    app: execSync(
-      `powershell (Get-AppxPackage -Name ReactNative.InitTest).PackageFamilyName`,
-    )
-      .toString()
-      .trim(),
+    app: packageFamilyName,
     webdriverOptions: {
       // Level of logging verbosity: trace | debug | info | warn | error
       logLevel: 'error',
