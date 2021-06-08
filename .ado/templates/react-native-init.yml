@@ -29,6 +29,9 @@ parameters:
   - name: continueOnBuildFailure
     type: boolean
     default: false
+  - name: verifyAppLaunch
+    type: boolean
+    default: false
   - name: buildEnvironment
     type: string
     default: PullRequest
@@ -150,7 +153,7 @@ steps:
       $manifest.Save("$pwd\Package.appxmanifest")
     displayName: Set AppX package name to "ReactNative.InitTest"
     workingDirectory: $(Agent.BuildDirectory)\testcli\windows\testcli
-    condition: and(succeeded(), eq(parameters.projectType, 'app'))
+    condition: and(succeeded(), eq(variables['localProjectType'], 'app'))
 
   # Reclaim memory used by Verdaccio to reduce the chance of build OOM issues
   - script: tskill node
@@ -238,10 +241,10 @@ steps:
       workingDirectory: $(Agent.BuildDirectory)\testcli
     condition: and(succeeded(), eq(variables['localProjectType'], 'app'))
 
-  - script: npx jest --color
-    displayName: Launch new app
-    workingDirectory: packages\@rnw-scripts\new-app-tests
-    condition: eq(variables['verifyAppLaunch'], 'true')
+  - ${{ if eq(parameters.verifyAppLaunch, true) }}:
+    - script: npx jest --color
+      displayName: Verify app launch
+      workingDirectory: packages\@rnw-scripts\new-app-tests
 
   # We are experiencing random package restore failures.
   # We want to uploading the vedaccio logs to aid in diagnosing if it is verdaccio or npmjs.org

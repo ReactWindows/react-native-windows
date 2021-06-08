@@ -187,6 +187,7 @@ jobs:
             additionalInitArguments: $(additionalInitArguments)
             additionalRunArguments: $(additionalRunArguments)
             buildEnvironment: ${{ parameters.buildEnvironment }}
+            verifyAppLaunch: $(verifyAppLaunch)
 
   # We unfortunately can't add the nuget ones to the existing matrix above because Azure DevOps does not allow the dependsOn to be dynamic based on matrix expansion
   - ${{ if parameters.buildNuGetOnly }}:
