@@ -30,7 +30,7 @@ parameters:
     type: boolean
     default: false
   - name: verifyAppLaunch
-    type: boolean
+    type: string
     default: false
   - name: buildEnvironment
     type: string
@@ -241,7 +241,7 @@ steps:
       workingDirectory: $(Agent.BuildDirectory)\testcli
     condition: and(succeeded(), eq(variables['localProjectType'], 'app'))
 
-  - ${{ if eq(parameters.verifyAppLaunch, true) }}:
+  - ${{ if eq(parameters.verifyAppLaunch, 'true') }}:
     - script: npx jest --color
       displayName: Verify app launch
       workingDirectory: packages\@rnw-scripts\new-app-tests
