@@ -6,17 +6,10 @@
  * @ts-check
  */
 
-const {execSync} = require('child_process');
-
-const packageName = 'ReactNative.InitTest';
-const packageFamilyName = execSync(
-  `powershell (Get-AppxPackage -Name ${packageName}).PackageFamilyName`,
-)
-  .toString()
-  .trim();
-
-if (packageFamilyName.length === 0) {
-  throw new Error(`Could not find package "${packageName}"`);
+if (!process.env.NEW_APP_TEST_PACKAGE) {
+  console.error(
+    '"APP_NAME" environment variable must be set to the app to launch',
+  );
 }
 
 // For a detailed explanation regarding each configuration property, visit:
@@ -47,7 +40,7 @@ module.exports = {
   verbose: true,
 
   testEnvironmentOptions: {
-    app: packageFamilyName,
+    app: process.env.NEW_APP_TEST_PACKAGE,
     webdriverOptions: {
       // Level of logging verbosity: trace | debug | info | warn | error
       logLevel: 'error',

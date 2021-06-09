@@ -241,6 +241,15 @@ steps:
       workingDirectory: $(Agent.BuildDirectory)\testcli
     condition: and(succeeded(), eq(variables['localProjectType'], 'app'))
 
+    powershell: |
+      $appxPackage = Get-AppxPackage -Name ReactNative.InitTest
+      Write-Output $appxPackage
+
+      $packageFullName = $appxPackage.PackageFullName;
+      Write-Host "##vso[task.setvariable variable=NEW_APP_TEST_PACKAGE]$($packageFullName)"
+    displayName: Discover and set PackageFullName
+    condition: and(succeeded(), eq(variables['verifyAppLaunch'], 'true'))
+
   - script: npx jest --color
     displayName: Verify app launch
     workingDirectory: packages\@rnw-scripts\new-app-tests
