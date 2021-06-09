@@ -149,7 +149,7 @@ steps:
 
   - powershell: |
       [xml] $manifest = Get-Content .\Package.appxmanifest
-      $manifest.Package.Idenity.Name = 'ReactNative.InitTest'
+      $manifest.Package.Identity.Name = 'ReactNative.InitTest'
       $manifest.Save("$pwd\Package.appxmanifest")
     displayName: Set AppX package name to "ReactNative.InitTest"
     workingDirectory: $(Agent.BuildDirectory)\testcli\windows\testcli
