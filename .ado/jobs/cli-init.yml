@@ -75,7 +75,7 @@ jobs:
             projectType: app
             additionalInitArguments: --namespace MyCompany.MyApplication.MyComponent
             additionalRunArguments:
-            verifyAppLaunch: true
+            verifyAppLaunch: false
           X86DebugCs:
             language: cs
             configuration: Debug
