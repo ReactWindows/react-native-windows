@@ -74,6 +74,4 @@
       "patch"
     ]
   },
-  "promoteRelease": true,
-  "windowsOnly": true
-}
+  "promoteRelease": true
