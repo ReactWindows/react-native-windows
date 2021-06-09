@@ -2,6 +2,35 @@
   "name": "playground",
   "entries": [
     {
+      "date": "Wed, 09 Jun 2021 05:10:07 GMT",
+      "tag": "playground_v0.0.54",
+      "version": "0.0.54",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Bump @rnw-scripts/just-task to v2.1.3",
+            "author": "igklemen@microsoft.com",
+            "commit": "2ba41a4f087cc3bf16cbe799575923fc7a626009",
+            "package": "playground"
+          }
+        ],
+        "prerelease": [
+          {
+            "comment": "Bump @react-native-windows/tester to v0.0.1",
+            "author": "igklemen@microsoft.com",
+            "commit": "2ba41a4f087cc3bf16cbe799575923fc7a626009",
+            "package": "playground"
+          },
+          {
+            "comment": "Bump react-native-windows to v0.0.0-canary.320",
+            "author": "igklemen@microsoft.com",
+            "commit": "2ba41a4f087cc3bf16cbe799575923fc7a626009",
+            "package": "playground"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 05 Jun 2021 05:09:53 GMT",
       "tag": "playground_v0.0.54",
       "version": "0.0.54",

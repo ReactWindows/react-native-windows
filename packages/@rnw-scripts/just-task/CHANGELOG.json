@@ -2,6 +2,21 @@
   "name": "@rnw-scripts/just-task",
   "entries": [
     {
+      "date": "Wed, 09 Jun 2021 05:10:07 GMT",
+      "tag": "@rnw-scripts/just-task_v2.1.3",
+      "version": "2.1.3",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Bump @rnw-scripts/jest-e2e-config to v1.1.5",
+            "author": "igklemen@microsoft.com",
+            "commit": "2ba41a4f087cc3bf16cbe799575923fc7a626009",
+            "package": "@rnw-scripts/just-task"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 03 Jun 2021 05:09:47 GMT",
       "tag": "@rnw-scripts/just-task_v2.1.2",
       "version": "2.1.2",

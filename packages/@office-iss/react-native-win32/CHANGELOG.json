@@ -2,6 +2,21 @@
   "name": "@office-iss/react-native-win32",
   "entries": [
     {
+      "date": "Wed, 09 Jun 2021 05:10:07 GMT",
+      "tag": "@office-iss/react-native-win32_v0.0.0-canary.94",
+      "version": "0.0.0-canary.94",
+      "comments": {
+        "prerelease": [
+          {
+            "comment": "Integrate May 19th",
+            "author": "igklemen@microsoft.com",
+            "commit": "2ba41a4f087cc3bf16cbe799575923fc7a626009",
+            "package": "@office-iss/react-native-win32"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 05 Jun 2021 05:09:53 GMT",
       "tag": "@office-iss/react-native-win32_v0.0.0-canary.93",
       "version": "0.0.0-canary.93",

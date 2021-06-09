@@ -2,6 +2,27 @@
   "name": "@react-native-windows/cli",
   "entries": [
     {
+      "date": "Wed, 09 Jun 2021 05:10:07 GMT",
+      "tag": "@react-native-windows/cli_v0.0.0-canary.74",
+      "version": "0.0.0-canary.74",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Bump @rnw-scripts/just-task to v2.1.3",
+            "author": "igklemen@microsoft.com",
+            "commit": "2ba41a4f087cc3bf16cbe799575923fc7a626009",
+            "package": "@react-native-windows/cli"
+          },
+          {
+            "comment": "Bump @rnw-scripts/jest-unittest-config to v1.2.3",
+            "author": "igklemen@microsoft.com",
+            "commit": "2ba41a4f087cc3bf16cbe799575923fc7a626009",
+            "package": "@react-native-windows/cli"
+          }
+        ]
+      }
+    },
+    {
       "date": "Sat, 05 Jun 2021 05:09:53 GMT",
       "tag": "@react-native-windows/cli_v0.0.0-canary.73",
       "version": "0.0.0-canary.73",

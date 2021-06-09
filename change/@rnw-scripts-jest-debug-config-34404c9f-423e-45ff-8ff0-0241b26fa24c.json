@@ -1,7 +1,0 @@
-{
-  "type": "patch",
-  "comment": "Integrate May 19th",
-  "packageName": "@rnw-scripts/jest-debug-config",
-  "email": "igklemen@microsoft.com",
-  "dependentChangeType": "patch"
-}

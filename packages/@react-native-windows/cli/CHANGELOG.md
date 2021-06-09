@@ -1,8 +1,17 @@
 # Change Log - @react-native-windows/cli
 
-This log was last generated on Sat, 05 Jun 2021 05:09:53 GMT and should not be manually modified.
+This log was last generated on Wed, 09 Jun 2021 05:10:07 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.0.0-canary.74
+
+Wed, 09 Jun 2021 05:10:07 GMT
+
+### Patches
+
+- Bump @rnw-scripts/just-task to v2.1.3 (igklemen@microsoft.com)
+- Bump @rnw-scripts/jest-unittest-config to v1.2.3 (igklemen@microsoft.com)
 
 ## 0.0.0-canary.73
 

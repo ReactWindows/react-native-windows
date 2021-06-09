@@ -1,8 +1,16 @@
 # Change Log - @rnw-scripts/babel-node-config
 
-This log was last generated on Thu, 03 Jun 2021 05:09:47 GMT and should not be manually modified.
+This log was last generated on Wed, 09 Jun 2021 05:10:07 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 2.0.1
+
+Wed, 09 Jun 2021 05:10:07 GMT
+
+### Patches
+
+- Integrate May 19th (igklemen@microsoft.com)
 
 ## 2.0.0
 

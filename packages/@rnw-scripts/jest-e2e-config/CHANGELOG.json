@@ -2,6 +2,21 @@
   "name": "@rnw-scripts/jest-e2e-config",
   "entries": [
     {
+      "date": "Wed, 09 Jun 2021 05:10:07 GMT",
+      "tag": "@rnw-scripts/jest-e2e-config_v1.1.5",
+      "version": "1.1.5",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Integrate May 19th",
+            "author": "igklemen@microsoft.com",
+            "commit": "2ba41a4f087cc3bf16cbe799575923fc7a626009",
+            "package": "@rnw-scripts/jest-e2e-config"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 03 Jun 2021 05:09:47 GMT",
       "tag": "@rnw-scripts/jest-e2e-config_v1.1.4",
       "version": "1.1.4",

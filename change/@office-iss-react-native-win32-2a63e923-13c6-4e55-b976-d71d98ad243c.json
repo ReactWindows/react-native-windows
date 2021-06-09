@@ -1,7 +1,0 @@
-{
-  "type": "prerelease",
-  "comment": "Integrate May 19th",
-  "packageName": "@office-iss/react-native-win32",
-  "email": "igklemen@microsoft.com",
-  "dependentChangeType": "patch"
-}

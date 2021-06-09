@@ -1,8 +1,22 @@
 # Change Log - @rnw-scripts/integrate-rn
 
-This log was last generated on Thu, 03 Jun 2021 05:09:47 GMT and should not be manually modified.
+This log was last generated on Wed, 09 Jun 2021 05:10:07 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 1.0.33
+
+Wed, 09 Jun 2021 05:10:07 GMT
+
+### Patches
+
+- Integrate May 19th (igklemen@microsoft.com)
+
+### Changes
+
+- Bump @react-native-windows/find-repo-root to v0.0.0-canary.22 (igklemen@microsoft.com)
+- Bump @react-native-windows/package-utils to v0.0.0-canary.19 (igklemen@microsoft.com)
+- Bump react-native-platform-override to v1.4.16 (igklemen@microsoft.com)
 
 ## 1.0.32
 

@@ -2,6 +2,21 @@
   "name": "@rnw-scripts/jest-unittest-config",
   "entries": [
     {
+      "date": "Wed, 09 Jun 2021 05:10:07 GMT",
+      "tag": "@rnw-scripts/jest-unittest-config_v1.2.3",
+      "version": "1.2.3",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Integrate May 19th",
+            "author": "igklemen@microsoft.com",
+            "commit": "2ba41a4f087cc3bf16cbe799575923fc7a626009",
+            "package": "@rnw-scripts/jest-unittest-config"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 03 Jun 2021 05:09:47 GMT",
       "tag": "@rnw-scripts/jest-unittest-config_v1.2.2",
       "version": "1.2.2",

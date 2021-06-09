@@ -1,8 +1,16 @@
 # Change Log - @rnw-scripts/just-task
 
-This log was last generated on Thu, 03 Jun 2021 05:09:47 GMT and should not be manually modified.
+This log was last generated on Wed, 09 Jun 2021 05:10:07 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 2.1.3
+
+Wed, 09 Jun 2021 05:10:07 GMT
+
+### Patches
+
+- Bump @rnw-scripts/jest-e2e-config to v1.1.5 (igklemen@microsoft.com)
 
 ## 2.1.2
 
