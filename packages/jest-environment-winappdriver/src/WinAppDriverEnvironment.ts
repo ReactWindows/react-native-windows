@@ -48,7 +48,7 @@ class WinAppDriverEnvironment extends NodeEnvironment {
     this.winappdriverBin =
       passedOptions.winAppDriverBin ||
       path.join(
-        process.env['%PROGRAMFILES(X86)%']!,
+        process.env['PROGRAMFILES(X86)']!,
         'Windows Application Driver\\WinAppDriver.exe',
       );
 
