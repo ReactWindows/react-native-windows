@@ -241,10 +241,10 @@ steps:
       workingDirectory: $(Agent.BuildDirectory)\testcli
     condition: and(succeeded(), eq(variables['localProjectType'], 'app'))
 
-  - ${{ if eq(parameters.verifyAppLaunch, 'true') }}:
-    - script: npx jest --color
-      displayName: Verify app launch
-      workingDirectory: packages\@rnw-scripts\new-app-tests
+  - script: npx jest --color
+    displayName: Verify app launch
+    workingDirectory: packages\@rnw-scripts\new-app-tests
+    condition: and(succeeded(), eq(variables['verifyAppLaunch'], 'true'))
 
   # We are experiencing random package restore failures.
   # We want to uploading the vedaccio logs to aid in diagnosing if it is verdaccio or npmjs.org
