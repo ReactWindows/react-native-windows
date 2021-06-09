@@ -241,7 +241,7 @@ steps:
       workingDirectory: $(Agent.BuildDirectory)\testcli
     condition: and(succeeded(), eq(variables['localProjectType'], 'app'))
 
-    powershell: |
+  - powershell: |
       $appxPackage = Get-AppxPackage -Name ReactNative.InitTest
       Write-Output $appxPackage
 
