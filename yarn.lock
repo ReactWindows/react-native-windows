@@ -119,7 +119,7 @@
   resolved "https://registry.yarnpkg.com/@babel/compat-data/-/compat-data-7.14.4.tgz#45720fe0cecf3fd42019e1d12cc3d27fadc98d58"
   integrity sha512-i2wXrWQNkH6JplJQGn3Rd2I4Pij8GdHkXwHMxm+zV5YG/Jci+bCNrWZEWC4o+umiDkRrRs4dVzH3X4GP7vyjQQ==
 
-"@babel/core@^7.0.0", "@babel/core@^7.1.0", "@babel/core@^7.1.6", "@babel/core@^7.14.0", "@babel/core@^7.4.5", "@babel/core@^7.7.5":
+"@babel/core@^7.0.0", "@babel/core@^7.1.0", "@babel/core@^7.1.6", "@babel/core@^7.14.0", "@babel/core@^7.4.5", "@babel/core@^7.7.5", "@babel/core@^7.8.4":
   version "7.14.3"
   resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.14.3.tgz#5395e30405f0776067fbd9cf0884f15bfb770a38"
   integrity sha512-jB5AmTKOCSJIZ72sd78ECEhuPiDMKlQdDI/4QRI6lzYATx5SSogS1oQA2AoPecRCknm30gHi2l+QVvNUu3wZAg==
