@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Mark CLI windowsOnly",
+  "packageName": "@react-native-windows/cli",
+  "email": "ngerlem@microsoft.com",
+  "dependentChangeType": "patch"
+}
