@@ -8,7 +8,7 @@
 
 if (!process.env.NEW_APP_TEST_PACKAGE) {
   console.error(
-    '"APP_NAME" environment variable must be set to the app to launch',
+    '"NEW_APP_TEST_PACKAGE" environment variable must be set to the app to launch',
   );
 }
 
