@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Break up dependencyConfig into smaller pieces",
+  "packageName": "@react-native-windows/cli",
+  "email": "asklar@microsoft.com",
+  "dependentChangeType": "patch"
+}
