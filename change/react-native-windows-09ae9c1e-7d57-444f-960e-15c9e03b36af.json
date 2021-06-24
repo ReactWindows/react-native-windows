@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Add arrow navigation to FlatList.",
+  "packageName": "react-native-windows",
+  "email": "igklemen@microsoft.com",
+  "dependentChangeType": "patch"
+}

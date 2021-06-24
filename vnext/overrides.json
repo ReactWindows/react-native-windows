@@ -346,6 +346,12 @@
       "issue": 4590
     },
     {
+      "type": "derived",
+      "file": "src/Libraries/Lists/VirtualizedList.windows.js",
+      "baseFile": "Libraries/Lists/VirtualizedList.js",
+      "baseHash": "a074f0e08bbe01e675c4bb6d4f6ec8e8a721e20f"
+    },
+    {
       "type": "platform",
       "file": "src/Libraries/Network/RCTNetworking.windows.js"
     },

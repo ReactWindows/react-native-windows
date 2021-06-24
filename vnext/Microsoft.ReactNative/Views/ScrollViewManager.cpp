@@ -229,6 +229,16 @@ void ScrollViewShadowNode::updateProperties(winrt::Microsoft::ReactNative::JSVal
       if (valid) {
         ScrollViewUWPImplementation(scrollViewer).PagingEnabled(pagingEnabled);
       }
+    } else if (propertyName == "isFlatList") {
+      const auto [valid, isFlatList] = getPropertyAndValidity(propertyValue, true);
+      if (valid && isFlatList) {
+        // We use the XAML ScrollViewer for both the RN ScrollView and FlatList - need arrow navigation in FlatList
+        // only.
+        if (auto contentControl = scrollViewer.Content().try_as<winrt::ContentControl>()) {
+          contentControl.TabFocusNavigation(xaml::Input::KeyboardNavigationMode::Once);
+          contentControl.XYFocusKeyboardNavigation(xaml::Input::XYFocusKeyboardNavigationMode::Enabled);
+        }
+      }
     }
   }
 
@@ -449,6 +459,7 @@ void ScrollViewManager::GetNativeProps(const winrt::Microsoft::ReactNative::IJSV
   winrt::Microsoft::ReactNative::WriteProperty(writer, L"snapToEnd", L"boolean");
   winrt::Microsoft::ReactNative::WriteProperty(writer, L"pagingEnabled", L"boolean");
   winrt::Microsoft::ReactNative::WriteProperty(writer, L"keyboardDismissMode", L"string");
+  winrt::Microsoft::ReactNative::WriteProperty(writer, L"isFlatList", L"boolean");
 }
 
 ShadowNode *ScrollViewManager::createShadow() const {
