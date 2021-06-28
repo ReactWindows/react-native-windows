@@ -1788,34 +1788,6 @@
   resolved "https://registry.yarnpkg.com/@reactions/component/-/component-2.0.2.tgz#40f8c1c2c37baabe57a0c944edb9310dc1ec6642"
   integrity sha1-QPjBwsN7qr5XoMlE7bkxDcHsZkI=
 
-"@rnw-scripts/babel-node-config@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@rnw-scripts/babel-node-config/-/babel-node-config-2.0.0.tgz#4cac5594cb8a7e5a4a3d5f8c957a1883a04ea559"
-  integrity sha512-v2Xjj7z1vkkv4jo+nGIhp/oP8vmQucRdOiM9rUGTxMbmfHRV66btQnDJa0num/4g6XIvZs38Dp/WFXb/VhUAqw==
-
-"@rnw-scripts/jest-e2e-config@1.1.4":
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/@rnw-scripts/jest-e2e-config/-/jest-e2e-config-1.1.4.tgz#a6f2f856ba37ab6780307b0eaa622cae5ee262d4"
-  integrity sha512-IasQ69442S/I+zO861pzYvdgkD7uKNVnR8haGzXJkvuXj0AavlcDG2fOudKjnm9ytxmBGkb2kVbaX4hGtyFZRA==
-  dependencies:
-    "@rnw-scripts/babel-node-config" "2.0.0"
-
-"@rnw-scripts/jest-unittest-config@1.2.2":
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/@rnw-scripts/jest-unittest-config/-/jest-unittest-config-1.2.2.tgz#fafd79ffe05275155fa34988e4d16624edcbf48d"
-  integrity sha512-xlk5iVV41/duQpBYa1wwoUBSWkJOhCRB2+NiZ2KJ7bCBZft5tRe1rfvdwOKWy9LAa8RnHnGQ1bzUry//yDZLNw==
-  dependencies:
-    "@rnw-scripts/babel-node-config" "2.0.0"
-
-"@rnw-scripts/just-task@2.1.2":
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/@rnw-scripts/just-task/-/just-task-2.1.2.tgz#a7983603c512fd4c8c2e5f5f8698de78bb410064"
-  integrity sha512-uiFsG13XFfiVf7pun3si4bihOG9z7uwcgrpldTfq8cmVT+rVWUHYswuhhc0ijLk6dQKeOTRk26teJkXCmOZLOw==
-  dependencies:
-    "@rnw-scripts/jest-e2e-config" "1.1.4"
-    "@rnw-scripts/jest-unittest-config" "1.2.2"
-    depcheck "^1.4.1"
-
 "@rushstack/node-core-library@3.35.2":
   version "3.35.2"
   resolved "https://registry.yarnpkg.com/@rushstack/node-core-library/-/node-core-library-3.35.2.tgz#21ca879b5051a5ebafa952fafcd648a07a142bcb"
