@@ -250,6 +250,10 @@ steps:
     displayName: Discover and set PackageFullName
     condition: and(succeeded(), eq(variables['verifyAppLaunch'], 'true'))
 
+  - powershell: Write-Host $env:NEW_APP_TEST_PACKAGE
+    displayName: Print NEW_APP_TEST_PACKAGE
+    condition: and(succeeded(), eq(variables['verifyAppLaunch'], 'true'))
+
   - script: npx jest --color
     displayName: Verify app launch
     workingDirectory: packages\@rnw-scripts\new-app-tests

@@ -127,6 +127,7 @@ jobs:
             projectType: lib
             additionalInitArguments:
             additionalRunArguments: --no-autolink --no-deploy
+            verifyAppLaunch: false
           X86DebugCsLib:
             language: cs
             configuration: Debug
@@ -134,6 +135,7 @@ jobs:
             projectType: lib
             additionalInitArguments:
             additionalRunArguments: --no-autolink --no-deploy
+            verifyAppLaunch: false
 
           X86DebugCppWinUI3:
             language: cpp
@@ -142,6 +144,7 @@ jobs:
             projectType: app
             additionalInitArguments: --useWinUI3 true
             additionalRunArguments:
+            verifyAppLaunch: false
           X86DebugCsWinUI3:
             language: cs
             configuration: Debug
@@ -149,6 +152,7 @@ jobs:
             projectType: app
             additionalInitArguments: --useWinUI3 true
             additionalRunArguments:
+            verifyAppLaunch: false
 
           X86DebugCppHermes:
             language: cpp
@@ -157,6 +161,7 @@ jobs:
             projectType: app
             additionalInitArguments: --useHermes
             additionalRunArguments:
+            verifyAppLaunch: false
           # #7225 ReactNative.Hermes.Windows is not yet seen as compatible for usage in C# projects
           # Arm64ReleaseCsHermes:
           #   language: cs
@@ -172,9 +177,9 @@ jobs:
             projectType: app
             additionalInitArguments: --useHermes
             additionalRunArguments:
+            verifyAppLaunch: true
 
-      pool:
-        vmImage: $(VmImage)
+      pool: $(AgentPool.Medium)
       timeoutInMinutes: 60
       cancelTimeoutInMinutes: 5
 
