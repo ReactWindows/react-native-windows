@@ -182,9 +182,6 @@
     <ClCompile Include="Views\ControlViewManager.cpp">
       <Filter>Views</Filter>
     </ClCompile>
-    <ClCompile Include="Views\DatePickerViewManager.cpp">
-      <Filter>Views</Filter>
-    </ClCompile>
     <ClCompile Include="Views\DevMenu.cpp">
       <Filter>Views</Filter>
     </ClCompile>
@@ -515,9 +512,6 @@
       <Filter>Views</Filter>
     </ClInclude>
     <ClInclude Include="Views\ControlViewManager.h">
-      <Filter>Views</Filter>
-    </ClInclude>
-    <ClInclude Include="Views\DatePickerViewManager.h">
       <Filter>Views</Filter>
     </ClInclude>
     <ClInclude Include="Views\DevMenu.h">

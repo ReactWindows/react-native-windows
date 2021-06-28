@@ -9,8 +9,8 @@ import {
   View,
   StyleSheet,
   Button,
+  Picker,
 } from 'react-native';
-import {DatePicker, Picker} from 'react-native-windows';
 import * as React from 'react'
 import { useState } from 'react';
 
@@ -75,9 +75,6 @@ export function ControlStyleTestPage() {
           placeholderTextColor="rgba(225,225,225,0.7)"
           secureTextEntry={true}
           editable={false}
-        />
-        <DatePicker
-          style={showRoundBorder ? styles.roundBorder : styles.regularBorder}
         />
         <Picker
           style={showRoundBorder ? styles.roundBorder : styles.regularBorder}

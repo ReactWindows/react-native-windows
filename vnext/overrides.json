@@ -139,18 +139,10 @@
       "baseHash": "48a11d8a7d56c3c33d8e72d735e6f1bf92c6ff3e"
     },
     {
-      "type": "platform",
-      "file": "src/Libraries/Components/DatePicker/DatePicker.tsx"
-    },
-    {
       "type": "copy",
       "file": "src/Libraries/Components/DatePicker/DatePickerIOS.windows.js",
       "baseFile": "Libraries/Components/DatePicker/DatePickerIOS.android.js",
       "baseHash": "a9a4a6c92de922a11f8b81642b1bf1270d0b7b96"
-    },
-    {
-      "type": "platform",
-      "file": "src/Libraries/Components/DatePicker/DatePickerProps.ts"
     },
     {
       "type": "derived",

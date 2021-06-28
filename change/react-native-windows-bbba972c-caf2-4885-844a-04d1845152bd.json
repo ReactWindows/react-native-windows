@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Remove DatePicker and PickerWindows",
+  "packageName": "react-native-windows",
+  "email": "ngerlem@microsoft.com",
+  "dependentChangeType": "patch"
+}
