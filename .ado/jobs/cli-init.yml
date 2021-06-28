@@ -173,7 +173,8 @@ jobs:
             additionalInitArguments: --useHermes
             additionalRunArguments:
 
-      pool: $(AgentPool.Medium)
+      pool:
+        vmImage: $(VmImage)
       timeoutInMinutes: 60
       cancelTimeoutInMinutes: 5
 
