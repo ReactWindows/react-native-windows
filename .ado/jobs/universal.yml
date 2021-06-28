@@ -12,16 +12,16 @@
           Matrix:
             - Name: X64ReleaseFast
               BuildConfiguration: Release
-              BuildPlatform: X64
+              BuildPlatform: x64
               FastBuild: true
             - Name: X86DebugFast
               BuildConfiguration: Debug
-              BuildPlatform: X86
+              BuildPlatform: x86
               LayoutHeaders: true
               FastBuild: true
         - BuildEnvironment: Continuous
           Matrix:
-            - Name: Arm64RDebug
+            - Name: Arm64Debug
               BuildConfiguration: Debug
               BuildPlatform: ARM64
               FastBuild: false
@@ -31,28 +31,28 @@
               FastBuild: false
             - Name: X64Debug
               BuildConfiguration: Debug
-              BuildPlatform: X64
+              BuildPlatform: x64
               FastBuild: false
             - Name: X64Release
               BuildConfiguration: Release
-              BuildPlatform: X64
+              BuildPlatform: x64
               FastBuild: false
             - Name: X86Debug
               BuildConfiguration: Debug
-              BuildPlatform: X86
+              BuildPlatform: x86
               LayoutHeaders: true
               FastBuild: false
             - Name: X86Release
               BuildConfiguration: Release
-              BuildPlatform: X86
+              BuildPlatform: x86
               FastBuild: false
             - Name: X64ReleaseFast
               BuildConfiguration: Release
-              BuildPlatform: X64
+              BuildPlatform: x64
               FastBuild: true
             - Name: X86DebugFast
               BuildConfiguration: Debug
-              BuildPlatform: X86
+              BuildPlatform: x86
               LayoutHeaders: true
               FastBuild: true
 
@@ -102,7 +102,6 @@
                 
                 - template: ../templates/component-governance.yml
 
-                
             - job: UniversalTest${{ matrix.Name }}
               variables:
                 - template: ../variables/vs2019.yml
@@ -152,11 +151,7 @@
                     Get-ChildItem *.appxrecipe -recurse | ForEach { (Get-Content -Path $_) -replace "c:\\a\\1\\s", "$(System.DefaultWorkingDirectory)" | Set-Content -Path $_ }
                   displayName: Fix Paths in appx files to deal with different enlistments between agent types.
 
-                - powershell: |
-                    Write-Debug "Using expression $($env:GOOGLETESTADAPTERPATHEXPRESSION)"
-                    Write-Host "##vso[task.setvariable variable=GoogleTestAdapterPath]$(Invoke-Expression $env:GOOGLETESTADAPTERPATHEXPRESSION)"
-                    Write-Host "Set environment variable to ($env:GoogleTestAdapterPath)"
-                  displayName: Set GoogleTestAdapterPath
+                - template: ../templates/discover-google-test-adapter.yml
 
                 - task: VSTest@2
                   displayName: Run Universal Unit Tests (Native)
@@ -175,7 +170,10 @@
                     publishRunAttachments: true
                     collectDumpOn: onAbortOnly
                     vsTestVersion: latest
-                  condition: and(succeeded(), not(startsWith(variables.BuildPlatform, 'arm')))
+                    failOnMinTestsNotRun: true
+                  # Issue #8003 Tracks restoring this test whose condition should be resotred disabled as it times out on releasex64...
+                  # condition: and(succeeded(), not(eq('${{ matrix.BuildPlatform }}', 'ARM64')))
+                  condition: and(succeeded(), eq('${{ matrix.BuildPlatform }}', 'x86'))
 
                 - task: VSTest@2
                   displayName: Run Universal Unit Tests (UWP)
@@ -192,7 +190,8 @@
                     codeCoverageEnabled: true
                     collectDumpOn: onAbortOnly
                     vsTestVersion: latest
-                  condition: and(succeeded(), not(startsWith(variables.BuildPlatform, 'arm')))
+                    failOnMinTestsNotRun: true
+                  condition: and(succeeded(), not(eq('${{ matrix.BuildPlatform }}', 'ARM64')))
 
                 - task: VSTest@2
                   displayName: Run Universal Unit Tests (NetCore)
@@ -209,7 +208,8 @@
                     codeCoverageEnabled: true
                     collectDumpOn: onAbortOnly
                     vsTestVersion: latest
-                  condition: and(succeeded(), eq(variables.BuildPlatform, 'x64'))
+                    failOnMinTestsNotRun: true
+                  condition: and(succeeded(), eq('${{ matrix.BuildPlatform }}', 'x64'))
 
     # This job is the one that accumulates the spread out build tasks into one dependency
     - job: UniversalBuild

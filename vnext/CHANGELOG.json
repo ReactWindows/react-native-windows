@@ -2,6 +2,253 @@
   "name": "react-native-windows",
   "entries": [
     {
+      "date": "Sun, 27 Jun 2021 05:08:11 GMT",
+      "tag": "react-native-windows_v0.0.0-canary.333",
+      "version": "0.0.0-canary.333",
+      "comments": {
+        "prerelease": [
+          {
+            "comment": "Removed Microsoft.ReactNative.Manager.ReactPackageProvider registration from C# template",
+            "author": "matteo.pagani@microsoft.com",
+            "commit": "8abeebde3b1591b0f5915b71defd5392b1ba6821",
+            "package": "react-native-windows"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 26 Jun 2021 05:06:48 GMT",
+      "tag": "react-native-windows_v0.0.0-canary.332",
+      "version": "0.0.0-canary.332",
+      "comments": {
+        "prerelease": [
+          {
+            "comment": "Upgrade to boost 1.76.0.0",
+            "author": "julio.rocha@microsoft.com",
+            "commit": "50e13c8cc7938d38bb19ca96225b5a85955c5ae5",
+            "package": "react-native-windows"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 25 Jun 2021 05:09:48 GMT",
+      "tag": "react-native-windows_v0.0.0-canary.331",
+      "version": "0.0.0-canary.331",
+      "comments": {
+        "prerelease": [
+          {
+            "comment": "Run RN List Jest Tests",
+            "author": "ngerlem@microsoft.com",
+            "commit": "b03205a7110c80d9aca15c937b1351e6482b8c0d",
+            "package": "react-native-windows"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 24 Jun 2021 05:08:43 GMT",
+      "tag": "react-native-windows_v0.0.0-canary.330",
+      "version": "0.0.0-canary.330",
+      "comments": {
+        "none": [
+          {
+            "comment": "applying package updates ***NO_CI***",
+            "author": "asklar@microsoft.com",
+            "commit": "61eb55b2e5fa4dddfd8f1e20d04d83d3ea3cdaf2",
+            "package": "react-native-windows"
+          }
+        ],
+        "prerelease": [
+          {
+            "comment": "Use older SDK for the purpose of Reunion projection",
+            "author": "asklar@microsoft.com",
+            "commit": "990abee34fa95b8be861535f1b1f08a9afdf51d7",
+            "package": "react-native-windows"
+          },
+          {
+            "comment": "Update V8 package version",
+            "author": "tudor.mihai@microsoft.com",
+            "commit": "32079c8634d7f28d3290939af6ce29a8ba21e8ea",
+            "package": "react-native-windows"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 23 Jun 2021 00:22:52 GMT",
+      "tag": "react-native-windows_v0.0.0-canary.329",
+      "version": "0.0.0-canary.329",
+      "comments": {
+        "prerelease": [
+          {
+            "comment": "Create cswinrt projection nuget project",
+            "author": "asklar@microsoft.com",
+            "commit": "d5d7c1592c6f78f2a69124110e12204b9222a03b",
+            "package": "react-native-windows"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 22 Jun 2021 05:07:16 GMT",
+      "tag": "react-native-windows_v0.0.0-canary.328",
+      "version": "0.0.0-canary.328",
+      "comments": {
+        "prerelease": [
+          {
+            "comment": "Have script store return nullptr on facebook::jsi::JSINativeException",
+            "author": "julio.rocha@microsoft.com",
+            "commit": "46cbceb816e78fa345be3c633328ea0829ee604b",
+            "package": "react-native-windows"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 18 Jun 2021 05:06:48 GMT",
+      "tag": "react-native-windows_v0.0.0-canary.327",
+      "version": "0.0.0-canary.327",
+      "comments": {
+        "prerelease": [
+          {
+            "comment": "FacadeType extended with None to avoid crash for unsupported values",
+            "author": "Bartosz.Klonowski@callstack.com",
+            "commit": "491120a68924b5261928fa57c5fbab77685b5357",
+            "package": "react-native-windows"
+          },
+          {
+            "comment": "More cases of *Undefined* are popping up in MsBuild",
+            "author": "dannyvv@microsoft.com",
+            "commit": "92c7d665915c8d1756f4c6c35c092e0ba3fa54ab",
+            "package": "react-native-windows"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 17 Jun 2021 05:07:57 GMT",
+      "tag": "react-native-windows_v0.0.0-canary.326",
+      "version": "0.0.0-canary.326",
+      "comments": {
+        "prerelease": [
+          {
+            "comment": "Fix crash when adding a ReactRootView while reloading a ReactHost",
+            "author": "30809111+acoates-ms@users.noreply.github.com",
+            "commit": "5b02d1a16b870d838169937d699dcf7108b02f4f",
+            "package": "react-native-windows"
+          },
+          {
+            "comment": "Integrate 6/2",
+            "author": "34109996+chiaramooney@users.noreply.github.com",
+            "commit": "e56b49798037e86698f166f62cb45941564784f6",
+            "package": "react-native-windows"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Wed, 16 Jun 2021 05:08:34 GMT",
+      "tag": "react-native-windows_v0.0.0-canary.325",
+      "version": "0.0.0-canary.325",
+      "comments": {
+        "prerelease": [
+          {
+            "comment": "Fix deadlock when rapidly reloading instance",
+            "author": "30809111+acoates-ms@users.noreply.github.com",
+            "commit": "9fb0e939a51d4221af15ace68f51a10f64752ec1",
+            "package": "react-native-windows"
+          },
+          {
+            "comment": "TurboModules might be kept alive by RNH when instance is shutdown",
+            "author": "30809111+acoates-ms@users.noreply.github.com",
+            "commit": "31accd17b5a86afcd3a2c92c24bd5419c4fa8977",
+            "package": "react-native-windows"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Tue, 15 Jun 2021 05:06:39 GMT",
+      "tag": "react-native-windows_v0.0.0-canary.324",
+      "version": "0.0.0-canary.324",
+      "comments": {
+        "prerelease": [
+          {
+            "comment": "Remove JavaScriptMainModuleName and DebugHost",
+            "author": "30809111+acoates-ms@users.noreply.github.com",
+            "commit": "22e1206ce28eb55e75af5e7740ef8bb8ad25e183",
+            "package": "react-native-windows"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Sat, 12 Jun 2021 05:06:29 GMT",
+      "tag": "react-native-windows_v0.0.0-canary.323",
+      "version": "0.0.0-canary.323",
+      "comments": {
+        "prerelease": [
+          {
+            "comment": "Better reporting of failures to load the bundle file",
+            "author": "30809111+acoates-ms@users.noreply.github.com",
+            "commit": "7b2bcbb597ae8f2dae93d4a09cef6787cdb82903",
+            "package": "react-native-windows"
+          },
+          {
+            "comment": "Reduce string conversions when reporting hresult_error",
+            "author": "julio.rocha@microsoft.com",
+            "commit": "3e9802cfe14c71e093c04f3462c9a5a8f615c705",
+            "package": "react-native-windows"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 11 Jun 2021 05:08:55 GMT",
+      "tag": "react-native-windows_v0.0.0-canary.322",
+      "version": "0.0.0-canary.322",
+      "comments": {
+        "prerelease": [
+          {
+            "comment": "fix pipeline casing of x64/x86 as yaml string compare is case sensitive",
+            "author": "dannyvv@microsoft.com",
+            "commit": "968a9131e26ce42222b7dfdd03c93d3924dec164",
+            "package": "react-native-windows"
+          },
+          {
+            "comment": "Disable test that seems to hang on PR validaton",
+            "author": "dannyvv@microsoft.com",
+            "commit": "b3f0850465697bc45b362a84209999a575b20c94",
+            "package": "react-native-windows"
+          }
+        ],
+        "patch": [
+          {
+            "comment": "Bump react-native-platform-override to v1.4.17",
+            "author": "ngerlem@microsoft.com",
+            "commit": "3d7c8d8fcf14a3cbda83a93c85b0bcf1e4e4f829",
+            "package": "react-native-windows"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Thu, 10 Jun 2021 05:10:10 GMT",
+      "tag": "react-native-windows_v0.0.0-canary.321",
+      "version": "0.0.0-canary.321",
+      "comments": {
+        "prerelease": [
+          {
+            "comment": "Fix Microsoft.ReactNative unit tests",
+            "author": "vmorozov@microsoft.com",
+            "commit": "31d303345031ae6c38a3b25c7147df7b9c1694c9",
+            "package": "react-native-windows"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 09 Jun 2021 05:10:07 GMT",
       "tag": "react-native-windows_v0.0.0-canary.320",
       "version": "0.0.0-canary.320",

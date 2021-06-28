@@ -60,9 +60,6 @@ struct ReactInstanceSettings : ReactInstanceSettingsT<ReactInstanceSettings> {
   bool UseDeveloperSupport() noexcept;
   void UseDeveloperSupport(bool value) noexcept;
 
-  hstring JavaScriptMainModuleName() noexcept;
-  void JavaScriptMainModuleName(hstring const &value) noexcept;
-
   hstring JavaScriptBundleFile() noexcept;
   void JavaScriptBundleFile(hstring const &value) noexcept;
 
@@ -105,9 +102,6 @@ struct ReactInstanceSettings : ReactInstanceSettingsT<ReactInstanceSettings> {
 
   hstring ByteCodeFileUri() noexcept;
   void ByteCodeFileUri(hstring const &value) noexcept;
-
-  hstring DebugHost() noexcept;
-  void DebugHost(hstring const &value) noexcept;
 
   hstring DebugBundlePath() noexcept;
   void DebugBundlePath(hstring const &value) noexcept;
@@ -163,7 +157,6 @@ struct ReactInstanceSettings : ReactInstanceSettingsT<ReactInstanceSettings> {
   IReactNotificationService m_notifications{ReactNotificationServiceHelper::CreateNotificationService()};
   Windows::Foundation::Collections::IVector<IReactPackageProvider> m_packageProviders{
       single_threaded_vector<IReactPackageProvider>()};
-  hstring m_javaScriptMainModuleName{};
   hstring m_javaScriptBundleFile{};
   bool m_enableJITCompilation{true};
   bool m_enableByteCodeCaching{false};
@@ -209,14 +202,6 @@ inline IReactNotificationService ReactInstanceSettings::Notifications() noexcept
 inline Windows::Foundation::Collections::IVector<IReactPackageProvider>
 ReactInstanceSettings::PackageProviders() noexcept {
   return m_packageProviders;
-}
-
-inline hstring ReactInstanceSettings::JavaScriptMainModuleName() noexcept {
-  return m_javaScriptMainModuleName;
-}
-
-inline void ReactInstanceSettings::JavaScriptMainModuleName(hstring const &value) noexcept {
-  m_javaScriptMainModuleName = value;
 }
 
 inline hstring ReactInstanceSettings::JavaScriptBundleFile() noexcept {

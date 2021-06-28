@@ -144,9 +144,7 @@ componentTest(
 // Slider needs a height set to render (#5437)
 componentTest.skip('Slider', mountAndMeasure(RN.Slider));
 
-// Skip until we merge the upstream fix for broken forward ref.
-// https://github.com/facebook/react-native/pull/31629
-componentTest.skip('Switch', mountAndMeasure(RN.Switch));
+componentTest('Switch', mountAndMeasure(RN.Switch));
 
 componentTest(
   'Text',

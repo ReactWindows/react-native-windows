@@ -634,9 +634,23 @@ bool JsiAbiRuntime::instanceOf(const Object &o, const Function &f) try {
   throw;
 }
 
+template <typename T>
+struct AutoRestore {
+  AutoRestore(T *var, T value) : m_var{var}, m_value{std::exchange(*var, value)} {}
+
+  ~AutoRestore() {
+    *m_var = m_value;
+  }
+
+ private:
+  T *m_var;
+  T m_value;
+};
+
 void JsiAbiRuntime::RethrowJsiError() const {
   auto jsiError = m_runtime.GetAndClearError();
-  if (jsiError.ErrorType() == JsiErrorType::JSError) {
+  if (!m_pendingJSError && jsiError.ErrorType() == JsiErrorType::JSError) {
+    AutoRestore<bool> setValue{const_cast<bool *>(&m_pendingJSError), true};
     throw AbiJSError{*const_cast<JsiAbiRuntime *>(this), std::move(jsiError)};
   } else {
     throw AbiJSINativeException{std::move(jsiError)};

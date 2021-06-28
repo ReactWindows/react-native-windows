@@ -59,7 +59,7 @@ class ReactHost final : public Mso::ActiveObject<IReactHost> {
   bool IsClosed() const noexcept;
 
   size_t PendingUnloadActionId() const noexcept;
-  bool IsInstanceLoaded() const noexcept;
+  bool IsInstanceUnloading() const noexcept;
 
   template <class TCallback>
   Mso::Future<void> PostInQueue(TCallback &&callback) noexcept;
@@ -91,7 +91,7 @@ class ReactHost final : public Mso::ActiveObject<IReactHost> {
   const Mso::ActiveReadableField<Mso::Promise<void>> m_notifyWhenClosed{nullptr, Queue(), m_mutex};
   size_t m_pendingUnloadActionId{0};
   size_t m_nextUnloadActionId{0};
-  const Mso::ActiveField<bool> m_isInstanceLoaded{false, Queue()};
+  const Mso::ActiveField<bool> m_isInstanceUnloading{false, Queue()};
 };
 
 //! Implements a cross-platform host for a React view

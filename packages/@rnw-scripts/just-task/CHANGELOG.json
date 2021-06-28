@@ -2,6 +2,21 @@
   "name": "@rnw-scripts/just-task",
   "entries": [
     {
+      "date": "Fri, 11 Jun 2021 05:08:55 GMT",
+      "tag": "@rnw-scripts/just-task_v2.2.0",
+      "version": "2.2.0",
+      "comments": {
+        "minor": [
+          {
+            "comment": "Allow marking tested packages windowsOnly",
+            "author": "ngerlem@microsoft.com",
+            "commit": "3d7c8d8fcf14a3cbda83a93c85b0bcf1e4e4f829",
+            "package": "@rnw-scripts/just-task"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 09 Jun 2021 05:10:07 GMT",
       "tag": "@rnw-scripts/just-task_v2.1.3",
       "version": "2.1.3",

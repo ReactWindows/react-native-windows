@@ -492,8 +492,14 @@ void InstanceImpl::loadBundleInternal(std::string &&jsBundleRelativePath, bool s
   } catch (const facebook::react::ChakraJSException &e) {
     m_devSettings->errorCallback(std::string{e.what()} + "\r\n" + e.getStack());
 #endif
-  } catch (std::exception &e) {
+  } catch (const std::exception &e) {
     m_devSettings->errorCallback(e.what());
+  } catch (const winrt::hresult_error &hrerr) {
+    std::stringstream ss;
+    ss << "[" << std::hex << std::showbase << std::setw(8) << static_cast<uint32_t>(hrerr.code()) << "] "
+       << winrt::to_string(hrerr.message());
+
+    m_devSettings->errorCallback(std::move(ss.str()));
   }
 }
 

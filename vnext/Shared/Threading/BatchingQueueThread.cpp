@@ -71,8 +71,15 @@ void BatchingQueueThread::decoratedNativeCallInvokerReady(
   std::scoped_lock lck(m_mutex);
   m_callInvoker->invokeAsync([wkInstance, this] {
     if (auto instance = wkInstance.lock()) {
-      std::scoped_lock lck(m_mutex);
-      m_callInvoker = instance->getDecoratedNativeCallInvoker(m_callInvoker);
+      std::scoped_lock lckQuitting(m_mutexQuitting);
+
+      // If we are shutting down, then then the mutex is being held in quitSynchronous
+      // Which is waiting for this task to complete, so we cannot take the mutex if quitSynchronous
+      // is running. -- and since we are shutting down anyway, we can just skip this work.
+      if (!m_quitting) {
+        std::scoped_lock lck(m_mutex);
+        m_callInvoker = instance->getDecoratedNativeCallInvoker(m_callInvoker);
+      }
     }
   });
 }
@@ -95,6 +102,10 @@ void BatchingQueueThread::runOnQueueSync(std::function<void()> && /*func*/) noex
 }
 
 void BatchingQueueThread::quitSynchronous() noexcept {
+  {
+    std::scoped_lock lckQuitting(m_mutexQuitting);
+    m_quitting = true;
+  }
   std::scoped_lock lck(m_mutex);
   m_batchingQueueCallInvoker->quitSynchronous();
 }

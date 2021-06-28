@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Allow native module to set JS-side QuirkSettings",
+  "packageName": "@office-iss/react-native-win32",
+  "email": "ngerlem@microsoft.com",
+  "dependentChangeType": "patch"
+}

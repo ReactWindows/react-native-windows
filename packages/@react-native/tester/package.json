@@ -21,6 +21,6 @@
   "devDependencies": {
     "connect": "^3.6.5",
     "detox": "16.7.2",
-    "ws": "^7.4.6"
+    "ws": "^6.1.4"
   }
 }

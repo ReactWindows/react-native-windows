@@ -78,15 +78,6 @@ jobs:
       - script: yarn build
         displayName: yarn build
 
-      # Ensure EnableCodesign is set properly so CG fails appropriately
-      - script: |
-          echo ##vso[task.setvariable variable=EnableCodesign]true
-        displayName: Set EnableCodesign
-        condition: or(eq(variables['EnableCodesign'], 'true'), and(endsWith(variables['Build.SourceBranchName'], '-stable'), not(${{ parameters.skipStableCodesign }})))
-      
-      # Running CG here as a sanity check to fail the job before any beachball bump
-      - template: templates/component-governance.yml
-
       - script: npx --no-install beachball publish $(SkipNpmPublishArgs) $(SkipGitPushPublishArgs) --branch origin/$(Build.SourceBranchName) -n $(npmAuthToken) -yes -m "applying package updates ***NO_CI***" --bump-deps  --access public --no-git-tags
         displayName: Beachball Publish (Main Branch)
         condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'main'))
@@ -202,17 +193,6 @@ jobs:
           contents: |
             React.Windows.Desktop.DLL\**
             React.Windows.Desktop.Test.DLL\**
-
-      # Ensure EnableCodesign is set properly so CG fails appropriately
-      - script: |
-          echo ##vso[task.setvariable variable=EnableCodesign]true
-        displayName: Set EnableCodesign
-        condition: or(eq(variables['EnableCodesign'], 'true'), and(endsWith(variables['Build.SourceBranchName'], '-stable'), not(${{ parameters.skipStableCodesign }})))
-
-      # We are not codesigning Desktop at this time, so turning it off. Remove this script task if we do start signing Desktop
-      - script: |
-          echo ##vso[task.setvariable variable=EnableCodesign]false
-        displayName: Set EnableCodesign to false for Desktop
       
       - template: templates/component-governance.yml
 
@@ -263,6 +243,53 @@ jobs:
             Microsoft.ReactNative.Managed\**
             Microsoft.ReactNative.Managed.CodeGen\**
       
+      - template: templates/component-governance.yml
+
+      # Make symbols available through http://symweb.
+      - task: PublishSymbols@2
+        displayName: Publish symbols
+        inputs:
+          SearchPattern: vnext/target/**/*.pdb
+          SymbolServerType: TeamServices
+
+  - job: RnwNativeBuildReunion
+    displayName: Build Reunion
+    dependsOn: RnwNpmPublish
+    strategy:
+      matrix:
+        X64Release:
+          BuildConfiguration: Release
+          BuildPlatform: x64
+
+    pool:
+      vmImage: $(VmImage)
+
+    steps:
+      - template: templates/apply-published-version-vars.yml
+
+      - template: templates/build-rnw.yml
+        parameters:
+          project: vnext/Microsoft.ReactNative.ProjectReunion.sln
+          buildPlatform: $(BuildPlatform)
+          buildConfiguration: $(BuildConfiguration)
+          msbuildArguments: /p:UseWinUI3=true
+
+      - task: CopyFiles@2
+        displayName: Copy NuGet artifacts
+        inputs:
+          sourceFolder: $(Build.SourcesDirectory)/vnext/target/$(BuildPlatform)/$(BuildConfiguration)
+          targetFolder: $(Build.StagingDirectory)/reunion/$(BuildPlatform)/$(BuildConfiguration)
+          contents: |
+            Microsoft.ReactNative\**
+            Microsoft.ReactNative.ProjectReunion\**
+
+      - task: PublishBuildArtifacts@1
+        displayName: "Publish Artifact: ReactWindows"
+        inputs:
+          artifactName: ReactWindows
+          pathToPublish: $(Build.StagingDirectory)
+          parallel: true
+
       # Ensure EnableCodesign is set properly so CG fails appropriately
       - script: |
           echo ##vso[task.setvariable variable=EnableCodesign]true
@@ -283,6 +310,7 @@ jobs:
       - RnwNpmPublish
       - RnwNativeBuildDesktop
       - RnwNativeBuildUniversal
+      - RnwNativeBuildReunion
     displayName: Sign Binaries and Publish NuGet
     pool:
       vmImage: $(VmImage)
@@ -301,6 +329,7 @@ jobs:
         parameters:
           publishCommitId: $(publishCommitId)
           npmVersion: $(npmVersion)
+          packMicrosoftReactNativeProjectReunion: true
           ${{ if or(eq(variables['EnableCodesign'], 'true'), and(endsWith(variables['Build.SourceBranchName'], '-stable'), not(parameters.skipStableCodesign))) }}: # Sign on stable release builds
             signMicrosoft: true
 

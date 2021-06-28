@@ -4,7 +4,7 @@ EXPORTS
 ??0WebSocketServer@Test@React@Microsoft@@QAE@G_N@Z
 ??0WebSocketServer@Test@React@Microsoft@@QAE@H_N@Z
 ?Accept@WebSocketServer@Test@React@Microsoft@@AAEXXZ
-?OnAccept@WebSocketServer@Test@React@Microsoft@@AAEXVerror_code@system@boost@@V?$basic_stream_socket@Vtcp@ip@asio@boost@@Vexecutor@34@@asio@7@@Z
+?OnAccept@WebSocketServer@Test@React@Microsoft@@AAEXVerror_code@system@boost@@V?$basic_stream_socket@Vtcp@ip@asio@boost@@Vany_io_executor@34@@asio@7@@Z
 ?SetMessageFactory@WebSocketServer@Test@React@Microsoft@@QAEX$$QAV?$function@$$A6G?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@$$QAV12@@Z@std@@@Z
 ?SetOnConnection@WebSocketServer@Test@React@Microsoft@@QAEX$$QAV?$function@$$A6GXXZ@std@@@Z
 ?SetOnError@WebSocketServer@Test@React@Microsoft@@QAEX$$QAV?$function@$$A6GX$$QAUError@IWebSocketResource@React@Microsoft@@@Z@std@@@Z
@@ -17,7 +17,7 @@ EXPORTS
 ??0HttpServer@Test@React@Microsoft@@QAE@$$QAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@G@Z
 ??1HttpServer@Test@React@Microsoft@@QAE@XZ
 ?Accept@HttpServer@Test@React@Microsoft@@QAEXXZ
-?OnAccept@HttpServer@Test@React@Microsoft@@AAEXVerror_code@system@boost@@V?$basic_stream_socket@Vtcp@ip@asio@boost@@Vexecutor@34@@asio@7@@Z
+?OnAccept@HttpServer@Test@React@Microsoft@@AAEXVerror_code@system@boost@@V?$basic_stream_socket@Vtcp@ip@asio@boost@@Vany_io_executor@34@@asio@7@@Z
 ?SetOnGet@HttpServer@Test@React@Microsoft@@QAEX$$QAV?$function@$$A6G?AV?$message@$0A@U?$basic_dynamic_body@V?$basic_multi_buffer@V?$allocator@D@std@@@beast@boost@@@http@beast@boost@@V?$basic_fields@V?$allocator@D@std@@@234@@http@beast@boost@@ABV?$message@$00U?$basic_string_body@DU?$char_traits@D@std@@V?$allocator@D@2@@http@beast@boost@@V?$basic_fields@V?$allocator@D@std@@@234@@234@@Z@std@@@Z
 ?SetOnResponseSent@HttpServer@Test@React@Microsoft@@QAEX$$QAV?$function@$$A6GXXZ@std@@@Z
 ?Start@HttpServer@Test@React@Microsoft@@QAEXXZ

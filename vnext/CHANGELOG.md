@@ -1,8 +1,122 @@
 # Change Log - react-native-windows
 
-This log was last generated on Wed, 09 Jun 2021 05:10:07 GMT and should not be manually modified.
+This log was last generated on Sun, 27 Jun 2021 05:08:11 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.0.0-canary.333
+
+Sun, 27 Jun 2021 05:08:11 GMT
+
+### Changes
+
+- Removed Microsoft.ReactNative.Manager.ReactPackageProvider registration from C# template (matteo.pagani@microsoft.com)
+
+## 0.0.0-canary.332
+
+Sat, 26 Jun 2021 05:06:48 GMT
+
+### Changes
+
+- Upgrade to boost 1.76.0.0 (julio.rocha@microsoft.com)
+
+## 0.0.0-canary.331
+
+Fri, 25 Jun 2021 05:09:48 GMT
+
+### Changes
+
+- Run RN List Jest Tests (ngerlem@microsoft.com)
+
+## 0.0.0-canary.330
+
+Thu, 24 Jun 2021 05:08:43 GMT
+
+### Changes
+
+- Use older SDK for the purpose of Reunion projection (asklar@microsoft.com)
+- Update V8 package version (tudor.mihai@microsoft.com)
+
+## 0.0.0-canary.329
+
+Wed, 23 Jun 2021 00:22:52 GMT
+
+### Changes
+
+- Create cswinrt projection nuget project (asklar@microsoft.com)
+
+## 0.0.0-canary.328
+
+Tue, 22 Jun 2021 05:07:16 GMT
+
+### Changes
+
+- Have script store return nullptr on facebook::jsi::JSINativeException (julio.rocha@microsoft.com)
+
+## 0.0.0-canary.327
+
+Fri, 18 Jun 2021 05:06:48 GMT
+
+### Changes
+
+- FacadeType extended with None to avoid crash for unsupported values (Bartosz.Klonowski@callstack.com)
+- More cases of *Undefined* are popping up in MsBuild (dannyvv@microsoft.com)
+
+## 0.0.0-canary.326
+
+Thu, 17 Jun 2021 05:07:57 GMT
+
+### Changes
+
+- Fix crash when adding a ReactRootView while reloading a ReactHost (30809111+acoates-ms@users.noreply.github.com)
+- Integrate 6/2 (34109996+chiaramooney@users.noreply.github.com)
+
+## 0.0.0-canary.325
+
+Wed, 16 Jun 2021 05:08:34 GMT
+
+### Changes
+
+- Fix deadlock when rapidly reloading instance (30809111+acoates-ms@users.noreply.github.com)
+- TurboModules might be kept alive by RNH when instance is shutdown (30809111+acoates-ms@users.noreply.github.com)
+
+## 0.0.0-canary.324
+
+Tue, 15 Jun 2021 05:06:39 GMT
+
+### Changes
+
+- Remove JavaScriptMainModuleName and DebugHost (30809111+acoates-ms@users.noreply.github.com)
+
+## 0.0.0-canary.323
+
+Sat, 12 Jun 2021 05:06:29 GMT
+
+### Changes
+
+- Better reporting of failures to load the bundle file (30809111+acoates-ms@users.noreply.github.com)
+- Reduce string conversions when reporting hresult_error (julio.rocha@microsoft.com)
+
+## 0.0.0-canary.322
+
+Fri, 11 Jun 2021 05:08:55 GMT
+
+### Patches
+
+- Bump react-native-platform-override to v1.4.17 (ngerlem@microsoft.com)
+
+### Changes
+
+- fix pipeline casing of x64/x86 as yaml string compare is case sensitive (dannyvv@microsoft.com)
+- Disable test that seems to hang on PR validaton (dannyvv@microsoft.com)
+
+## 0.0.0-canary.321
+
+Thu, 10 Jun 2021 05:10:10 GMT
+
+### Changes
+
+- Fix Microsoft.ReactNative unit tests (vmorozov@microsoft.com)
 
 ## 0.0.0-canary.320
 

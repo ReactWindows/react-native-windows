@@ -1,8 +1,16 @@
 # Change Log - @rnw-scripts/just-task
 
-This log was last generated on Wed, 09 Jun 2021 05:10:07 GMT and should not be manually modified.
+This log was last generated on Fri, 11 Jun 2021 05:08:55 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 2.2.0
+
+Fri, 11 Jun 2021 05:08:55 GMT
+
+### Minor changes
+
+- Allow marking tested packages windowsOnly (ngerlem@microsoft.com)
 
 ## 2.1.3
 

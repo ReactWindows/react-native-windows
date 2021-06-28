@@ -10,4 +10,9 @@ module.exports = {
   project: {
     windows: projectConfig,
   },
+  dependency: {
+    platforms: {
+      windows: projectConfig,
+    }
+  },
 };

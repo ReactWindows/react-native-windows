@@ -71,15 +71,10 @@ jobs:
           restoreSolution: packages/playground/windows/$(SolutionFile)
           verbosityRestore: Detailed # Options: quiet, normal, detailed
 
-      - task: PowerShell@2
-        displayName: Set Up Certificate
-        inputs:
-          targetType: 'inline'
-          script: |
-            $PfxBytes = [System.Convert]::FromBase64String("$(playgroundEncodedKey)")
-            $PfxPath = [System.IO.Path]::GetFullPath( (Join-Path -Path $(Build.SourcesDirectory) -ChildPath playground-Key.pfx) )
-            [System.IO.File]::WriteAllBytes("$PfxPath", $PfxBytes)
-        condition: eq('${{ parameters.BuildEnvironment }}', 'Continuous')
+      - template: ../templates/setup-certificate.yml
+        parameters:
+          buildEnvironment: ${{ parameters.BuildEnvironment }}
+          encodedKey: playgroundEncodedKey
 
       - task: VSBuild@1
         displayName: VSBuild - Playground PR
@@ -116,18 +111,12 @@ jobs:
             /p:PlatformToolset=$(MSBuildPlatformToolset)
             $(BuildWinUI3Properties)
             /p:BaseIntDir=$(BaseIntDir)
-            /p:PackageCertificateKeyFile=$(Build.SourcesDirectory)\playground-Key.pfx
+            /p:PackageCertificateKeyFile=$(Build.SourcesDirectory)\EncodedKey.pfx
         condition: eq('${{ parameters.BuildEnvironment }}', 'Continuous')
 
-      - task: PowerShell@2
-        displayName: Remove Certificate
-        inputs:
-          targetType: 'inline'
-          script: |
-            $PfxPath = Join-Path -Path $(Build.SourcesDirectory) -ChildPath playground-Key.pfx
-            Write-Host $PfxPath
-            Remove-Item -path $PfxPath
-        condition: eq('${{ parameters.BuildEnvironment }}', 'Continuous')
+      - template: ../templates/cleanup-certificate.yml
+        parameters:
+          buildEnvironment: ${{ parameters.BuildEnvironment }}
 
       - powershell: $(Build.SourcesDirectory)/.ado/scripts/TestWACK.ps1 $(BuildPlatform) $(BuildConfiguration) $(Build.StagingDirectory)\WACK
         displayName: Test WACK

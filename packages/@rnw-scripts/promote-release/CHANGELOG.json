@@ -2,6 +2,29 @@
   "name": "@rnw-scripts/promote-release",
   "entries": [
     {
+      "date": "Fri, 11 Jun 2021 05:08:55 GMT",
+      "tag": "@rnw-scripts/promote-release_v1.2.24",
+      "version": "1.2.24",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Bump @rnw-scripts/just-task to v2.2.0",
+            "author": "ngerlem@microsoft.com",
+            "commit": "3d7c8d8fcf14a3cbda83a93c85b0bcf1e4e4f829",
+            "package": "@rnw-scripts/promote-release"
+          }
+        ],
+        "prerelease": [
+          {
+            "comment": "Bump @react-native-windows/package-utils to v0.0.0-canary.20",
+            "author": "ngerlem@microsoft.com",
+            "commit": "3d7c8d8fcf14a3cbda83a93c85b0bcf1e4e4f829",
+            "package": "@rnw-scripts/promote-release"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 09 Jun 2021 05:10:07 GMT",
       "tag": "@rnw-scripts/promote-release_v1.2.23",
       "version": "1.2.23",

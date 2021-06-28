@@ -253,8 +253,8 @@ size_t ReactHost::PendingUnloadActionId() const noexcept {
   return m_pendingUnloadActionId;
 }
 
-bool ReactHost::IsInstanceLoaded() const noexcept {
-  return m_isInstanceLoaded.Load();
+bool ReactHost::IsInstanceUnloading() const noexcept {
+  return m_isInstanceUnloading.Load();
 }
 
 /*static*/ Mso::DispatchQueue ReactHost::EnsureSerialQueue(Mso::DispatchQueue const &queue) noexcept {
@@ -358,8 +358,6 @@ Mso::Future<void> ReactHost::LoadInQueue(ReactOptions &&options) noexcept {
     }
 
     return whenLoaded.AsFuture().Then(m_executor, [this](Mso::Maybe<void> && /*value*/) noexcept {
-      m_isInstanceLoaded.Store(true);
-
       std::vector<Mso::Future<void>> loadCompletionList;
       ForEachViewHost([&loadCompletionList](auto &viewHost) noexcept {
         loadCompletionList.push_back(viewHost.UpdateViewInstanceInQueue());
@@ -382,6 +380,9 @@ Mso::Future<void> ReactHost::UnloadInQueue(size_t unloadActionId) noexcept {
   // Clear the pending unload action Id
   m_pendingUnloadActionId = 0;
 
+  // This allows us to avoid initializing any new ReactViews against the old instance that is being unloaded
+  m_isInstanceUnloading.Store(true);
+
   std::vector<Mso::Future<void>> unloadCompletionList;
   ForEachViewHost([&unloadCompletionList](auto &viewHost) noexcept {
     unloadCompletionList.push_back(viewHost.UninitViewInstanceInQueue(0));
@@ -392,10 +393,10 @@ Mso::Future<void> ReactHost::UnloadInQueue(size_t unloadActionId) noexcept {
   return Mso::WhenAllCompleted(unloadCompletionList).Then(m_executor, [this](Mso::Maybe<void> && /*value*/) noexcept {
     Mso::Future<void> onUnloaded;
     if (auto reactInstance = m_reactInstance.Exchange(nullptr)) {
-      m_isInstanceLoaded.Store(false);
       onUnloaded = reactInstance->Destroy();
     }
 
+    m_isInstanceUnloading.Store(false);
     m_lastError.Store({});
 
     if (!onUnloaded) {
@@ -536,10 +537,10 @@ Mso::Future<void> ReactViewHost::InitViewInstanceInQueue() noexcept {
     return Mso::MakeCanceledFuture();
   }
 
-  //// We cannot load if instance is not loaded.
-  // if (!m_reactHost->IsInstanceLoaded()) {
-  //  return Mso::MakeCanceledFuture();
-  //}
+  // We cannot load if instance is in the process of being unloaded.
+  if (m_reactHost->IsInstanceUnloading()) {
+    return Mso::MakeCanceledFuture();
+  }
 
   // Make sure that we have a ReactInstance
   if (!m_reactHost->Instance()) {

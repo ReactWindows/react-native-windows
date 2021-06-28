@@ -270,20 +270,20 @@
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="$(SolutionDir)packages\boost.1.72.0.0\build\boost.targets" Condition="Exists('$(SolutionDir)packages\boost.1.72.0.0\build\boost.targets')" />
+    <Import Project="$(SolutionDir)packages\boost.1.76.0.0\build\boost.targets" Condition="Exists('$(SolutionDir)packages\boost.1.76.0.0\build\boost.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('$(SolutionDir)packages\boost.1.72.0.0\build\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\boost.1.72.0.0\build\boost.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)packages\boost.1.76.0.0\build\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\boost.1.76.0.0\build\boost.targets'))" />
   </Target>
   <Target Name="DownloadFolly" BeforeTargets="PrepareForBuild">
     <Message Importance="High" Text="Downloading folly..." Condition="!Exists('$(FollyDir)..\.follyzip\folly-$(FollyVersion).zip')" />
-    <DownloadFile Condition="!Exists('$(FollyDir)..\.follyzip\folly-$(FollyVersion).zip')" 
-      SourceUrl="https://github.com/facebook/folly/archive/v$(FollyVersion).zip" 
-      DestinationFileName="folly-$(FollyVersion).zip" 
-      DestinationFolder="$(FollyDir)..\.follyzip" 
+    <DownloadFile Condition="!Exists('$(FollyDir)..\.follyzip\folly-$(FollyVersion).zip')"
+      SourceUrl="https://github.com/facebook/folly/archive/v$(FollyVersion).zip"
+      DestinationFileName="folly-$(FollyVersion).zip"
+      DestinationFolder="$(FollyDir)..\.follyzip"
       Retries="10"/>
   </Target>
   <Target Name="UnzipFolly" BeforeTargets="PrepareForBuild" DependsOnTargets="DownloadFolly">
@@ -294,10 +294,10 @@
     <Message Importance="High" Text="Generating $([MSBuild]::NormalizePath($(FollyDir)..))\cgmanifest.json." Condition="!Exists('$([MSBuild]::NormalizePath($(FollyDir)..))\cgmanifest.json')" />
     <PropertyGroup>
       <CGManifestText>{
-    "Registrations": [ 
+    "Registrations": [
         {
-            "Component": { 
-                "Type": "other", 
+            "Component": {
+                "Type": "other",
                 "Other": {
                   "Name": "folly",
                   "Version": "$(FollyVersion)",

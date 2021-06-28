@@ -39,11 +39,6 @@ namespace Microsoft.ReactNative
       "See @ReactInstanceSettings.UseDeveloperSupport.")
     Boolean UseDeveloperSupport { get; set; };
 
-    // Deprecated - Use JavaScriptBundleFile instead
-    [deprecated("Use @.JavaScriptBundleFile instead", deprecate, 1)]
-    DOC_STRING("See @ReactInstanceSettings.JavaScriptMainModuleName.")
-    String JavaScriptMainModuleName { get; set; };
-
     DOC_STRING("See @ReactInstanceSettings.JavaScriptBundleFile.")
     String JavaScriptBundleFile { get; set; };
   }

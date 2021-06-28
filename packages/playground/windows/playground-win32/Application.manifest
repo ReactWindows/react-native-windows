@@ -5,7 +5,11 @@
     <application> 
       <!--This Id value indicates the application supports Windows 10 functionality -->
       <supportedOS Id="{8e0f7a12-bfb3-4fe8-b9a5-48fd50a15a9a}" />
-      <maxversiontested Id="10.0.19041.0"/>
+      <!-- 
+        WARNING - DO NOT CHANGE THE maxversiontested VALUE 
+        Microsoft internal - see https://task.ms/33672605
+      -->
+      <maxversiontested Id="10.0.18362.0"/>
     </application>
   </compatibility>
 
@@ -14,6 +18,19 @@
     type="winb32"
     version="1.0.0.0" />
 
+  <dependency>
+    <dependentAssembly>
+      <assemblyIdentity
+          type="win32"
+          name="Microsoft.Windows.Common-Controls"
+          version="6.0.0.0"
+          processorArchitecture="*"
+          publicKeyToken="6595b64144ccf1df"
+          language="*"
+        />
+    </dependentAssembly>
+  </dependency>
+  
   <asmv3:application>
     <asmv3:windowsSettings xmlns="http://schemas.microsoft.com/SMI/2016/WindowsSettings">
       <dpiAwareness>PerMonitorV2</dpiAwareness>

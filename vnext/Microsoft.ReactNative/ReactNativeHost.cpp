@@ -113,7 +113,6 @@ IAsyncAction ReactNativeHost::ReloadInstance() noexcept {
   reactOptions.SetUseFastRefresh(m_instanceSettings.UseFastRefresh());
   reactOptions.SetUseLiveReload(m_instanceSettings.UseLiveReload());
   reactOptions.EnableJITCompilation = m_instanceSettings.EnableJITCompilation();
-  reactOptions.DeveloperSettings.DebugHost = to_string(m_instanceSettings.DebugHost());
   reactOptions.BundleRootPath = to_string(m_instanceSettings.BundleRootPath());
   reactOptions.DeveloperSettings.DebuggerPort = m_instanceSettings.DebuggerPort();
   if (m_instanceSettings.RedBoxHandler()) {
@@ -149,13 +148,8 @@ IAsyncAction ReactNativeHost::ReloadInstance() noexcept {
   };
 
   std::string jsBundleFile = to_string(m_instanceSettings.JavaScriptBundleFile());
-  std::string jsMainModuleName = to_string(m_instanceSettings.JavaScriptMainModuleName());
   if (jsBundleFile.empty()) {
-    if (!jsMainModuleName.empty()) {
-      jsBundleFile = jsMainModuleName;
-    } else {
-      jsBundleFile = "index.windows";
-    }
+    jsBundleFile = "index.windows";
   }
 
   reactOptions.Identity = jsBundleFile;

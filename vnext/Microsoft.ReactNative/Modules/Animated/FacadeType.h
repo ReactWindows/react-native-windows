@@ -16,7 +16,10 @@ enum class FacadeType {
   TranslateX,
   TranslateY,
   Perspective,
-  Progress
+  Progress,
+
+  // Indicates the unrecognized/unsupported facade
+  None
 };
 
 inline FacadeType StringToFacadeType(const std::string &value) noexcept {
@@ -40,7 +43,9 @@ inline FacadeType StringToFacadeType(const std::string &value) noexcept {
     return FacadeType::TranslateY;
   if (value == "perspective")
     return FacadeType::Perspective;
+  if (value == "progress")
+    return FacadeType::Progress;
 
-  assert(value == "progress");
-  return FacadeType::Progress;
+  // None of the above facade has been recognized
+  return FacadeType::None;
 }

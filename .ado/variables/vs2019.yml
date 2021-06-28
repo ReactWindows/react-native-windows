@@ -3,7 +3,6 @@ variables:
   AgentPool.Medium: rnw-pool-4
   AgentPool.Large: windevbuildagents
   MSBuildVersion: 16.0
-  GoogleTestAdapterPathExpression: '(Get-ChildItem "${env:ProgramFiles(x86)}\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\Extensions\" -Directory | Where-Object -FilterScript { Test-Path $_\GoogleTestAdapter.Core.dll}).FullName'
   BaseIntDir: $(Agent.HomeDirectory)\BaseIntDir # redirect to C:
   runCodesignValidationInjection: false
   NUGET_PLUGIN_HANDSHAKE_TIMEOUT_IN_SECONDS: 60

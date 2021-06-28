@@ -1,10 +1,4 @@
 steps:
-  # Alerts must always fail the run if EnableCodesign == true, to prevent codesigning
-  - script: |
-      echo ##vso[task.setvariable variable=FailCGOnAlert]true
-    displayName: Set FailCGOnAlert
-    condition: or(eq(variables['FailCGOnAlert'], 'true'), eq(variables['EnableCodesign'], 'true'))
-
   - task: ms.vss-governance-buildtask.governance-build-task-component-detection.ComponentGovernanceComponentDetection@0
     displayName: 'Component Governance Detection'
     inputs:

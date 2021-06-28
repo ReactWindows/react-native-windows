@@ -16,6 +16,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -27,13 +28,25 @@
             VerticalAlignment="Center"
             Grid.Column="0"
             Grid.RowSpan="2"
+            IsCompact="false"
             Click="OnLoadClick"
-            Margin="4"
+        />
+
+        <AppBarButton
+            x:Name="x_UnloadButton"
+            Label="Unload"
+            Icon="Stop"
+            Style="{ThemeResource AppBarButtonRevealStyle}"
+            VerticalAlignment="Center"
+            Grid.Column="1"
+            Grid.RowSpan="2"
+            IsCompact="false"
+            Click="OnUnloadClick"
         />
 
         <Grid
             Grid.Row="0"
-            Grid.Column="1"
+            Grid.Column="2"
             BorderThickness="1,0,0,0"
             BorderBrush="{ThemeResource SystemBaseMediumColor}">
             <Grid.ColumnDefinitions>
@@ -101,7 +114,7 @@
 
         <StackPanel
             Grid.Row="1"
-            Grid.Column="1"
+            Grid.Column="2"
             Orientation="Horizontal"
             BorderThickness="1,0,0,0"
             BorderBrush="{ThemeResource SystemBaseMediumColor}">
@@ -166,7 +179,7 @@
             BorderThickness="0,1,0,0"
             BorderBrush="{ThemeResource SystemBaseMediumColor}"
             Grid.Row="3"
-            Grid.ColumnSpan="2"
+            Grid.ColumnSpan="3"
             />
     </Grid>
 </Page>

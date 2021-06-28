@@ -91,7 +91,7 @@ const argv = yargs
     useHermes: {
       type: 'boolean',
       describe:
-        'Use Hermes instead of Chakra as the JS engine (supported on 0.64+)',
+        '[Experimental] Use Hermes instead of Chakra as the JS engine (supported on 0.64+ for C++ projects)',
       default: false,
     },
     useWinUI3: {
@@ -432,6 +432,14 @@ function isProjectUsingYarn(cwd: string): boolean {
         'IncompatibleOptions',
         "Error: Incompatible options specified. Options '--useHermes' and '--experimentalNuGetDependency' are incompatible",
         {detail: 'useHermes and experimentalNuGetDependency'},
+      );
+    }
+
+    if (argv.useHermes && argv.language === 'cs') {
+      throw new CodedError(
+        'IncompatibleOptions',
+        "Error: Incompatible options specified. Options '--useHermes' and '--language cs' are incompatible",
+        {detail: 'useHermes and C#'},
       );
     }
 

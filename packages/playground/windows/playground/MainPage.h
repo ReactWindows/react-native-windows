@@ -7,6 +7,7 @@ struct MainPage : MainPageT<MainPage> {
   MainPage();
 
   void OnLoadClick(Windows::Foundation::IInspectable const & /*sender*/, xaml::RoutedEventArgs const & /*args*/);
+  void OnUnloadClick(Windows::Foundation::IInspectable const & /*sender*/, xaml::RoutedEventArgs const & /*args*/);
 
  private:
   Microsoft::ReactNative::ReactNativeHost Host() noexcept;

@@ -1,8 +1,16 @@
 # Change Log - @react-native-windows/codegen
 
-This log was last generated on Wed, 09 Jun 2021 05:10:07 GMT and should not be manually modified.
+This log was last generated on Fri, 11 Jun 2021 05:08:55 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.0.0-canary.9
+
+Fri, 11 Jun 2021 05:08:55 GMT
+
+### Patches
+
+- Bump @rnw-scripts/just-task to v2.2.0 (ngerlem@microsoft.com)
 
 ## 0.0.0-canary.8
 

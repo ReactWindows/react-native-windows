@@ -82,11 +82,6 @@ namespace Microsoft.ReactNative
       "In particular, it enables the developer menu, the default `RedBox` and `LogBox` experience.")
     Boolean UseDeveloperSupport { get; set; };
 
-    // Deprecated - use JavaScriptBundleFile instead
-    [deprecated("Use @.JavaScriptBundleFile instead. It will be removed in version 0.65.", deprecate, 1)]
-    DOC_STRING("Name of the JavaScript bundle file. If @.JavaScriptBundleFile is specified it is used instead.")
-    String JavaScriptMainModuleName { get; set; };
-
     DOC_STRING(
       "The name of the JavaScript bundle file to load. This should be a relative path from @.BundleRootPath. "
       "The `.bundle` extension will be appended to the end, when looking for the bundle file.")
@@ -155,19 +150,9 @@ namespace Microsoft.ReactNative
       "**Note that currently the byte code generation is not implemented for UWP applications.**")
     String ByteCodeFileUri { get; set; };
 
-    // Deprecated
-    [deprecated(
-      "This has been replaced with @.SourceBundleHost and @.SourceBundlePort and will be removed in version 0.65.",
-      deprecate, 1)]
-    DOC_STRING(
-      "When using a @.UseFastRefresh, @.UseLiveReload or @.UseWebDebugger this is the server that will be "
-      "used to load the bundle from.")
-    DOC_DEFAULT("localhost:8081")
-    String DebugHost { get; set; };
-
     DOC_STRING(
       "When loading from a bundle server (such as metro), this is the path that will be requested from the server. "
-      "If this is not provided the value of @.JavaScriptBundleFile or @.JavaScriptMainModuleName is used.")
+      "If this is not provided, the value of @.JavaScriptBundleFile is used.")
     String DebugBundlePath { get; set; };
 
     DOC_STRING("Base path used for the location of the bundle.")

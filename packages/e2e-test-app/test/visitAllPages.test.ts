@@ -7,70 +7,27 @@
 
 import {goToComponentExample, goToApiExample} from './framework';
 
+type RNTesterExampleModule = {
+  title: string;
+  description: string;
+};
+
+type RNTesterExample = {
+  key: string;
+  module: RNTesterExampleModule;
+};
+
+type RNTesterList = {
+  APIExamples: RNTesterExample[];
+  ComponentExamples: RNTesterExample[];
+};
+
+const testerList: RNTesterList = require('@react-native-windows/tester/js/utils/RNTesterList');
+
+const apiExamples = testerList.APIExamples.map(e => e.module.title);
+const componentExamples = testerList.ComponentExamples.map(e => e.module.title);
+
 describe('visitAllPages', () => {
-  const componentExamples = [
-    'ActivityIndicator',
-    'Button',
-    'DatePicker',
-    'Fast Path Texts',
-    'FlatList',
-    'FlatList with Separators',
-    'FlatList onViewableItemsChanged',
-    'FlatList onEndReached',
-    'Flyout',
-    'Glyph UWP',
-    'Image',
-    //  'FlatList - MultiColumn',
-    'New App Screen',
-    'PickerWindows',
-    'Pressable',
-    'Popup',
-    'ScrollViewSimpleExample',
-    //  'SectionList',
-    'Switch',
-    'Text',
-    'TextInput',
-    //'Touchable* and onPress',
-    'TransferProperties',
-    'TransparentHitTestExample',
-    'View',
-    //  'LegacyControlStyleTest',
-    //  'LegacyTextInputTest',
-    //  'LegacyLoginTest',
-    //  'LegacyImageTest',
-  ];
-
-  const apiExamples = [
-    'Keyboard Focus Example',
-    'Accessibility',
-    'AccessibilityInfo',
-    'Accessibility Windows',
-    'AsyncStorage Windows',
-    'Alerts',
-    'Animated - Examples',
-    'Animated - Gratuitous App',
-    'Appearance',
-    'AppState',
-    'Border',
-    'Crash',
-    'DevSettings',
-    'Dimensions',
-    'Keyboard',
-    'Layout Events',
-    'Linking',
-    'Layout - Flexbox',
-    'Mouse Events',
-    'Native Animated Example',
-    'PanResponder Sample',
-    'PlatformColor',
-    'Pointer Events',
-    'RTLExample',
-    'Share',
-    'Timers',
-    'WebSocket',
-    'Transforms',
-  ];
-
   for (const component of componentExamples) {
     test(component, async () => await goToComponentExample(component));
   }

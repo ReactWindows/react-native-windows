@@ -22,9 +22,8 @@ jobs:
       - script: yarn build
         displayName: yarn build
 
-      - script: yarn test --color
-        displayName: Test react-native-platform-override
-        workingDirectory: packages/react-native-platform-override
+      - script: yarn test
+        displayName: yarn test
 
       - script: yarn validate-overrides
         displayName: yarn validate-overrides

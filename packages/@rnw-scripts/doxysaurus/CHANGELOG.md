@@ -1,8 +1,16 @@
 # Change Log - @rnw-scripts/doxysaurus
 
-This log was last generated on Wed, 09 Jun 2021 05:10:07 GMT and should not be manually modified.
+This log was last generated on Fri, 11 Jun 2021 05:08:55 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.1.6
+
+Fri, 11 Jun 2021 05:08:55 GMT
+
+### Patches
+
+- Bump @rnw-scripts/just-task to v2.2.0 (ngerlem@microsoft.com)
 
 ## 0.1.5
 

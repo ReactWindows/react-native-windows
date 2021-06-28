@@ -140,7 +140,15 @@ export function findDependencyProjectFiles(winFolder: string): string[] {
 
   // Try to find any project file that appears to be a dependency project
   for (const projectFile of allProjects) {
-    if (isRnwDependencyProject(path.join(winFolder, projectFile))) {
+    // A project is marked as a RNW dependency iff either:
+    // - If the project has the standard native module imports, or
+    // - If we only have a single project (and it doesn't have the standard native module imports),
+    // pick it and hope for the best. This enables autolinking for modules that were written
+    // before the standard native module template existed.
+    if (
+      allProjects.length === 1 ||
+      isRnwDependencyProject(path.join(winFolder, projectFile))
+    ) {
       dependencyProjectFiles.push(path.normalize(projectFile));
     }
   }
@@ -281,6 +289,92 @@ export function importProjectExists(
   );
 
   return nodes.length > 0;
+}
+
+export type ConfigurationType =
+  | 'application'
+  | 'dynamiclibrary'
+  | 'generic'
+  | 'staticlibrary'
+  | 'unknown';
+
+/**
+ * Gets the configuration type of the project from the project contents.
+ * @param projectContents The XML project contents.
+ * @return The project configuration type.
+ */
+export function getConfigurationType(projectContents: Node): ConfigurationType {
+  const configurationType = tryFindPropertyValue(
+    projectContents,
+    'ConfigurationType',
+  )?.toLowerCase();
+
+  switch (configurationType) {
+    case 'application':
+    case 'dynamiclibrary':
+    case 'generic':
+    case 'staticlibrary':
+      return configurationType;
+
+    default:
+      return 'unknown';
+  }
+}
+
+export type OutputType =
+  | 'appcontainerexe'
+  | 'exe'
+  | 'library'
+  | 'module'
+  | 'unknown'
+  | 'winexe'
+  | 'winmdobj';
+
+/**
+ * Gets the output type of the project from the project contents.
+ * @param projectContents The XML project contents.
+ * @return The project output type.
+ */
+export function getOutputType(projectContents: Node): OutputType {
+  const outputType = tryFindPropertyValue(
+    projectContents,
+    'OutputType',
+  )?.toLowerCase();
+
+  switch (outputType) {
+    case 'appcontainerexe':
+    case 'exe':
+    case 'library':
+    case 'module':
+    case 'winexe':
+    case 'winmdobj':
+      return outputType;
+
+    default:
+      return 'unknown';
+  }
+}
+
+/**
+ * Gets the type of the project from the project contents.
+ * @param projectPath The project file path to check.
+ * @param projectContents The XML project contents.
+ * @return The project type.
+ */
+export function getProjectType(
+  projectPath: string,
+  projectContents: Node,
+): ConfigurationType | OutputType {
+  switch (getProjectLanguage(projectPath)) {
+    case 'cpp':
+      return getConfigurationType(projectContents);
+
+    case 'cs':
+      return getOutputType(projectContents);
+
+    default:
+      return 'unknown';
+  }
 }
 
 /**

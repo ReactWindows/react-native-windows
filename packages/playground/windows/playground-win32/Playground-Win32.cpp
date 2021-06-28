@@ -55,8 +55,7 @@ struct WindowData {
   winrt::Microsoft::ReactNative::ReactInstanceSettings m_instanceSettings{nullptr};
 
   bool m_useWebDebugger{true};
-  bool m_liveReloadEnabled{true};
-  bool m_reuseInstance{true};
+  bool m_fastRefreshEnabled{true};
   bool m_useDirectDebugger{false};
   bool m_breakOnNextLine{false};
   uint16_t m_debuggerPort{defaultDebuggerPort};
@@ -104,7 +103,7 @@ struct WindowData {
           host.InstanceSettings().BundleRootPath(
               std::wstring(L"file:").append(workingDir).append(L"\\Bundle\\").c_str());
           host.InstanceSettings().DebuggerBreakOnNextLine(m_breakOnNextLine);
-          host.InstanceSettings().UseFastRefresh(m_liveReloadEnabled);
+          host.InstanceSettings().UseFastRefresh(m_fastRefreshEnabled);
           host.InstanceSettings().DebuggerPort(m_debuggerPort);
           host.InstanceSettings().UseDeveloperSupport(true);
 
@@ -146,9 +145,11 @@ struct WindowData {
         PostQuitMessage(0);
         break;
       case IDM_REFRESH:
+        Host().ReloadInstance();
         break;
       case IDM_SETTINGS:
         DialogBoxParam(s_instance, MAKEINTRESOURCE(IDD_SETTINGSBOX), hwnd, &Settings, reinterpret_cast<INT_PTR>(this));
+        break;
     }
 
     return 0;
@@ -249,8 +250,7 @@ struct WindowData {
         auto boolToCheck = [](bool b) { return b ? BST_CHECKED : BST_UNCHECKED; };
         auto self = reinterpret_cast<WindowData *>(lparam);
         CheckDlgButton(hwnd, IDC_WEBDEBUGGER, boolToCheck(self->m_useWebDebugger));
-        CheckDlgButton(hwnd, IDC_LIVERELOAD, boolToCheck(self->m_liveReloadEnabled));
-        CheckDlgButton(hwnd, IDC_REUSEINSTANCE, boolToCheck(self->m_reuseInstance));
+        CheckDlgButton(hwnd, IDC_FASTREFRESH, boolToCheck(self->m_fastRefreshEnabled));
         CheckDlgButton(hwnd, IDC_DIRECTDEBUGGER, boolToCheck(self->m_useDirectDebugger));
         CheckDlgButton(hwnd, IDC_BREAKONNEXTLINE, boolToCheck(self->m_breakOnNextLine));
 
@@ -271,8 +271,7 @@ struct WindowData {
           case IDOK: {
             auto self = GetFromWindow(GetParent(hwnd));
             self->m_useWebDebugger = IsDlgButtonChecked(hwnd, IDC_WEBDEBUGGER) == BST_CHECKED;
-            self->m_liveReloadEnabled = IsDlgButtonChecked(hwnd, IDC_LIVERELOAD) == BST_CHECKED;
-            self->m_reuseInstance = IsDlgButtonChecked(hwnd, IDC_REUSEINSTANCE) == BST_CHECKED;
+            self->m_fastRefreshEnabled = IsDlgButtonChecked(hwnd, IDC_FASTREFRESH) == BST_CHECKED;
             self->m_useDirectDebugger = IsDlgButtonChecked(hwnd, IDC_DIRECTDEBUGGER) == BST_CHECKED;
             self->m_breakOnNextLine = IsDlgButtonChecked(hwnd, IDC_BREAKONNEXTLINE) == BST_CHECKED;
 

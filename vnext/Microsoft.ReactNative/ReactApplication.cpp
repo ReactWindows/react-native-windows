@@ -85,14 +85,6 @@ void ReactApplication::UseDeveloperSupport(bool value) noexcept {
   InstanceSettings().UseDeveloperSupport(value);
 }
 
-hstring ReactApplication::JavaScriptMainModuleName() noexcept {
-  return InstanceSettings().JavaScriptMainModuleName();
-}
-
-void ReactApplication::JavaScriptMainModuleName(hstring const &value) noexcept {
-  InstanceSettings().JavaScriptMainModuleName(value);
-}
-
 hstring ReactApplication::JavaScriptBundleFile() noexcept {
   return InstanceSettings().JavaScriptBundleFile();
 }

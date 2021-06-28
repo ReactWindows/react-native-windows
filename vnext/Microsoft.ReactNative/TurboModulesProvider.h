@@ -30,7 +30,6 @@ class TurboModulesProvider final : public facebook::react::TurboModuleRegistry {
 
  private:
   std::unordered_map<std::string, ReactModuleProvider> m_moduleProviders;
-  std::unordered_map<std::pair<std::string, CallInvokerPtr>, TurboModulePtr> m_cachedModules;
   IReactContext m_reactContext;
 };
 

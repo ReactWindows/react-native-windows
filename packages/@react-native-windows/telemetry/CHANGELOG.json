@@ -2,6 +2,44 @@
   "name": "@react-native-windows/telemetry",
   "entries": [
     {
+      "date": "Sat, 26 Jun 2021 05:06:48 GMT",
+      "tag": "@react-native-windows/telemetry_v0.0.0-canary.22",
+      "version": "0.0.0-canary.22",
+      "comments": {
+        "prerelease": [
+          {
+            "comment": "Upgrade to boost 1.76.0.0",
+            "author": "julio.rocha@microsoft.com",
+            "commit": "50e13c8cc7938d38bb19ca96225b5a85955c5ae5",
+            "package": "@react-native-windows/telemetry"
+          }
+        ]
+      }
+    },
+    {
+      "date": "Fri, 11 Jun 2021 05:08:55 GMT",
+      "tag": "@react-native-windows/telemetry_v0.0.0-canary.21",
+      "version": "0.0.0-canary.21",
+      "comments": {
+        "prerelease": [
+          {
+            "comment": "Mark windowsOnly",
+            "author": "ngerlem@microsoft.com",
+            "commit": "3d7c8d8fcf14a3cbda83a93c85b0bcf1e4e4f829",
+            "package": "@react-native-windows/telemetry"
+          }
+        ],
+        "patch": [
+          {
+            "comment": "Bump @rnw-scripts/just-task to v2.2.0",
+            "author": "ngerlem@microsoft.com",
+            "commit": "3d7c8d8fcf14a3cbda83a93c85b0bcf1e4e4f829",
+            "package": "@react-native-windows/telemetry"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 09 Jun 2021 05:10:07 GMT",
       "tag": "@react-native-windows/telemetry_v0.0.0-canary.20",
       "version": "0.0.0-canary.20",

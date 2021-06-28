@@ -41,6 +41,36 @@ const projects: TargetProject[] = [
     const windowsDir = path.join(folder, 'windows');
     await tryMkdir(windowsDir);
   }),
+  // New C++ app project based on the template
+  project('SimpleCppApp', async (folder: string) => {
+    const windowsDir = path.join(folder, 'windows');
+    await tryMkdir(windowsDir);
+
+    const replacements = {
+      name: 'SimpleCppApp',
+      namespace: 'SimpleCppApp',
+      useMustache: true,
+      projectGuidUpper: testProjectGuid,
+      projectGuidLower: testProjectGuid.toLowerCase(),
+    };
+
+    await copyAndReplace(
+      path.join(templateRoot, 'cpp-app/proj/MyApp.sln'),
+      path.join(windowsDir, 'SimpleCppApp.sln'),
+      replacements,
+      null,
+    );
+
+    const projDir = path.join(windowsDir, 'SimpleCppApp');
+    await tryMkdir(projDir);
+
+    await copyAndReplace(
+      path.join(templateRoot, 'cpp-app/proj/MyApp.vcxproj'),
+      path.join(projDir, 'SimpleCppApp.vcxproj'),
+      replacements,
+      null,
+    );
+  }),
   // New C++ project based on the template
   project('SimpleCppLib', async (folder: string) => {
     const windowsDir = path.join(folder, 'windows');
@@ -67,6 +97,36 @@ const projects: TargetProject[] = [
     await copyAndReplace(
       path.join(templateRoot, 'cpp-lib/proj/MyLib.vcxproj'),
       path.join(projDir, 'SimpleCppLib.vcxproj'),
+      replacements,
+      null,
+    );
+  }),
+  // New C# app project based on the template
+  project('SimpleCSharpApp', async (folder: string) => {
+    const windowsDir = path.join(folder, 'windows');
+    await tryMkdir(windowsDir);
+
+    const replacements = {
+      name: 'SimpleCSharpApp',
+      namespace: 'SimpleCSharpApp',
+      useMustache: true,
+      projectGuidUpper: testProjectGuid,
+      projectGuidLower: testProjectGuid.toLowerCase(),
+    };
+
+    await copyAndReplace(
+      path.join(templateRoot, 'cs-app/proj/MyApp.sln'),
+      path.join(windowsDir, 'SimpleCSharpApp.sln'),
+      replacements,
+      null,
+    );
+
+    const projDir = path.join(windowsDir, 'SimpleCSharpApp');
+    await tryMkdir(projDir);
+
+    await copyAndReplace(
+      path.join(templateRoot, 'cs-app/proj/MyApp.csproj'),
+      path.join(projDir, 'SimpleCSharpApp.csproj'),
       replacements,
       null,
     );
@@ -137,6 +197,17 @@ test.each(projects)(
 
     if (name === 'BlankLib') {
       expect(dependencyConfigWindows(folder, userConfig)).toMatchSnapshot();
+    } else if (name.endsWith('App')) {
+      expect(dependencyConfigWindows(folder, userConfig)).toMatchSnapshot({
+        folder: expect.stringContaining(name),
+        projects: expect.arrayContaining([
+          expect.objectContaining({
+            projectFile: expect.stringMatching(
+              /Error: .*\.(?:cs|vcx)proj is type '\w+'/,
+            ),
+          }),
+        ]),
+      });
     } else {
       expect(dependencyConfigWindows(folder, userConfig)).toMatchSnapshot({
         folder: expect.stringContaining(name),
@@ -159,6 +230,17 @@ test.each(projects)(
 
     if (name === 'BlankLib') {
       expect(dependencyConfigWindows(folder, userConfig)).toMatchSnapshot();
+    } else if (name.endsWith('App')) {
+      expect(dependencyConfigWindows(folder, userConfig)).toMatchSnapshot({
+        folder: expect.stringContaining(name),
+        projects: expect.arrayContaining([
+          expect.objectContaining({
+            projectFile: expect.stringMatching(
+              /Error: .*\.(?:cs|vcx)proj is type '\w+'/,
+            ),
+          }),
+        ]),
+      });
     } else {
       expect(dependencyConfigWindows(folder, userConfig)).toMatchSnapshot({
         folder: expect.stringContaining(name),

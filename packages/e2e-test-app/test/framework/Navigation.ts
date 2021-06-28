@@ -26,7 +26,7 @@ export async function goToApiExample(example: string) {
 async function goToExample(example: string) {
   // Filter the list down to the one test, to improve the stability of selectors
   const searchBox = await $('~explorer_search');
-  await searchBox.setValue(example);
+  await searchBox.setValue(regexEscape(example));
 
   const exampleButton = await $(`~${example}`);
   await exampleButton.click();
@@ -37,4 +37,8 @@ async function goToExample(example: string) {
   await browser.waitUntil(async () => !(await exampleButton.isDisplayed()));
   const componentsTab = await $('~components-tab');
   expect(await componentsTab.isDisplayed()).toBe(true);
+}
+
+function regexEscape(str: string): string {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }

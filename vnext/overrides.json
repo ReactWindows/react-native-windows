@@ -5,20 +5,22 @@
     "src/**",
     "ReactCommon/TEMP_UntilReactCommonUpdate/**"
   ],
-  "excludePatterns": [],
-  "baseVersion": "0.0.0-b2ec89fdf",
+  "excludePatterns": [
+    "**/__snapshots__/**"
+  ],
+  "baseVersion": "0.0.0-0d32aef3a",
   "overrides": [
     {
       "type": "derived",
       "file": ".flowconfig",
       "baseFile": ".flowconfig",
-      "baseHash": "d1aa1043bb0f92bda99d69376c385189ce35a406"
+      "baseHash": "a5b0a0d2669d5d35a548c3990577a2e9c5d861b4"
     },
     {
       "type": "patch",
       "file": "Microsoft.ReactNative/Fabric/platform/react/renderer/graphics/Color.cpp",
       "baseFile": "ReactCommon/react/renderer/graphics/platform/cxx/react/renderer/graphics/Color.cpp",
-      "baseHash": "72f43acae8d5d34ed0607636008ff2618b5c734f",
+      "baseHash": "82efd0f5b8a1b8500c1f6f75fff5e2e16050d176",
       "issue": 7821
     },
     {
@@ -32,21 +34,21 @@
       "type": "patch",
       "file": "Microsoft.ReactNative/Fabric/platform/react/renderer/graphics/platform/cxx/react/renderer/graphics/Color.h",
       "baseFile": "ReactCommon/react/renderer/graphics/platform/cxx/react/renderer/graphics/Color.h",
-      "baseHash": "93c4d57329747bec83201898ba807d0a23700570",
+      "baseHash": "6951c3418c9aed3ab5f0378a168289968c02aef0",
       "issue": 7821
     },
     {
       "type": "patch",
       "file": "ReactCommon/Yoga.cpp",
       "baseFile": "ReactCommon/yoga/yoga/Yoga.cpp",
-      "baseHash": "3f51ae8019101312e47fb4dcbbb57fa609c6dd3a",
+      "baseHash": "7fb642367afa73af956c2d8f918826c4a859fa89",
       "issue": 3994
     },
     {
       "type": "copy",
       "directory": "ReactCopies/IntegrationTests",
       "baseDirectory": "IntegrationTests",
-      "baseHash": "229b98d24f76d2cbd843f1943466deaeb27f2378",
+      "baseHash": "73733ea2ee0afadd1d153c05030374f2bc492624",
       "issue": 4054
     },
     {
@@ -97,6 +99,12 @@
       "file": "src/IntegrationTests/XHRTest.js"
     },
     {
+      "type": "copy",
+      "file": "src/Libraries/.npmignore",
+      "baseFile": "Libraries/.npmignore",
+      "baseHash": "41a5e3a8e06cac85f71510c4e7e6c50a6850f86f"
+    },
+    {
       "type": "patch",
       "file": "src/Libraries/Alert/Alert.windows.js",
       "baseFile": "Libraries/Alert/Alert.js",
@@ -128,7 +136,7 @@
       "type": "patch",
       "file": "src/Libraries/Components/Button.windows.js",
       "baseFile": "Libraries/Components/Button.js",
-      "baseHash": "895b68c5ed03f3a14737b46331392456692e8d29"
+      "baseHash": "48a11d8a7d56c3c33d8e72d735e6f1bf92c6ff3e"
     },
     {
       "type": "platform",
@@ -190,7 +198,7 @@
       "type": "patch",
       "file": "src/Libraries/Components/Picker/Picker.windows.js",
       "baseFile": "Libraries/Components/Picker/Picker.js",
-      "baseHash": "d372e77003167f0778add4d401252ae59ac3938a",
+      "baseHash": "8dfd55bb237e9a96ed913e33dfbf407d90b408f8",
       "issue": 4611
     },
     {
@@ -344,6 +352,48 @@
       "baseFile": "Libraries/Image/Image.ios.js",
       "baseHash": "c20b0134e74a8e8d69d0b2694b4296fe2bf69d3f",
       "issue": 4590
+    },
+    {
+      "type": "copy",
+      "file": "src/Libraries/Lists/__tests__/FillRateHelper-test.js",
+      "baseFile": "Libraries/Lists/__tests__/FillRateHelper-test.js",
+      "baseHash": "3bb080ba811b837f69c82bc609fb6b328c20bd6d"
+    },
+    {
+      "type": "copy",
+      "file": "src/Libraries/Lists/__tests__/FlatList-test.js",
+      "baseFile": "Libraries/Lists/__tests__/FlatList-test.js",
+      "baseHash": "88824e737ffe548ce9cbe56fe84973bed8f73884"
+    },
+    {
+      "type": "copy",
+      "file": "src/Libraries/Lists/__tests__/SectionList-test.js",
+      "baseFile": "Libraries/Lists/__tests__/SectionList-test.js",
+      "baseHash": "e930bdfd0c4be6b06d156099fb2f7efe903c3644"
+    },
+    {
+      "type": "copy",
+      "file": "src/Libraries/Lists/__tests__/ViewabilityHelper-test.js",
+      "baseFile": "Libraries/Lists/__tests__/ViewabilityHelper-test.js",
+      "baseHash": "f23a66cfc475ee1e2eda1065e56e05e547b7030e"
+    },
+    {
+      "type": "copy",
+      "file": "src/Libraries/Lists/__tests__/VirtualizedList-test.js",
+      "baseFile": "Libraries/Lists/__tests__/VirtualizedList-test.js",
+      "baseHash": "fd25fc611f8da21b93e7f8750d8f2fc8273a4a52"
+    },
+    {
+      "type": "copy",
+      "file": "src/Libraries/Lists/__tests__/VirtualizedSectionList-test.js",
+      "baseFile": "Libraries/Lists/__tests__/VirtualizedSectionList-test.js",
+      "baseHash": "c258bcae6ee2ded65303e0c5099d20b0569f400f"
+    },
+    {
+      "type": "copy",
+      "file": "src/Libraries/Lists/__tests__/VirtualizeUtils-test.js",
+      "baseFile": "Libraries/Lists/__tests__/VirtualizeUtils-test.js",
+      "baseHash": "b0ff4ee36692d119b7bd7a50a770813e8b96153c"
     },
     {
       "type": "platform",

@@ -89,7 +89,10 @@ void PropsAnimatedNode::UpdateView() {
           MakeAnimation(styleEntry.second, styleEntry.first);
         }
       } else if (const auto &valueNode = manager->GetValueAnimatedNode(entry.second)) {
-        MakeAnimation(entry.second, StringToFacadeType(entry.first));
+        const auto &facade = StringToFacadeType(entry.first);
+        if (facade != FacadeType::None) {
+          MakeAnimation(entry.second, facade);
+        }
       }
     }
   }

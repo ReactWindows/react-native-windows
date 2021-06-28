@@ -1,6 +1,6 @@
 {
   "name": "@react-native-windows/cli",
-  "version": "0.0.0-canary.74",
+  "version": "0.0.0-canary.80",
   "license": "MIT",
   "main": "lib-commonjs/index.js",
   "repository": {
@@ -17,8 +17,8 @@
     "watch": "rnw-scripts watch"
   },
   "dependencies": {
-    "@react-native-windows/package-utils": "^0.0.0-canary.19",
-    "@react-native-windows/telemetry": "^0.0.0-canary.20",
+    "@react-native-windows/package-utils": "^0.0.0-canary.20",
+    "@react-native-windows/telemetry": "^0.0.0-canary.22",
     "chalk": "^4.1.0",
     "cli-spinners": "^2.2.0",
     "envinfo": "^7.5.0",
@@ -41,7 +41,7 @@
     "@react-native-community/cli-types": "^5.0.1-alpha.0",
     "@rnw-scripts/eslint-config": "1.1.7",
     "@rnw-scripts/jest-unittest-config": "1.2.3",
-    "@rnw-scripts/just-task": "2.1.3",
+    "@rnw-scripts/just-task": "2.2.0",
     "@rnw-scripts/ts-config": "2.0.0",
     "@types/chalk": "^2.2.0",
     "@types/jest": "^26.0.20",
@@ -74,5 +74,6 @@
       "patch"
     ]
   },
-  "promoteRelease": true
+  "promoteRelease": true,
+  "windowsOnly": true
 }

@@ -164,11 +164,11 @@ shared_ptr<IWebSocketResource> WebSocketModule::GetOrCreateWebSocket(int64_t id,
     }
     catch (const winrt::hresult_error& e)
     {
-      std::wstringstream ss;
-      ss << L"[" << std::hex << std::showbase << std::setw(8) << static_cast<uint32_t>(e.code()) << L"] " << e.message().c_str();
-      string message{winrt::to_string(ss.str()).c_str()};
+      std::stringstream ss;
+      ss << "[" << std::hex << std::showbase << std::setw(8) << static_cast<uint32_t>(e.code()) << "] " <<
+        winrt::to_string(e.message());
 
-      SendEvent("webSocketFailed", dynamic::object("id", id)("message", std::move(message)));
+      SendEvent("webSocketFailed", dynamic::object("id", id)("message", std::move(ss.str())));
 
       return nullptr;
     }

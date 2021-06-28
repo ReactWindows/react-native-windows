@@ -7,6 +7,14 @@
 namespace facebook {
 namespace react {
 
+bool isColorMeaningful(SharedColor const &color) noexcept {
+  if (!color) {
+    return false;
+  }
+
+  return colorComponentsFromColor(color).alpha > 0;
+}
+
 xaml::Media::Brush SharedColor::AsWindowsBrush() const {
   if (!m_color)
     return nullptr;

@@ -19,8 +19,12 @@ stages:
       - template: jobs/desktop.yml
         parameters:
           buildEnvironment: ${{ parameters.buildEnvironment }}
-  
+
       - template: jobs/nuget-desktop.yml
+
+      - template: jobs/project-reunion.yml
+        parameters:
+          buildEnvironment: ${{ parameters.buildEnvironment }}
 
       - template: jobs/cli-init.yml
         parameters:

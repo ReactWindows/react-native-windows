@@ -52,6 +52,7 @@ void V8JSIRuntimeHolder::initRuntime() noexcept {
 
   args.flags.enableInspector = useDirectDebugger_;
   args.flags.waitForDebugger = debuggerBreakOnNextLine_;
+  args.debuggerRuntimeName = debuggerRuntimeName_;
 
   args.foreground_task_runner = std::make_shared<TaskRunnerAdapter>(jsQueue_);
   args.preparedScriptStore = std::move(preparedScriptStore_);

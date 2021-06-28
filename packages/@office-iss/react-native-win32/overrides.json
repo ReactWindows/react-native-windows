@@ -3,13 +3,13 @@
     ".flowconfig",
     "src/**"
   ],
-  "baseVersion": "0.0.0-b2ec89fdf",
+  "baseVersion": "0.0.0-0d32aef3a",
   "overrides": [
     {
       "type": "derived",
       "file": ".flowconfig",
       "baseFile": ".flowconfig",
-      "baseHash": "d1aa1043bb0f92bda99d69376c385189ce35a406"
+      "baseHash": "a5b0a0d2669d5d35a548c3990577a2e9c5d861b4"
     },
     {
       "type": "derived",
@@ -279,7 +279,7 @@
       "type": "patch",
       "file": "src/Libraries/Inspector/Inspector.win32.js",
       "baseFile": "Libraries/Inspector/Inspector.js",
-      "baseHash": "fb36e8419f4cb0b358505e991d59e1dc938432f9"
+      "baseHash": "356c1439a84636333d253a385470b9cf4d0311b7"
     },
     {
       "type": "patch",
@@ -326,6 +326,22 @@
     {
       "type": "platform",
       "file": "src/Libraries/PersonaCoin/PersonaCoinTypes.ts"
+    },
+    {
+      "type": "platform",
+      "file": "src/Libraries/QuirkSettings/CachingNativeQuirkSettings.js"
+    },
+    {
+      "type": "platform",
+      "file": "src/Libraries/QuirkSettings/NativeQuirkSettings.js"
+    },
+    {
+      "type": "platform",
+      "file": "src/Libraries/QuirkSettings/Quirks.js"
+    },
+    {
+      "type": "platform",
+      "file": "src/Libraries/QuirkSettings/QuirkSettings.js"
     },
     {
       "type": "derived",

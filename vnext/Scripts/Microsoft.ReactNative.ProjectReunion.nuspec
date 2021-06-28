@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Microsoft.ReactNative.ProjectReunion</id>
+    <projectUrl>https://github.com/microsoft/react-native-windows</projectUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <copyright>&#169; Microsoft Corporation. All rights reserved.</copyright>
+    <repository type="git"
+      url="https://github.com/microsoft/react-native-windows.git"
+      commit="$CommitId$" />
+    <tags>react react-native react-native-windows microsoft c c++ cpp c# csharp reunion projectreunion</tags>
+    <version>$version$</version>
+    <authors>Microsoft</authors>
+    <description>React Native for Windows for Project Reunion apps</description>
+    <dependencies>
+      <group targetFramework=".NETCoreApp3.0" />
+      <group targetFramework="UAP10.0" />
+      <group targetFramework=".NETFramework4.6" />
+      <group targetFramework="net5.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <!-- Support netcore3, uap, net46+, net5, c++ -->
+    <!-- Use the contents in the target folder since those are built with UseWinUI3, as opposed to the content in $nugetroot$ which -->
+    <file src="$nugetroot$\reunion\$baseplatform$\$baseconfiguration$\Microsoft.ReactNative\Microsoft.ReactNative.winmd" target="lib\netcoreapp3.0\Microsoft.ReactNative.winmd" />
+    <file src="$nugetroot$\reunion\$baseplatform$\$baseconfiguration$\Microsoft.ReactNative\Microsoft.ReactNative.winmd" target="lib\uap10.0\Microsoft.ReactNative.winmd" />
+    <file src="$nugetroot$\reunion\$baseplatform$\$baseconfiguration$\Microsoft.ReactNative\Microsoft.ReactNative.winmd" target="lib\net46\Microsoft.ReactNative.winmd" />
+    <file src="$nugetroot$\reunion\$baseplatform$\$baseconfiguration$\Microsoft.ReactNative\Microsoft.ReactNative.dll" target="runtimes\win10-x64\native\Microsoft.ReactNative.dll" />
+    <file src="$nugetroot$\reunion\$baseplatform$\$baseconfiguration$\Microsoft.ReactNative.ProjectReunion\Microsoft.ReactNative.ProjectReunion.dll" target="lib\net5.0\Microsoft.ReactNative.ProjectReunion.dll" />
+  </files>
+</package>

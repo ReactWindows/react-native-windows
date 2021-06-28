@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Deduplicate lockfile",
+  "packageName": "@react-native-windows/telemetry",
+  "email": "ngerlem@microsoft.com",
+  "dependentChangeType": "none"
+}

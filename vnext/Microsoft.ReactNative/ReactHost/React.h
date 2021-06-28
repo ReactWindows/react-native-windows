@@ -140,9 +140,6 @@ struct ReactDevOptions {
   //! For direct debugging, specifies a name to associate with the JavaScript runtime instance.
   std::string DebuggerRuntimeName;
 
-  //! URL used for debugging
-  std::string DebugHost;
-
   //! When using web debugging and/or live reload, the source is obtained from the packager.
   //! The source url for the bundle is "http://{HOST}:{PORT}/{NAME}{EXTENSION}?platform=..."
   //! which defaults to:

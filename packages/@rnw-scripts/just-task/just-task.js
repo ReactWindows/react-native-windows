@@ -8,6 +8,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 
 const {
   argv,
@@ -84,15 +85,20 @@ task(
   }),
 );
 
-const hasE2eTests = fs.existsSync(path.join(process.cwd(), 'src', 'e2etest'));
-const hasUnitTests = fs.existsSync(path.join(process.cwd(), 'src', 'test'));
-
-if (hasE2eTests && hasUnitTests) {
-  task('test', series('unitTest', 'endToEndTest'));
-} else if (hasE2eTests) {
-  task('test', 'endToEndTest');
-} else if (hasUnitTests) {
-  task('test', 'unitTest');
+const windowsOnly = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'package.json'))).windowsOnly;
+if (os.platform() !== 'win32' && windowsOnly === true) {
+  task('test', () => logger.warn('Skipping tests since "package.json" has set "windowsOnly"'));
 } else {
-  task('test', () => logger.info('No tests found'));
+  const hasE2eTests = fs.existsSync(path.join(process.cwd(), 'src', 'e2etest'));
+  const hasUnitTests = fs.existsSync(path.join(process.cwd(), 'src', 'test'));
+
+  if (hasE2eTests && hasUnitTests) {
+    task('test', series('unitTest', 'endToEndTest'));
+  } else if (hasE2eTests) {
+    task('test', 'endToEndTest');
+  } else if (hasUnitTests) {
+    task('test', 'unitTest');
+  } else {
+    task('test', () => logger.info('No tests found'));
+  }
 }

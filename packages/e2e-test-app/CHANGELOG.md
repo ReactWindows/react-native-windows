@@ -1,8 +1,123 @@
 # Change Log - e2e-test-app
 
-This log was last generated on Wed, 09 Jun 2021 05:10:07 GMT and should not be manually modified.
+This log was last generated on Sun, 27 Jun 2021 05:08:11 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.0.0
+
+Sun, 27 Jun 2021 05:08:11 GMT
+
+### Changes
+
+- Bump react-native-windows to v0.0.0-canary.333 (matteo.pagani@microsoft.com)
+
+## 0.0.0
+
+Sat, 26 Jun 2021 05:06:48 GMT
+
+### Changes
+
+- Bump react-native-windows to v0.0.0-canary.332 (julio.rocha@microsoft.com)
+
+## 0.0.0
+
+Fri, 25 Jun 2021 05:09:48 GMT
+
+### Changes
+
+- Bump react-native-windows to v0.0.0-canary.331 (ngerlem@microsoft.com)
+
+## 0.0.0
+
+Thu, 24 Jun 2021 05:08:43 GMT
+
+### Changes
+
+- Bump react-native-windows to v0.0.0-canary.330 (asklar@microsoft.com)
+
+## 0.0.0
+
+Wed, 23 Jun 2021 00:22:52 GMT
+
+### Changes
+
+- Bump react-native-windows to v0.0.0-canary.329 (asklar@microsoft.com)
+
+## 0.0.0
+
+Tue, 22 Jun 2021 05:07:16 GMT
+
+### Changes
+
+- Bump react-native-windows to v0.0.0-canary.328 (julio.rocha@microsoft.com)
+
+## 0.0.0
+
+Fri, 18 Jun 2021 05:06:48 GMT
+
+### Changes
+
+- Bump react-native-windows to v0.0.0-canary.327 (Bartosz.Klonowski@callstack.com)
+
+## 0.0.0
+
+Thu, 17 Jun 2021 05:07:57 GMT
+
+### Major changes
+
+- Bump node-rnw-rpc to v1.0.11-3 (34109996+chiaramooney@users.noreply.github.com)
+
+### Changes
+
+- Bump react-native-windows to v0.0.0-canary.326 (30809111+acoates-ms@users.noreply.github.com)
+
+## 0.0.0
+
+Wed, 16 Jun 2021 05:08:34 GMT
+
+### Changes
+
+- Bump react-native-windows to v0.0.0-canary.325 (30809111+acoates-ms@users.noreply.github.com)
+
+## 0.0.0
+
+Tue, 15 Jun 2021 05:06:39 GMT
+
+### Changes
+
+- Bump react-native-windows to v0.0.0-canary.324 (30809111+acoates-ms@users.noreply.github.com)
+
+## 0.0.0
+
+Sat, 12 Jun 2021 05:06:29 GMT
+
+### Changes
+
+- Bump react-native-windows to v0.0.0-canary.323 (30809111+acoates-ms@users.noreply.github.com)
+
+## 0.0.0
+
+Fri, 11 Jun 2021 05:08:55 GMT
+
+### Patches
+
+- Bump @rnw-scripts/just-task to v2.2.0 (ngerlem@microsoft.com)
+
+### Changes
+
+- Bump react-native-windows to v0.0.0-canary.322 (dannyvv@microsoft.com)
+- Bump node-rnw-rpc to v1.0.10 (dannyvv@microsoft.com)
+- Bump jest-environment-winappdriver to v1.1.9 (dannyvv@microsoft.com)
+- Bump @react-native-windows/tester to v0.0.1 (dannyvv@microsoft.com)
+
+## 0.0.0
+
+Thu, 10 Jun 2021 05:10:10 GMT
+
+### Changes
+
+- Bump react-native-windows to v0.0.0-canary.321 (vmorozov@microsoft.com)
 
 ## 0.0.0
 

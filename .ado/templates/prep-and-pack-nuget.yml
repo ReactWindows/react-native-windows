@@ -11,6 +11,7 @@ parameters:
   packMicrosoftReactNativeCxx: true
   packMicrosoftReactNativeManaged: true
   packMicrosoftReactNativeManagedCodeGen: true
+  packMicrosoftReactNativeProjectReunion: false
   signMicrosoft: false
 
 steps:
@@ -20,7 +21,7 @@ steps:
       artifact: ReactWindows
       path: $(System.DefaultWorkingDirectory)/ReactWindows
 
-  - ${{ if or(eq(parameters.packMicrosoftReactNative, true), eq(parameters.packMicrosoftReactNativeCxx, true), eq(parameters.packMicrosoftReactNativeManaged, true), eq(parameters.packMicrosoftReactNativeManagedCodeGen, true)) }}:
+  - ${{ if or(eq(parameters.packMicrosoftReactNative, true), eq(parameters.packMicrosoftReactNativeCxx, true), eq(parameters.packMicrosoftReactNativeManaged, true), eq(parameters.packMicrosoftReactNativeManagedCodeGen, true), eq(parameters.packMicrosoftReactNativeProjectReunion, false)) }}:
     - powershell: |
         (Get-Content -Path $(System.DefaultWorkingDirectory)\ReactWindows\Microsoft.ReactNative.VersionCheck.targets) -replace '\$\$nuGetPackageVersion\$\$', '${{parameters.npmVersion}}' | Set-Content -Path  $(System.DefaultWorkingDirectory)\ReactWindows\Microsoft.ReactNative.VersionCheck.targets
       displayName: Patch version check file with version ${{parameters.npmVersion}}
@@ -81,3 +82,14 @@ steps:
         buildProperties: CommitId=${{parameters.publishCommitId}};nugetroot=${{parameters.nugetroot}};baseconfiguration=Release;baseplatform=x64
         codesignBinaries: ${{ parameters.signMicrosoft }}
         codesignNuget: ${{ parameters.signMicrosoft }}
+
+  - ${{ if eq(parameters.packMicrosoftReactNativeProjectReunion, true) }}:
+    - template: prep-and-pack-single.yml
+      parameters:
+        packageId: Microsoft.ReactNative.ProjectReunion
+        packageVersion: ${{parameters.npmVersion}}
+        slices: ''
+        buildProperties: CommitId=${{parameters.publishCommitId}};nugetroot=${{parameters.nugetroot}};baseconfiguration=Release;baseplatform=x64
+        codesignBinaries: ${{ parameters.signMicrosoft }}
+        codesignNuget: ${{ parameters.signMicrosoft }}
+

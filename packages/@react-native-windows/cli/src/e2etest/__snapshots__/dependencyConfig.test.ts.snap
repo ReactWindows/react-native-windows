@@ -24,6 +24,34 @@ Object {
 }
 `;
 
+exports[`dependencyConfig - SimpleCSharpApp (Ignore react-native.config.js) 1`] = `
+Object {
+  "folder": StringContaining "SimpleCSharpApp",
+  "nugetPackages": Array [],
+  "projects": ArrayContaining [
+    ObjectContaining {
+      "projectFile": StringMatching /Error: \\.\\*\\\\\\.\\(\\?:cs\\|vcx\\)proj is type '\\\\w\\+'/,
+    },
+  ],
+  "solutionFile": "SimpleCSharpApp.sln",
+  "sourceDir": "windows",
+}
+`;
+
+exports[`dependencyConfig - SimpleCSharpApp (Use react-native.config.js) 1`] = `
+Object {
+  "folder": StringContaining "SimpleCSharpApp",
+  "nugetPackages": Array [],
+  "projects": ArrayContaining [
+    ObjectContaining {
+      "projectFile": StringMatching /Error: \\.\\*\\\\\\.\\(\\?:cs\\|vcx\\)proj is type '\\\\w\\+'/,
+    },
+  ],
+  "solutionFile": "SimpleCSharpApp.sln",
+  "sourceDir": "windows",
+}
+`;
+
 exports[`dependencyConfig - SimpleCSharpLib (Ignore react-native.config.js) 1`] = `
 Object {
   "folder": StringContaining "SimpleCSharpLib",
@@ -80,6 +108,34 @@ Object {
     },
   ],
   "solutionFile": "SimpleCSharpLib.sln",
+  "sourceDir": "windows",
+}
+`;
+
+exports[`dependencyConfig - SimpleCppApp (Ignore react-native.config.js) 1`] = `
+Object {
+  "folder": StringContaining "SimpleCppApp",
+  "nugetPackages": Array [],
+  "projects": ArrayContaining [
+    ObjectContaining {
+      "projectFile": StringMatching /Error: \\.\\*\\\\\\.\\(\\?:cs\\|vcx\\)proj is type '\\\\w\\+'/,
+    },
+  ],
+  "solutionFile": "SimpleCppApp.sln",
+  "sourceDir": "windows",
+}
+`;
+
+exports[`dependencyConfig - SimpleCppApp (Use react-native.config.js) 1`] = `
+Object {
+  "folder": StringContaining "SimpleCppApp",
+  "nugetPackages": Array [],
+  "projects": ArrayContaining [
+    ObjectContaining {
+      "projectFile": StringMatching /Error: \\.\\*\\\\\\.\\(\\?:cs\\|vcx\\)proj is type '\\\\w\\+'/,
+    },
+  ],
+  "solutionFile": "SimpleCppApp.sln",
   "sourceDir": "windows",
 }
 `;

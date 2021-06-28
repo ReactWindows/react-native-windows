@@ -9,6 +9,7 @@
 // guarantee correct types
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 
+import {platform} from 'os';
 import path from 'path';
 
 import * as configUtils from './configUtils';
@@ -84,6 +85,10 @@ export function projectConfigWindows(
   folder: string,
   userConfig: Partial<WindowsProjectConfig> | null = {},
 ): WindowsProjectConfig | null {
+  if (platform() !== 'win32') {
+    return null;
+  }
+
   if (userConfig === null) {
     return null;
   }
@@ -104,6 +109,7 @@ export function projectConfigWindows(
     sourceDir: path.relative(folder, sourceDir),
   };
 
+  let validSolution = false;
   let validProject = false;
 
   if (usingManualOverride) {
@@ -115,7 +121,8 @@ export function projectConfigWindows(
       result.solutionFile =
         'Error: Solution file is null in react-native.config.';
     } else {
-      result.solutionFile = userConfig.solutionFile;
+      result.solutionFile = path.normalize(userConfig.solutionFile!);
+      validSolution = true;
     }
 
     // Manual override, try to use it for project
@@ -140,7 +147,7 @@ export function projectConfigWindows(
         };
       } else {
         result.project = {
-          projectFile: userConfig.project.projectFile,
+          projectFile: path.normalize(userConfig.project.projectFile),
         };
         validProject = true;
       }
@@ -159,7 +166,8 @@ export function projectConfigWindows(
       result.solutionFile =
         'Error: Too many app solution files found, please specify in react-native.config.';
     } else {
-      result.solutionFile = foundSolutions[0];
+      result.solutionFile = path.normalize(foundSolutions[0]);
+      validSolution = true;
     }
 
     // No manually provided project, try to find it
@@ -176,15 +184,24 @@ export function projectConfigWindows(
       };
     } else {
       result.project = {
-        projectFile: foundProjects[0],
+        projectFile: path.normalize(foundProjects[0]),
       };
       validProject = true;
     }
   }
 
+  if (validSolution) {
+    result.solutionFile = path.relative(
+      sourceDir,
+      path.join(sourceDir, result.solutionFile),
+    );
+  }
+
   if (validProject) {
     const projectFile = path.join(sourceDir, result.project.projectFile!);
     const projectContents = configUtils.readProjectFile(projectFile);
+
+    result.project.projectFile = path.relative(sourceDir, projectFile);
 
     // Add missing (auto) items
     result.project.projectName = configUtils.getProjectName(

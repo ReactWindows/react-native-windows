@@ -4193,9 +4193,7 @@ YOGA_EXPORT void YGNodeCalculateLayoutWithContext(
     if (node->getConfig()->printTree) {
       YGNodePrint(
           node,
-          (YGPrintOptions)(
-              YGPrintOptionsLayout | YGPrintOptionsChildren |
-              YGPrintOptionsStyle));
+          (YGPrintOptions) (YGPrintOptionsLayout | YGPrintOptionsChildren | YGPrintOptionsStyle));
     }
 #endif
   }
@@ -4255,9 +4253,7 @@ YOGA_EXPORT void YGNodeCalculateLayoutWithContext(
       if (nodeWithoutLegacyFlag->getConfig()->printTree) {
         YGNodePrint(
             nodeWithoutLegacyFlag,
-            (YGPrintOptions)(
-                YGPrintOptionsLayout | YGPrintOptionsChildren |
-                YGPrintOptionsStyle));
+            (YGPrintOptions) (YGPrintOptionsLayout | YGPrintOptionsChildren | YGPrintOptionsStyle));
       }
 #endif
     }

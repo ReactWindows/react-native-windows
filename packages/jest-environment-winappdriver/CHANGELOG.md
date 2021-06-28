@@ -1,8 +1,116 @@
 # Change Log - jest-environment-winappdriver
 
-This log was last generated on Wed, 09 Jun 2021 05:10:07 GMT and should not be manually modified.
+This log was last generated on Sun, 27 Jun 2021 05:08:11 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 2.0.1-6
+
+Sun, 27 Jun 2021 05:08:11 GMT
+
+### Changes
+
+- Bump node-rnw-rpc to v1.0.11-10 (matteo.pagani@microsoft.com)
+
+## 2.0.1-5
+
+Sat, 26 Jun 2021 05:06:48 GMT
+
+### Changes
+
+- Bump node-rnw-rpc to v1.0.11-9 (julio.rocha@microsoft.com)
+
+## 2.0.1-4
+
+Fri, 25 Jun 2021 05:09:48 GMT
+
+### Changes
+
+- Bump node-rnw-rpc to v1.0.11-8 (ngerlem@microsoft.com)
+
+## 2.0.1-3
+
+Thu, 24 Jun 2021 05:08:43 GMT
+
+### Changes
+
+- Bump node-rnw-rpc to v1.0.11-7 (asklar@microsoft.com)
+
+## 2.0.1-2
+
+Wed, 23 Jun 2021 00:22:52 GMT
+
+### Changes
+
+- Bump node-rnw-rpc to v1.0.11-6 (asklar@microsoft.com)
+
+## 2.0.1-1
+
+Tue, 22 Jun 2021 05:07:16 GMT
+
+### Changes
+
+- Bump node-rnw-rpc to v1.0.11-5 (julio.rocha@microsoft.com)
+
+## 2.0.1-0
+
+Fri, 18 Jun 2021 05:06:48 GMT
+
+### Changes
+
+- Bump node-rnw-rpc to v1.0.11-4 (Bartosz.Klonowski@callstack.com)
+
+## 2.0.0
+
+Thu, 17 Jun 2021 05:07:57 GMT
+
+### Major changes
+
+- Bump node-rnw-rpc to v1.0.11-3 (34109996+chiaramooney@users.noreply.github.com)
+
+## 1.1.10-2
+
+Wed, 16 Jun 2021 05:08:34 GMT
+
+### Changes
+
+- Bump node-rnw-rpc to v1.0.11-2 (30809111+acoates-ms@users.noreply.github.com)
+
+## 1.1.10-1
+
+Tue, 15 Jun 2021 05:06:39 GMT
+
+### Changes
+
+- Bump node-rnw-rpc to v1.0.11-1 (30809111+acoates-ms@users.noreply.github.com)
+
+## 1.1.10-0
+
+Sat, 12 Jun 2021 05:06:29 GMT
+
+### Changes
+
+- Bump node-rnw-rpc to v1.0.11-0 (30809111+acoates-ms@users.noreply.github.com)
+
+## 1.1.9
+
+Fri, 11 Jun 2021 05:08:55 GMT
+
+### Patches
+
+- Bump @rnw-scripts/just-task to v2.2.0 (ngerlem@microsoft.com)
+
+### Changes
+
+- Bump node-rnw-rpc to v1.0.10 (dannyvv@microsoft.com)
+
+## 1.1.9-0
+
+Thu, 10 Jun 2021 05:10:10 GMT
+
+### Changes
+
+- Bump node-rnw-rpc to v1.0.10-0 (vmorozov@microsoft.com)
 
 ## 1.1.8
 

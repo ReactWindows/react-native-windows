@@ -9,6 +9,7 @@
 const fs = require('fs');
 const path = require('path');
 const sanitizeFilename = require('sanitize-filename');
+const {LogBox} = require('react-native');
 
 const screenshotDir = './errorShots';
 fs.mkdirSync(screenshotDir, {recursive: true});
@@ -26,3 +27,5 @@ global.jasmine.getEnv().addReporter({
     }
   },
 });
+
+LogBox.ignoreAllLogs(true);

@@ -43,7 +43,7 @@ jobs:
           X86Release:
             BuildConfiguration: Release
             BuildPlatform: x86
-            NoDeployOption:
+            DeployOption:
         # End Continuous only
     timeoutInMinutes: 60
     cancelTimeoutInMinutes: 5
@@ -64,46 +64,16 @@ jobs:
           verbosityRestore: Detailed # Options: quiet, normal, detailed
         condition: succeeded()
 
-      - task: PowerShell@2
-        displayName: Set Up Certificate
-        inputs:
-          targetType: 'inline'
-          script: |
-            $PfxBytes = [System.Convert]::FromBase64String("$(sampleAppCPPEncodedKey)")
-            $PfxPath = [System.IO.Path]::GetFullPath( (Join-Path -Path $(Build.SourcesDirectory) -ChildPath sampleAppCPP-Key.pfx) )
-            [System.IO.File]::WriteAllBytes("$PfxPath", $PfxBytes)
-        condition: eq('${{ parameters.BuildEnvironment }}', 'Continuous')
-
-      - task: CmdLine@2
-        displayName: run-windows (Debug)
-        inputs:
-          script: yarn windows --no-packager --no-launch $(DeployOption) --arch $(BuildPlatform) --logging --buildLogDirectory $(BuildLogDirectory) --msbuildprops BaseIntDir=$(BaseIntDir),AppxPackageSigningEnabled=False
+      - template: ../templates/run-windows-with-certificates.yml
+        parameters:
+          buildEnvironment: ${{ parameters.BuildEnvironment }}
+          encodedKey: sampleAppCPPEncodedKey
+          ${{ if eq(variables.BuildConfiguration, 'Release') }}:
+            buildConfiguration: Release
+          buildPlatform: $(BuildPlatform)
+          deployOption: $(DeployOption)
+          buildLogDirectory: $(BuildLogDirectory)
           workingDirectory: packages/sample-apps
-        condition: and(succeeded(), eq(variables['BuildConfiguration'], 'Debug'))
-
-      - task: CmdLine@2
-        displayName: run-windows (Release) - PR
-        inputs:
-          script: yarn windows --no-packager --no-launch $(DeployOption) --arch $(BuildPlatform) --logging --buildLogDirectory $(BuildLogDirectory) --release --msbuildprops BaseIntDir=$(BaseIntDir),AppxPackageSigningEnabled=False
-          workingDirectory: packages/sample-apps
-        condition: and(succeeded(), eq(variables['BuildConfiguration'], 'Release'), eq('${{ parameters.BuildEnvironment }}', 'PullRequest'))
-
-      - task: CmdLine@2
-        displayName: run-windows (Release) - CI
-        inputs:
-          script: yarn windows --no-packager --no-launch $(DeployOption) --arch $(BuildPlatform) --logging --buildLogDirectory $(BuildLogDirectory) --release --msbuildprops BaseIntDir=$(BaseIntDir),PackageCertificateKeyFile=$(Build.SourcesDirectory)\sampleAppCPP-Key.pfx
-          workingDirectory: packages/sample-apps
-        condition: and(succeeded(), eq(variables['BuildConfiguration'], 'Release'), eq('${{ parameters.BuildEnvironment }}', 'Continuous'))
-
-      - task: PowerShell@2
-        displayName: Remove Certificate
-        inputs:
-          targetType: 'inline'
-          script: |
-            $PfxPath = Join-Path -Path $(Build.SourcesDirectory) -ChildPath sampleAppCPP-Key.pfx
-            Write-Host $PfxPath
-            Remove-Item -path $PfxPath
-        condition: eq('${{ parameters.BuildEnvironment }}', 'Continuous')
 
       - task: CmdLine@2
         displayName: Create SampleApp bundle

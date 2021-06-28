@@ -97,7 +97,7 @@ public class TestClass
 #endif
 
             references.AddRange(new[] {
-        $@"{win10SdkFolder}\References\{win10SdkVersion}\Windows.AI.MachineLearning.MachineLearningContract\2.0.0.0\Windows.AI.MachineLearning.MachineLearningContract.winmd",
+        $@"{win10SdkFolder}\References\{win10SdkVersion}\Windows.AI.MachineLearning.MachineLearningContract\3.0.0.0\Windows.AI.MachineLearning.MachineLearningContract.winmd",
         $@"{win10SdkFolder}\References\{win10SdkVersion}\Windows.AI.MachineLearning.Preview.MachineLearningPreviewContract\2.0.0.0\Windows.AI.MachineLearning.Preview.MachineLearningPreviewContract.winmd",
         $@"{win10SdkFolder}\References\{win10SdkVersion}\Windows.ApplicationModel.Calls.Background.CallsBackgroundContract\2.0.0.0\Windows.ApplicationModel.Calls.Background.CallsBackgroundContract.winmd",
         $@"{win10SdkFolder}\References\{win10SdkVersion}\Windows.ApplicationModel.Calls.CallsPhoneContract\5.0.0.0\Windows.ApplicationModel.Calls.CallsPhoneContract.winmd",
@@ -110,8 +110,8 @@ public class TestClass
         $@"{win10SdkFolder}\References\{win10SdkVersion}\Windows.Devices.Printers.PrintersContract\1.0.0.0\Windows.Devices.Printers.PrintersContract.winmd",
         $@"{win10SdkFolder}\References\{win10SdkVersion}\Windows.Devices.SmartCards.SmartCardBackgroundTriggerContract\3.0.0.0\Windows.Devices.SmartCards.SmartCardBackgroundTriggerContract.winmd",
         $@"{win10SdkFolder}\References\{win10SdkVersion}\Windows.Devices.SmartCards.SmartCardEmulatorContract\6.0.0.0\Windows.Devices.SmartCards.SmartCardEmulatorContract.winmd",
-        $@"{win10SdkFolder}\References\{win10SdkVersion}\Windows.Foundation.FoundationContract\3.0.0.0\Windows.Foundation.FoundationContract.winmd",
-        $@"{win10SdkFolder}\References\{win10SdkVersion}\Windows.Foundation.UniversalApiContract\8.0.0.0\Windows.Foundation.UniversalApiContract.winmd",
+        $@"{win10SdkFolder}\References\{win10SdkVersion}\Windows.Foundation.FoundationContract\4.0.0.0\Windows.Foundation.FoundationContract.winmd",
+        $@"{win10SdkFolder}\References\{win10SdkVersion}\Windows.Foundation.UniversalApiContract\10.0.0.0\Windows.Foundation.UniversalApiContract.winmd",
         $@"{win10SdkFolder}\References\{win10SdkVersion}\Windows.Gaming.XboxLive.StorageApiContract\1.0.0.0\Windows.Gaming.XboxLive.StorageApiContract.winmd",
         $@"{win10SdkFolder}\References\{win10SdkVersion}\Windows.Graphics.Printing3D.Printing3DContract\4.0.0.0\Windows.Graphics.Printing3D.Printing3DContract.winmd",
         $@"{win10SdkFolder}\References\{win10SdkVersion}\Windows.Networking.Connectivity.WwanContract\2.0.0.0\Windows.Networking.Connectivity.WwanContract.winmd",
@@ -123,7 +123,7 @@ public class TestClass
         $@"{win10SdkFolder}\References\{win10SdkVersion}\Windows.System.Profile.ProfileHardwareTokenContract\1.0.0.0\Windows.System.Profile.ProfileHardwareTokenContract.winmd",
         $@"{win10SdkFolder}\References\{win10SdkVersion}\Windows.System.Profile.ProfileSharedModeContract\2.0.0.0\Windows.System.Profile.ProfileSharedModeContract.winmd",
         $@"{win10SdkFolder}\References\{win10SdkVersion}\Windows.System.Profile.SystemManufacturers.SystemManufacturersContract\3.0.0.0\Windows.System.Profile.SystemManufacturers.SystemManufacturersContract.winmd",
-        $@"{win10SdkFolder}\References\{win10SdkVersion}\Windows.System.SystemManagementContract\6.0.0.0\Windows.System.SystemManagementContract.winmd",
+        $@"{win10SdkFolder}\References\{win10SdkVersion}\Windows.System.SystemManagementContract\7.0.0.0\Windows.System.SystemManagementContract.winmd",
         $@"{win10SdkFolder}\References\{win10SdkVersion}\Windows.UI.ViewManagement.ViewManagementViewScalingContract\1.0.0.0\Windows.UI.ViewManagement.ViewManagementViewScalingContract.winmd",
         $@"{win10SdkFolder}\References\{win10SdkVersion}\Windows.UI.Xaml.Core.Direct.XamlDirectContract\2.0.0.0\Windows.UI.Xaml.Core.Direct.XamlDirectContract.winmd",
         $@"{win10SdkFolder}\UnionMetadata\{win10SdkVersion}\Facade\Windows.winmd"

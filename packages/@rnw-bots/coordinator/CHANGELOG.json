@@ -2,6 +2,21 @@
   "name": "@rnw-bots/coordinator",
   "entries": [
     {
+      "date": "Fri, 11 Jun 2021 05:08:55 GMT",
+      "tag": "@rnw-bots/coordinator_v1.0.9",
+      "version": "1.0.9",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Bump @rnw-scripts/just-task to v2.2.0",
+            "author": "ngerlem@microsoft.com",
+            "commit": "3d7c8d8fcf14a3cbda83a93c85b0bcf1e4e4f829",
+            "package": "@rnw-bots/coordinator"
+          }
+        ]
+      }
+    },
+    {
       "date": "Wed, 09 Jun 2021 05:10:07 GMT",
       "tag": "@rnw-bots/coordinator_v1.0.8",
       "version": "1.0.8",

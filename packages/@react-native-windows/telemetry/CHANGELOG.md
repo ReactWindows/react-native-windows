@@ -1,8 +1,28 @@
 # Change Log - @react-native-windows/telemetry
 
-This log was last generated on Wed, 09 Jun 2021 05:10:07 GMT and should not be manually modified.
+This log was last generated on Sat, 26 Jun 2021 05:06:48 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 0.0.0-canary.22
+
+Sat, 26 Jun 2021 05:06:48 GMT
+
+### Changes
+
+- Upgrade to boost 1.76.0.0 (julio.rocha@microsoft.com)
+
+## 0.0.0-canary.21
+
+Fri, 11 Jun 2021 05:08:55 GMT
+
+### Patches
+
+- Bump @rnw-scripts/just-task to v2.2.0 (ngerlem@microsoft.com)
+
+### Changes
+
+- Mark windowsOnly (ngerlem@microsoft.com)
 
 ## 0.0.0-canary.20
 

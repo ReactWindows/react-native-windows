@@ -22,7 +22,11 @@ import {PlatformColor} from '../StyleSheet/PlatformColorValueTypes';
 import View from './View/View';
 import invariant from 'invariant';
 
-import type {AccessibilityState} from './View/ViewAccessibility';
+import type {
+  AccessibilityState,
+  AccessibilityActionEvent,
+  AccessibilityActionInfo,
+} from './View/ViewAccessibility';
 import type {PressEvent} from '../Types/CoreEventTypes';
 
 type ButtonProps = $ReadOnly<{|
@@ -139,6 +143,9 @@ type ButtonProps = $ReadOnly<{|
   /**
    * Accessibility props.
    */
+  accessible?: ?boolean,
+  accessibilityActions?: ?$ReadOnlyArray<AccessibilityActionInfo>,
+  onAccessibilityAction?: ?(event: AccessibilityActionEvent) => mixed,
   accessibilityState?: ?AccessibilityState,
 
   // [Windows
@@ -289,6 +296,9 @@ class Button extends React.Component<
       nextFocusRight,
       nextFocusUp,
       testID,
+      accessible,
+      accessibilityActions,
+      onAccessibilityAction,
       tabIndex,
     } = this.props;
     const buttonStyles = [styles.button];
@@ -382,6 +392,9 @@ class Button extends React.Component<
     } else {
       return (
         <Touchable
+          accessible={accessible}
+          accessibilityActions={accessibilityActions}
+          onAccessibilityAction={onAccessibilityAction}
           accessibilityLabel={accessibilityLabel}
           accessibilityRole="button"
           accessibilityState={accessibilityState}
@@ -394,7 +407,6 @@ class Button extends React.Component<
           testID={testID}
           disabled={disabled}
           onPress={onPress}
-          tabIndex={tabIndex}
           touchSoundDisabled={touchSoundDisabled}>
           <View style={buttonStyles}>
             <Text style={textStyles} disabled={disabled}>
