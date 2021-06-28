@@ -217,7 +217,7 @@ steps:
   - task: CmdLine@2
     displayName: Build project (Release)
     inputs:
-      script: npx --no-install react-native run-windows --arch ${{ parameters.platform }} --no-launch --logging --buildLogDirectory $(Build.BinariesDirectory)\${{ parameters.platform }}\${{ parameters.configuration }}\BuildLogs --release ${{ parameters.additionalRunArguments }}
+      script: npx --no-install react-native run-windows --arch ${{ parameters.platform }} --logging --buildLogDirectory $(Build.BinariesDirectory)\${{ parameters.platform }}\${{ parameters.configuration }}\BuildLogs --release ${{ parameters.additionalRunArguments }}
       workingDirectory: $(Agent.BuildDirectory)\testcli
     continueOnError: ${{ parameters.continueOnBuildFailure }}
     condition: and(succeeded(), eq('Release', variables['localConfig']))
@@ -248,10 +248,6 @@ steps:
       $packageFamilyName = $appxPackage.PackageFamilyName;
       Write-Host "##vso[task.setvariable variable=NEW_APP_TEST_PACKAGE]$packageFamilyName"
     displayName: Discover and set PackageFullName
-    condition: and(succeeded(), eq(variables['verifyAppLaunch'], 'true'))
-
-  - powershell: Write-Host $env:NEW_APP_TEST_PACKAGE
-    displayName: Print NEW_APP_TEST_PACKAGE
     condition: and(succeeded(), eq(variables['verifyAppLaunch'], 'true'))
 
   - script: npx jest --color
