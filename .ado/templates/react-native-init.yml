@@ -245,8 +245,8 @@ steps:
       $appxPackage = Get-AppxPackage -Name ReactNative.InitTest
       Write-Output $appxPackage
 
-      $packageFullName = $appxPackage.PackageFullName;
-      Write-Host "##vso[task.setvariable variable=NEW_APP_TEST_PACKAGE]$packageFullName"
+      $packageFamilyName = $appxPackage.PackageFamilyName;
+      Write-Host "##vso[task.setvariable variable=NEW_APP_TEST_PACKAGE]$packageFamilyName"
     displayName: Discover and set PackageFullName
     condition: and(succeeded(), eq(variables['verifyAppLaunch'], 'true'))
 

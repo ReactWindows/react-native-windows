@@ -40,7 +40,7 @@ module.exports = {
   verbose: true,
 
   testEnvironmentOptions: {
-    app: process.env.NEW_APP_TEST_PACKAGE,
+    app: `${process.env.NEW_APP_TEST_PACKAGE}!App`,
     webdriverOptions: {
       // Level of logging verbosity: trace | debug | info | warn | error
       logLevel: 'error',
