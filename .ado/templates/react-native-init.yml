@@ -246,12 +246,8 @@ steps:
       Write-Output $appxPackage
 
       $packageFullName = $appxPackage.PackageFullName;
-      Write-Host "##vso[task.setvariable variable=NEW_APP_TEST_PACKAGE]$($packageFullName)"
+      Write-Host "##vso[task.setvariable variable=NEW_APP_TEST_PACKAGE]$packageFullName"
     displayName: Discover and set PackageFullName
-    condition: and(succeeded(), eq(variables['verifyAppLaunch'], 'true'))
-
-  - powershell: Write-Host $env:NEW_APP_TEST_PACKAGE
-    displayName: Print NEW_APP_TEST_PACKAGE
     condition: and(succeeded(), eq(variables['verifyAppLaunch'], 'true'))
 
   - script: npx jest --color
