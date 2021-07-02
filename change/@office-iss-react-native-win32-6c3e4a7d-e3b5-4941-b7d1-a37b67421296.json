@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Duplicate VirtualizedList to ExperimentalVirtualizedList",
+  "packageName": "@office-iss/react-native-win32",
+  "email": "ngerlem@microsoft.com",
+  "dependentChangeType": "patch"
+}
