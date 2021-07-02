@@ -8,7 +8,7 @@
     "directory": "packages/@react-native-windows/virtualizedlist"
   },
   "description": "React Native for Windows fork of VirtualizedList",
-  "main": "./src/VirtualizedList.js",
+  "main": "./src/index.js",
   "scripts": {
     "flow-check": "flow check",
     "lint:fix": "rnw-scripts lint:fix",

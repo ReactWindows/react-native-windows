@@ -12,10 +12,28 @@
       "baseHash": "a5b0a0d2669d5d35a548c3990577a2e9c5d861b4"
     },
     {
+      "type": "derived",
+      "file": "src/ExperimentalVirtualizedList.js",
+      "baseFile": "Libraries/Lists/VirtualizedList.js",
+      "baseHash": "6738b75dd2dee0eaca869c44bfb7ca53cad31439",
+      "issue": 8120
+    },
+    {
+      "type": "patch",
+      "file": "src/ExperimentalVirtualizedListContext.js",
+      "baseFile": "Libraries/Lists/VirtualizedListContext.js",
+      "baseHash": "780f56fe275d31d6b026ed989683772516c05138",
+      "issue": 8120
+    },
+    {
       "type": "copy",
       "file": "src/FillRateHelper.js",
       "baseFile": "Libraries/Lists/FillRateHelper.js",
       "baseHash": "9457d4a60fd881934f98f08d0761fc20107842cc"
+    },
+    {
+      "type": "platform",
+      "file": "src/index.js"
     },
     {
       "type": "copy",
