@@ -6,6 +6,9 @@
  * @flow strict-local
  */
 
+import typeof VirtualizedList from './VirtualizedList';
+import typeof ExperimentalVirtualizedList from './ExperimentalVirtualizedList';
+
 module.exports = {
   // $FlowFixMe[unsafe-getters-setters]
   get VirtualizedList(): VirtualizedList {
