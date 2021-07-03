@@ -136,16 +136,17 @@ class TextShadowNode final : public ShadowNodeBase {
         m_touchEventHandler = std::make_unique<TouchEventHandler>(GetViewManager()->GetReactContext());
       }
 
-      std::function<bool()> shouldCancelOnCaptureLost = [=]() {
-        const auto wasSelectionChanged = m_selectionChanged;
-        m_selectionChanged = false;
+      auto selectionChanged = std::make_shared<bool>(false);
+      std::function<bool()> shouldCancelOnCaptureLost = [selectionChanged]() {
+        const auto wasSelectionChanged = *selectionChanged;
+        *selectionChanged = false;
         return wasSelectionChanged;
       };
 
       m_selectionChangedRevoker = xamlView.as<xaml::Controls::TextBlock>().SelectionChanged(
-          winrt::auto_revoke, [=](const auto &sender, auto &&) {
+          winrt::auto_revoke, [selectionChanged](const auto &sender, auto &&) {
             const auto textBlock = sender.as<xaml::Controls::TextBlock>();
-            m_selectionChanged = m_selectionChanged || textBlock.SelectionStart().Offset() != textBlock.SelectionEnd().Offset();
+            *selectionChanged = *selectionChanged || textBlock.SelectionStart().Offset() != textBlock.SelectionEnd().Offset();
           });
 
       m_touchEventHandler->AddTouchHandlers(xamlView, shouldCancelOnCaptureLost, true, true);
@@ -171,7 +172,6 @@ class TextShadowNode final : public ShadowNodeBase {
 
   TextTransform textTransform{TextTransform::Undefined};
   winrt::event_revoker<xaml::Controls::ITextBlock> m_selectionChangedRevoker;
-  bool m_selectionChanged;
 };
 
 TextViewManager::TextViewManager(const Mso::React::IReactContext &context) : Super(context) {}
