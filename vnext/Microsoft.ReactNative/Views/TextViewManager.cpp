@@ -136,7 +136,7 @@ class TextShadowNode final : public ShadowNodeBase {
         m_touchEventHandler = std::make_unique<TouchEventHandler>(GetViewManager()->GetReactContext());
       }
 
-      auto selectionChanged = std::make_shared<bool>(false);
+      const auto selectionChanged = std::make_shared<bool>(false);
       std::function<bool()> shouldCancelOnCaptureLost = [selectionChanged]() {
         const auto wasSelectionChanged = *selectionChanged;
         *selectionChanged = false;

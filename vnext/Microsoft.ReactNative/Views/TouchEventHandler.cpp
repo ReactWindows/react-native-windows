@@ -266,7 +266,7 @@ void TouchEventHandler::UpdateReactPointer(
   if (m_findRoot) {
     if (!m_rootView) {
       if (const auto nativeUIManager = GetNativeUIManager(*m_context).lock()) {
-        auto host = nativeUIManager->getHost();
+        const auto host = nativeUIManager->getHost();
         const auto parentTag = GetTag(m_xamlView);
         const auto rootNode = static_cast<ShadowNodeBase *>(host->FindParentRootShadowNode(parentTag));
         if (rootNode) {
