@@ -37,6 +37,7 @@
     "lage": "^0.29.3"
   },
   "resolutions": {
+    "babel-preset-fbjs": "3.3.0",
     "eslint-plugin-react-hooks": "4.0.7",
     "kind-of": "6.0.3",
     "glob-parent": "^5.1.2",

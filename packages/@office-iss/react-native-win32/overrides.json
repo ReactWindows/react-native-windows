@@ -6,7 +6,7 @@
   "excludePatterns": [
     "**/__snapshots__/**"
   ],
-  "baseVersion": "0.0.0-0d32aef3a",
+  "baseVersion": "0.0.0-386dbd943",
   "overrides": [
     {
       "type": "derived",
@@ -18,7 +18,7 @@
       "type": "derived",
       "file": "src/index.win32.js",
       "baseFile": "index.js",
-      "baseHash": "ef954129bcecf1cba9f786bd2a32327adfb735a5"
+      "baseHash": "c7e80678448dd6d518b6ed47594775207b285610"
     },
     {
       "type": "patch",
@@ -290,7 +290,7 @@
       "baseFile": "Libraries/Inspector/InspectorOverlay.js",
       "baseHash": "b11d03daa2e3f828a350667f543b2cda4fa65dbf"
     },
-     {
+    {
       "type": "copy",
       "file": "src/Libraries/Lists/__tests__/FillRateHelper-test.js",
       "baseFile": "Libraries/Lists/__tests__/FillRateHelper-test.js",

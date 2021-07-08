@@ -8,7 +8,7 @@
   "excludePatterns": [
     "**/__snapshots__/**"
   ],
-  "baseVersion": "0.0.0-0d32aef3a",
+  "baseVersion": "0.0.0-386dbd943",
   "overrides": [
     {
       "type": "derived",
@@ -36,6 +36,13 @@
       "baseFile": "ReactCommon/react/renderer/graphics/platform/cxx/react/renderer/graphics/Color.h",
       "baseHash": "6951c3418c9aed3ab5f0378a168289968c02aef0",
       "issue": 7821
+    },
+    {
+      "type": "patch",
+      "file": "ReactCommon/TEMP_UntilReactCommonUpdate/react/renderer/uimanager/UIManagerBinding.h",
+      "baseFile": "ReactCommon/react/renderer/uimanager/UIManagerBinding.h",
+      "baseHash": "db707f2820a60006ef33c93fa8655baa5f99e975",
+      "issue": 1
     },
     {
       "type": "patch",
@@ -76,7 +83,7 @@
       "type": "derived",
       "file": "src/index.windows.js",
       "baseFile": "index.js",
-      "baseHash": "ef954129bcecf1cba9f786bd2a32327adfb735a5"
+      "baseHash": "c7e80678448dd6d518b6ed47594775207b285610"
     },
     {
       "type": "platform",
@@ -198,7 +205,7 @@
       "type": "patch",
       "file": "src/Libraries/Components/Picker/Picker.windows.js",
       "baseFile": "Libraries/Components/Picker/Picker.js",
-      "baseHash": "8dfd55bb237e9a96ed913e33dfbf407d90b408f8",
+      "baseHash": "900e5f4d60baba03691b5c8601e4d960f9cb34d9",
       "issue": 4611
     },
     {

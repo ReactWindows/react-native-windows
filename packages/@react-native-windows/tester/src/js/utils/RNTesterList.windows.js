@@ -151,6 +151,11 @@ const ComponentExamples: Array<RNTesterExample> = [
     module: require('../examples/SectionList/SectionListExample'),
   },
   {
+    key: 'SwipeableCardExample',
+    category: 'UI',
+    module: require('../examples/SwipeableCardExample/SwipeableCardExample'),
+  },
+  {
     key: 'SwitchExample',
     category: 'UI',
     module: require('../examples/Switch/SwitchExample'),
@@ -236,12 +241,12 @@ const APIExamples: Array<RNTesterExample> = [
   {
     key: 'AnimatedExample',
     category: 'UI',
-    module: require('../examples/Animated/AnimatedExample'),
+    module: require('../examples/Animated/AnimatedExample').default,
   },
   {
     key: 'Animation - GratuitousAnimation',
     category: 'UI',
-    module: require('../examples/Animated/AnimatedGratuitousApp/AnExApp'),
+    module: require('../examples/AnimatedGratuitousApp/AnExApp'),
   },
   {
     key: 'AppearanceExample',
