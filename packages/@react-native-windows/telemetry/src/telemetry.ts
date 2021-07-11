@@ -31,7 +31,7 @@ export class Telemetry {
     if (!process.env.RNW_CLI_TEST) {
       appInsights.Configuration.setInternalLogging(false, false);
     }
-    appInsights.setup('795006ca-cf54-40ee-8bc6-03deb91401c3');
+    appInsights.setup('8a1a1649-99ea-41ed-9d7f-b3748b9d64d3');
     Telemetry.client = appInsights.defaultClient;
 
     if (Telemetry.shouldDisable) {

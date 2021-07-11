@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "reenable telemetry",
+  "packageName": "@react-native-windows/telemetry",
+  "email": "asklar@microsoft.com",
+  "dependentChangeType": "patch"
+}

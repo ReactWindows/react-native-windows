@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "reenable telemetry",
+  "packageName": "react-native-windows-init",
+  "email": "asklar@microsoft.com",
+  "dependentChangeType": "patch"
+}
