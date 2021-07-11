@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Duplicate VirtualizedList to ExperimentalVirtualizedList",
+  "packageName": "@react-native-windows/virtualized-list",
+  "email": "ngerlem@microsoft.com",
+  "dependentChangeType": "patch"
+}

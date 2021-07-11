@@ -5,10 +5,7 @@
  * @ts-check
  */
 
-const {
-  task,
-  parallel,
-} = require('just-scripts');
+const {task, parallel} = require('just-scripts');
 
 // Use the shared base configuration
 require('@rnw-scripts/just-task');

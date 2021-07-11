@@ -6,4 +6,9 @@
  * @flow strict-local
  */
 
-module.exports = require('@react-native-windows/virtualized-list');
+import QuirkSettings from '../QuirkSettings/QuirkSettings';
+
+module.exports = QuirkSettings.enableCellRenderMask
+  ? require('@react-native-windows/virtualized-list')
+      .ExperimentalVirtualizedList
+  : require('@react-native-windows/virtualized-list').VirtualizedList;

@@ -6,4 +6,4 @@
  * @flow strict-local
  */
 
-module.exports = require('@react-native-windows/virtualized-list');
+module.exports = require('@react-native-windows/virtualized-list').VirtualizedList;
