@@ -141,7 +141,7 @@ exports[`useWinUI3=true in react-native.config.js, useWinUI3=false in Experiment
 "<?xml version=\\"1.0\\" encoding=\\"utf-8\\"?>
 <packages>
   <package id=\\"Microsoft.ReactNative.Cxx\\" version=\\"1.0.0\\" targetFramework=\\"native\\"/>
-  <package id=\\"Microsoft.WinUI\\" version=\\"3.0.0-preview4.210210.4\\" targetFramework=\\"native\\"/>
+  <package id=\\"Microsoft.ProjectReunion.WinUI\\" version=\\"0.8.0\\" targetFramework=\\"native\\"/>
 </packages>"
 `;
 

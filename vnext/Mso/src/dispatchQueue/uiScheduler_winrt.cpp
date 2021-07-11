@@ -13,8 +13,8 @@ using namespace Windows::Foundation;
 #include "winrt/Windows.System.h"
 using namespace Windows::System;
 #else
-#include "winrt/Microsoft.System.h"
-using namespace Microsoft::System;
+#include "winrt/Microsoft.UI.Dispatching.h"
+using namespace Microsoft::UI::Dispatching;
 #endif
 
 namespace Mso {

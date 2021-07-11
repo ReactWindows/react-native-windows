@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup Label="Microsoft.ReactNative Experimental Features">
+    
+    <!--
+      Changes compilation to assume use of WinUI 3 instead of System XAML.
+      Requires creation of new project.
+
+      See https://microsoft.github.io/react-native-windows/docs/0.64/winui3
+    -->
+    <UseWinUI3>true</UseWinUI3>
+
+    <!--
+      Compiles Hermes-related code and sets it to the default JS engine.
+      Requires the "ReactNative.Hermes.Windows" NuGet package.
+      
+      See https://microsoft.github.io/react-native-windows/docs/0.64/hermes
+    -->
+    <UseHermes>false</UseHermes>
+    <UseDocString>false</UseDocString>
+  </PropertyGroup>
+
+</Project>

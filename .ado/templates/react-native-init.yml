@@ -35,6 +35,9 @@ parameters:
     values: 
      - PullRequest 
      - Continuous 
+  - name: useReunion
+    type: boolean
+    default: false
 
 steps:
   - checkout: self # self represents the repo where the initial Pipelines YAML file was found
@@ -88,7 +91,19 @@ steps:
         npmVersion: $(npmVersion)
         packDesktop: false
         slices: '("${{ parameters.platform }}.${{ parameters.configuration }}")'
-  
+
+  - ${{ if eq(parameters.useReunion, true) }}:
+    - template: prep-and-pack-nuget.yml
+      parameters:
+        npmVersion: $(npmVersion)
+        packDesktop: false
+        packMicrosoftReactNative: false
+        packMicrosoftReactNativeCxx: false
+        packMicrosoftReactNativeManaged: false
+        packMicrosoftReactNativeManagedCodeGen: false
+        packMicrosoftReactNativeProjectReunion: true
+        slices: '("x64.Release")'
+
   # Work around issue of parameters not getting expanded in conditions properly
   - powershell: |
       Write-Host "##vso[task.setvariable variable=localProjectType]${{ parameters.projectType}}"

@@ -268,10 +268,10 @@ test('autolink with no windows project', () => {
     // example packages.config: 
     // <packages>
     //   <package id="SuperPkg" version="42"/>
-    //   <package id="Microsoft.WinUI" version="3.0.0-preview3.201113.0" targetFramework="native"/>
+    //   <package id="Microsoft.ProjectReunion.WinUI" version="0.8" targetFramework="native"/>
     // </packages>
     //
-    expect(al.packagesConfig).toContain('Microsoft.WinUI');
+    expect(al.packagesConfig).toContain('Microsoft.ProjectReunion.WinUI');
     expect(al.packagesConfig).toContain('<package id="SuperPkg" version="42"/>');
     expect(al.packagesConfig).not.toContain('Microsoft.UI.Xaml');
   
@@ -304,10 +304,10 @@ test('autolink with no windows project', () => {
     // example packages.config: 
     // <packages>
     //   <package id="SuperPkg" version="42"/>
-    //   <package id="Microsoft.WinUI" version="3.0.0-preview3.201113.0" targetFramework="native"/>
+    //   <package id="Microsoft.ProjectReunion.WinUI" version="0.8" targetFramework="native"/>
     // </packages>
     //
-    expect(al.packagesConfig).not.toContain('Microsoft.WinUI');
+    expect(al.packagesConfig).not.toContain('Microsoft.ProjectReunion.WinUI');
     expect(al.packagesConfig).toContain('<package id="SuperPkg" version="42"/>');
     expect(al.packagesConfig).toContain('Microsoft.UI.Xaml');
   
@@ -340,10 +340,10 @@ test('autolink with no windows project', () => {
     // example packages.config: 
     // <packages>
     //   <package id="SuperPkg" version="42"/>
-    //   <package id="Microsoft.WinUI" version="3.0.0-preview3.201113.0" targetFramework="native"/>
+    //   <package id="Microsoft.ProjectReunion.WinUI" version="0.8" targetFramework="native"/>
     // </packages>
     //
-    expect(al.packagesConfig).toContain('Microsoft.WinUI');
+    expect(al.packagesConfig).toContain('Microsoft.ProjectReunion.WinUI');
     expect(al.packagesConfig).toContain('<package id="SuperPkg" version="42"/>');
     expect(al.packagesConfig).not.toContain('Microsoft.UI.Xaml');
   
@@ -365,7 +365,7 @@ test('autolink with no windows project', () => {
       },
     );
     al.experimentalFeaturesProps = `<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"><PropertyGroup><UseWinUI3>false</UseWinUI3></PropertyGroup></Project>`;
-    al.packagesConfig = `<packages><package id="SuperPkg" version="42"/><package id="Microsoft.WinUI"/></packages>`;
+    al.packagesConfig = `<packages><package id="SuperPkg" version="42"/><package id="Microsoft.ProjectReunion.WinUI"/></packages>`;
   
     const exd = await al.ensureXAMLDialect();
     expect(exd).toBeTruthy();
@@ -376,10 +376,10 @@ test('autolink with no windows project', () => {
     // example packages.config: 
     // <packages>
     //   <package id="SuperPkg" version="42"/>
-    //   <package id="Microsoft.WinUI" version="3.0.0-preview4.210210.4" targetFramework="native"/>
+    //   <package id="Microsoft.ProjectReunion.WinUI" version="0.8" targetFramework="native"/>
     // </packages>
     //
-    expect(al.packagesConfig).not.toContain('Microsoft.WinUI');
+    expect(al.packagesConfig).not.toContain('Microsoft.ProjectReunion.WinUI');
     expect(al.packagesConfig).toContain('<package id="SuperPkg" version="42"/>');
     expect(al.packagesConfig).toContain('Microsoft.UI.Xaml');
   

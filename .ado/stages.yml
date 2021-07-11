@@ -31,6 +31,7 @@ stages:
           # The Nuget CLI verification is part of 'Build' to speed up the verification
           buildEnvironment: ${{ parameters.buildEnvironment }}
           buildNuGetOnly: true
+          buildReunionOnly: true
 
   - stage: IntegrationTests
     displayName: Tests 🧪

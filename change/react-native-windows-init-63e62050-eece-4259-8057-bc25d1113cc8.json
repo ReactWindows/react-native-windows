@@ -1,0 +1,7 @@
+{
+  "type": "patch",
+  "comment": "Update to Windows App SDK 0.8",
+  "packageName": "react-native-windows-init",
+  "email": "asklar@microsoft.com",
+  "dependentChangeType": "patch"
+}

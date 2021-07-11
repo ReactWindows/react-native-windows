@@ -168,11 +168,36 @@ export async function copyProjectTemplateAndReplace(
   if (options.experimentalNuGetDependency) {
     console.log('Using experimental NuGet dependency.');
   }
+
+  let realProjectType = projectType;
+
   if (options.useWinUI3) {
     console.log('Using experimental WinUI3 dependency.');
+    if (projectType === 'lib') {
+      throw new CodedError(
+        'IncompatibleOptions',
+        'WinUI 3 project template only supports apps at the moment',
+        {
+          detail: 'useWinUI3 and lib',
+        },
+      );
+    } else if (language !== 'cs') {
+      throw new CodedError(
+        'IncompatibleOptions',
+        'WinUI 3 project template only support C# at the moment',
+        {
+          detail: 'useWinUI3 and cpp',
+        },
+      );
+    }
+
+    if (!fs.existsSync(path.join(windowsDir, newProjectName + ' (Package)'))) {
+      fs.mkdirSync(path.join(windowsDir, newProjectName + ' (Package)'));
+    }
+    realProjectType += '-reunion';
   }
   const projDir = 'proj';
-  const srcPath = path.join(srcRootPath, `${language}-${projectType}`);
+  const srcPath = path.join(srcRootPath, `${language}-${realProjectType}`);
   const sharedPath = path.join(srcRootPath, `shared-${projectType}`);
   const projectGuid = uuid.v4();
   const rnwVersion = require(resolveRnwPath('package.json')).version;
@@ -221,17 +246,9 @@ export async function copyProjectTemplateAndReplace(
     jsEnginePropsPath,
   );
 
-  const csNugetPackages: NugetPackage[] = [
-    {
-      id: 'Microsoft.NETCore.UniversalWindowsPlatform',
-      version: '6.2.9',
-    },
-    /* #7225 ReactNative.Hermes.Windows is not yet seen as compatible for usage in C# projects
-    {
-      id: 'ReactNative.Hermes.Windows',
-      version: hermesVersion,
-    }, */
-  ];
+  const csNugetPackages: NugetPackage[] = options.useWinUI3
+    ? getReunionPackages(nugetVersion)
+    : getUwpCsPackages();
 
   const cppNugetPackages: CppNugetPackage[] = [
     {
@@ -273,7 +290,9 @@ export async function copyProjectTemplateAndReplace(
   const packagesConfigCppNugetPackages = [
     ...cppNugetPackages,
     {
-      id: options.useWinUI3 ? 'Microsoft.WinUI' : 'Microsoft.UI.Xaml',
+      id: options.useWinUI3
+        ? 'Microsoft.ProjectReunion.WinUI'
+        : 'Microsoft.UI.Xaml',
       version: options.useWinUI3 ? winui3Version : winui2xVersion,
       hasProps: false, // WinUI/MUX props and targets get handled by RNW's WinUI.props.
       hasTargets: false,
@@ -409,7 +428,19 @@ export async function copyProjectTemplateAndReplace(
             },
           ];
 
-    for (const mapping of csMappings) {
+    const realCsMappings = options.useWinUI3
+      ? csMappings.concat([
+          {
+            from: path.join(srcPath, projDir, 'MyApp (Package).wapproj'),
+            to: path.join(
+              windowsDir,
+              `${newProjectName} (Package)`,
+              newProjectName + ' (Package).wapproj',
+            ),
+          },
+        ])
+      : csMappings;
+    for (const mapping of realCsMappings) {
       await copyAndReplaceWithChangedCallback(
         mapping.from,
         destPath,
@@ -518,28 +549,49 @@ export async function copyProjectTemplateAndReplace(
     }
   }
 
-  // shared assets
-  if (fs.existsSync(path.join(sharedPath, 'assets'))) {
-    await copyAndReplaceAll(
-      path.join(sharedPath, 'assets'),
-      destPath,
-      path.join(windowsDir, newProjectName, 'Assets'),
-      templateVars,
-      options.overwrite,
-    );
-  }
+  if (!options.useWinUI3) {
+    // shared assets
+    if (fs.existsSync(path.join(sharedPath, 'assets'))) {
+      await copyAndReplaceAll(
+        path.join(sharedPath, 'assets'),
+        destPath,
+        path.join(windowsDir, newProjectName, 'Assets'),
+        templateVars,
+        options.overwrite,
+      );
+    }
 
-  // shared src
-  if (fs.existsSync(path.join(sharedPath, 'src'))) {
-    await copyAndReplaceAll(
-      path.join(sharedPath, 'src'),
-      destPath,
-      path.join(windowsDir, newProjectName),
-      templateVars,
-      options.overwrite,
-    );
+    // shared src
+    if (fs.existsSync(path.join(sharedPath, 'src'))) {
+      await copyAndReplaceAll(
+        path.join(sharedPath, 'src'),
+        destPath,
+        path.join(windowsDir, newProjectName),
+        templateVars,
+        options.overwrite,
+      );
+    }
+  } else {
+    if (fs.existsSync(path.join(srcPath, 'MyApp'))) {
+      await copyAndReplaceAll(
+        path.join(srcPath, 'MyApp'),
+        destPath,
+        path.join(windowsDir, newProjectName),
+        templateVars,
+        options.overwrite,
+      );
+    }
+    const wapSourcePath = path.join(srcPath, 'MyApp (Package)');
+    if (fs.existsSync(wapSourcePath)) {
+      await copyAndReplaceAll(
+        wapSourcePath,
+        destPath,
+        path.join(windowsDir, newProjectName + ' (Package)'),
+        templateVars,
+        options.overwrite,
+      );
+    }
   }
-
   // src
   if (fs.existsSync(path.join(srcPath, 'src'))) {
     await copyAndReplaceAll(
@@ -555,6 +607,15 @@ export async function copyProjectTemplateAndReplace(
     console.log(chalk.white.bold('To run your app on UWP:'));
     console.log(chalk.white('   npx react-native run-windows'));
   }
+}
+
+function getUwpCsPackages(): NugetPackage[] {
+  return [
+    {
+      id: 'Microsoft.NETCore.UniversalWindowsPlatform',
+      version: '6.2.9',
+    },
+  ];
 }
 
 function toCppNamespace(namespace: string) {
@@ -625,4 +686,24 @@ export async function installScriptsAndDependencies(options: {
       options.verbose ? {stdio: 'inherit'} : {},
     );
   }
+}
+function getReunionPackages(nugetVersion: string): NugetPackage[] {
+  const reunionPackages: NugetPackage[] = [];
+  reunionPackages.push({
+    id: 'Microsoft.ReactNative.ProjectReunion',
+    version: nugetVersion,
+  });
+
+  const reunionVersion = '0.8.0';
+  for (const pkg of [
+    'Microsoft.ProjectReunion',
+    'Microsoft.ProjectReunion.Foundation',
+    'Microsoft.ProjectReunion.WinUI',
+  ]) {
+    reunionPackages.push({
+      id: pkg,
+      version: reunionVersion,
+    });
+  }
+  return reunionPackages;
 }

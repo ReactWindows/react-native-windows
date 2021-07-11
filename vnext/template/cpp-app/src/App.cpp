@@ -56,6 +56,7 @@ void App::OnLaunched(activation::LaunchActivatedEventArgs const& e)
     rootFrame.Navigate(xaml_typename<MainPage>(), box_value(e.Arguments()));
 }
 
+#ifndef USE_WINUI3
 /// <summary>
 /// Invoked when the application is activated by some means other than normal launching.
 /// </summary>
@@ -67,6 +68,7 @@ void App::OnActivated(Activation::IActivatedEventArgs const &e) {
     rootFrame.Navigate(xaml_typename<MainPage>(), nullptr);
   }
 }
+#endif
 
 /// <summary>
 /// Invoked when application execution is being suspended.  Application state is saved

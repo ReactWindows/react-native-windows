@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="16.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="16.0" DefaultTargets="Build"
+  xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <Import Project="$(SolutionDir)\ExperimentalFeatures.props" Condition="Exists('$(SolutionDir)\ExperimentalFeatures.props')" />
   <PropertyGroup Label="ReactNativeWindowsProps">
@@ -151,14 +152,14 @@
   <Choose>
     <When Condition="'$(UseWinUI3)'!='true'">
       <ItemGroup>
-        <PackageReference Include="Microsoft.UI.Xaml" >
+        <PackageReference Include="Microsoft.UI.Xaml">
           <Version>$(WinUI2xVersion)</Version>
         </PackageReference>
       </ItemGroup>
     </When>
     <Otherwise>
       <ItemGroup>
-        <PackageReference Include="Microsoft.WinUI">
+        <PackageReference Include="Microsoft.ProjectReunion.WinUI">
           <Version>$(WinUI3Version)</Version>
         </PackageReference>
       </ItemGroup>

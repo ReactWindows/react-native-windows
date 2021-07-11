@@ -20,6 +20,7 @@ void AppState::Initialize(winrt::Microsoft::ReactNative::ReactContext const &rea
       auto currentApp = xaml::TryGetCurrentApplication();
 
       if (!IsWinUI3Island() && currentApp != nullptr) {
+#ifndef USE_WINUI3
         m_enteredBackgroundRevoker = currentApp.EnteredBackground(
             winrt::auto_revoke,
             [weakThis = weak_from_this()](
@@ -39,6 +40,7 @@ void AppState::Initialize(winrt::Microsoft::ReactNative::ReactContext const &rea
                 strongThis->SetActive(true);
               }
             });
+#endif
       } else {
         assert(IsXamlIsland());
       }

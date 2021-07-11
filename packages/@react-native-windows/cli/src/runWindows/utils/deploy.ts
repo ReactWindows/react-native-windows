@@ -302,9 +302,18 @@ export async function deployToDesktop(
     );
   } else {
     // If we have DeployAppRecipe.exe, use it (start in 16.8.4, earlier 16.8 versions have bugs)
+
+    // const configWindows = config.platforms.windows as ConfigWindows;
+    // const deployProjectName = useWinUI3
+    //   ? `${projectName} (Package)`
+    //   : projectName;
+
+    console.log(JSON.stringify(config));
+
+    const deployProjectName = projectName;
     const appxRecipe = path.join(
       path.dirname(appxManifestPath),
-      `${projectName}.build.appxrecipe`,
+      `${deployProjectName}.build.appxrecipe`,
     );
     const ideFolder = `${buildTools.installationPath}\\Common7\\IDE`;
     const deployAppxRecipeExePath = `${ideFolder}\\DeployAppRecipe.exe`;

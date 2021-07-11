@@ -41,7 +41,7 @@ export async function ensureWinUI3Project(folder: string) {
         hasTargets: false,
       },
       {
-        id: 'Microsoft.WinUI',
+        id: 'Microsoft.ProjectReunion.WinUI',
         version: '3.2.1.0',
         hasProps: false,
         hasTargets: false,

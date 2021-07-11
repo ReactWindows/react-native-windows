@@ -156,6 +156,20 @@ export function findDependencyProjectFiles(winFolder: string): string[] {
   return dependencyProjectFiles;
 }
 
+type ReactNativeProjectType = 'unknown' | 'App-Reunion';
+
+function getReactNativeProjectType(
+  value: string | null,
+): ReactNativeProjectType {
+  switch (value) {
+    case 'App-Reunion':
+      return value;
+
+    default:
+      return 'unknown';
+  }
+}
+
 /**
  * Checks if the target file path is a RNW app project file.
  * @param filePath The absolute file path to check.
@@ -163,6 +177,14 @@ export function findDependencyProjectFiles(winFolder: string): string[] {
  */
 function isRnwAppProject(filePath: string): boolean {
   const projectContents = readProjectFile(filePath);
+
+  const rnProjectType = getReactNativeProjectType(
+    tryFindPropertyValue(projectContents, 'ReactNativeProjectType'),
+  );
+
+  if (rnProjectType !== 'unknown') {
+    return true;
+  }
 
   const projectLang = getProjectLanguage(filePath);
   if (projectLang === 'cs') {
@@ -252,6 +274,15 @@ export function tryFindPropertyValue(
   if (nodes.length > 0) {
     // Take the last one
     return (nodes[nodes.length - 1] as Node).textContent;
+  } else {
+    const noNamespaceNodes = xpath.select(
+      `//PropertyGroup/${propertyName}`,
+      projectContents,
+    );
+    if (noNamespaceNodes.length > 0) {
+      return (noNamespaceNodes[noNamespaceNodes.length - 1] as Node)
+        .textContent;
+    }
   }
 
   return null;

@@ -49,6 +49,7 @@ namespace {{ namespace }}
             frame.Navigate(typeof(MainPage), e.Arguments);
         }
 
+#if !USE_WINUI3
         /// <summary>
         /// Invoked when the application is activated by some means other than normal launching.
         /// </summary>
@@ -65,3 +66,4 @@ namespace {{ namespace }}
         }
     }
 }
+#endif
