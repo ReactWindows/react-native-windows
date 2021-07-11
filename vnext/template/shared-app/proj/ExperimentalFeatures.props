@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
+  <!--
+    This file contains some important settings that will apply globally for
+    your app and *all* native modules your app consumes. These values were
+    set when you created the app project, and in some cases cannot be
+    simply changed here without recreating a new project.
+  -->
+
   <PropertyGroup Label="Microsoft.ReactNative Experimental Features">
-    
     <!--
       Enables default usage of Hermes.
       
@@ -17,6 +23,12 @@
       See https://microsoft.github.io/react-native-windows/docs/winui3
     -->
     <UseWinUI3>{{useWinUI3}}</UseWinUI3>
+
+    <!--
+      Changes compilation to assume use of Micorsoft.ReactNative NuGets packages instead of source.
+      Requires creation of new project.
+    -->
+    <UseExperimentalNuget>{{useExperimentalNuget}}</UseExperimentalNuget>
   
   </PropertyGroup>
 
