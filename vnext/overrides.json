@@ -6,7 +6,7 @@
     "ReactCommon/TEMP_UntilReactCommonUpdate/**"
   ],
   "excludePatterns": [],
-  "baseVersion": "0.0.0-7e05480cc",
+  "baseVersion": "0.65.0-rc.2",
   "overrides": [
     {
       "type": "derived",
@@ -408,7 +408,7 @@
       "type": "derived",
       "file": "src/Libraries/Text/Text.windows.js",
       "baseFile": "Libraries/Text/Text.js",
-      "baseHash": "f782aaf60f162419c71948fd548dfebb7746dd4f"
+      "baseHash": "4437d86c40009c937c279b9ce9e924ebfa46ddd6"
     },
     {
       "type": "patch",

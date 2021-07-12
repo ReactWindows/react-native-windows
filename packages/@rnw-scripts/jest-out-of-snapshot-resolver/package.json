@@ -1,12 +1,12 @@
 {
-    "name": "@rnw-scripts/jest-out-of-tree-snapshot-resolver",
-    "private": true,
-    "version": "1.0.0",
-    "license": "MIT",
-    "main": "jest-snapshot-resolver.js",
-    "devDependencies": {
-      "@rnw-scripts/eslint-config": "1.1.6",
-      "eslint": "7.12.0",
-      "prettier": "1.19.1"
-    }
+  "name": "@rnw-scripts/jest-out-of-tree-snapshot-resolver",
+  "private": true,
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "jest-snapshot-resolver.js",
+  "devDependencies": {
+    "@rnw-scripts/eslint-config": "1.1.6",
+    "eslint": "7.12.0",
+    "prettier": "1.19.1"
   }
+}

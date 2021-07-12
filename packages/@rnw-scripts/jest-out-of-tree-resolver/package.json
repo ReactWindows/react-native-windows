@@ -1,15 +1,15 @@
 {
-    "name": "@rnw-scripts/jest-out-of-tree-resolver",
-    "private": true,
-    "version": "1.0.0",
-    "license": "MIT",
-    "main": "jest-resolver.js",
-    "dependencies": {
-      "resolve": "^1.14.2"
-    },
-    "devDependencies": {
-      "@rnw-scripts/eslint-config": "1.1.6",
-      "eslint": "7.12.0",
-      "prettier": "1.19.1"
-    }
+  "name": "@rnw-scripts/jest-out-of-tree-resolver",
+  "private": true,
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "jest-resolver.js",
+  "dependencies": {
+    "resolve": "^1.14.2"
+  },
+  "devDependencies": {
+    "@rnw-scripts/eslint-config": "1.1.6",
+    "eslint": "7.12.0",
+    "prettier": "1.19.1"
   }
+}

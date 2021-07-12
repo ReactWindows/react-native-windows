@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Integrate 0.65.0-rc.2",
+  "packageName": "@office-iss/react-native-win32",
+  "email": "ngerlem@microsoft.com",
+  "dependentChangeType": "patch"
+}

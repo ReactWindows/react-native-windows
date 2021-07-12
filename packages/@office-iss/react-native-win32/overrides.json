@@ -3,10 +3,10 @@
     ".flowconfig",
     "src/**"
   ],
-  "baseVersion": "0.0.0-7e05480cc",
   "excludePatterns": [
     "**/__snapshots__/**"
   ],
+  "baseVersion": "0.65.0-rc.2",
   "overrides": [
     {
       "type": "derived",
@@ -290,54 +290,47 @@
       "baseFile": "Libraries/Inspector/InspectorOverlay.js",
       "baseHash": "b11d03daa2e3f828a350667f543b2cda4fa65dbf"
     },
-     {
+    {
       "type": "copy",
       "file": "src/Libraries/Lists/__tests__/FillRateHelper-test.js",
       "baseFile": "Libraries/Lists/__tests__/FillRateHelper-test.js",
-      "baseHash": "3bb080ba811b837f69c82bc609fb6b328c20bd6d",
-      "baseVersion": "0.0.0-0d32aef3a"
+      "baseHash": "3bb080ba811b837f69c82bc609fb6b328c20bd6d"
     },
     {
       "type": "copy",
       "file": "src/Libraries/Lists/__tests__/FlatList-test.js",
       "baseFile": "Libraries/Lists/__tests__/FlatList-test.js",
-      "baseHash": "88824e737ffe548ce9cbe56fe84973bed8f73884",
-      "baseVersion": "0.0.0-0d32aef3a"
+      "baseHash": "88824e737ffe548ce9cbe56fe84973bed8f73884"
     },
     {
       "type": "copy",
       "file": "src/Libraries/Lists/__tests__/SectionList-test.js",
       "baseFile": "Libraries/Lists/__tests__/SectionList-test.js",
-      "baseHash": "e930bdfd0c4be6b06d156099fb2f7efe903c3644",
-      "baseVersion": "0.0.0-0d32aef3a"
+      "baseHash": "e930bdfd0c4be6b06d156099fb2f7efe903c3644"
     },
     {
       "type": "copy",
       "file": "src/Libraries/Lists/__tests__/ViewabilityHelper-test.js",
       "baseFile": "Libraries/Lists/__tests__/ViewabilityHelper-test.js",
-      "baseHash": "f23a66cfc475ee1e2eda1065e56e05e547b7030e",
-      "baseVersion": "0.0.0-0d32aef3a"
+      "baseHash": "f23a66cfc475ee1e2eda1065e56e05e547b7030e"
     },
     {
       "type": "copy",
       "file": "src/Libraries/Lists/__tests__/VirtualizedList-test.js",
       "baseFile": "Libraries/Lists/__tests__/VirtualizedList-test.js",
-      "baseHash": "fd25fc611f8da21b93e7f8750d8f2fc8273a4a52",
-      "baseVersion": "0.0.0-0d32aef3a"
+      "baseHash": "fd25fc611f8da21b93e7f8750d8f2fc8273a4a52"
     },
     {
       "type": "copy",
       "file": "src/Libraries/Lists/__tests__/VirtualizedSectionList-test.js",
       "baseFile": "Libraries/Lists/__tests__/VirtualizedSectionList-test.js",
-      "baseHash": "c258bcae6ee2ded65303e0c5099d20b0569f400f",
-      "baseVersion": "0.0.0-0d32aef3a"
+      "baseHash": "c258bcae6ee2ded65303e0c5099d20b0569f400f"
     },
     {
       "type": "copy",
       "file": "src/Libraries/Lists/__tests__/VirtualizeUtils-test.js",
       "baseFile": "Libraries/Lists/__tests__/VirtualizeUtils-test.js",
-      "baseHash": "b0ff4ee36692d119b7bd7a50a770813e8b96153c",
-      "baseVersion": "0.0.0-0d32aef3a"
+      "baseHash": "b0ff4ee36692d119b7bd7a50a770813e8b96153c"
     },
     {
       "type": "patch",
