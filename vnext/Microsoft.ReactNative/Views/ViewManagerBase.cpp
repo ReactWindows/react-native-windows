@@ -80,7 +80,9 @@ YGSize DefaultYogaSelfMeasureFunc(
   return desiredSize;
 }
 
-ViewManagerBase::ViewManagerBase(const Mso::React::IReactContext &context) : m_context(&context) {}
+ViewManagerBase::ViewManagerBase(const Mso::React::IReactContext &context)
+    : m_context(&context),
+      m_batchingEventEmitter{std::make_shared<React::BatchingEventEmitter>(Mso::CntPtr(&context))} {}
 
 void ViewManagerBase::GetExportedViewConstants(const winrt::Microsoft::ReactNative::IJSValueWriter &writer) const {}
 
@@ -346,11 +348,11 @@ void ViewManagerBase::SetLayoutProps(
   // Fire Events
   if (layoutHasChanged && nodeToUpdate.m_onLayoutRegistered) {
     int64_t tag = GetTag(viewToUpdate);
-    folly::dynamic layout = folly::dynamic::object("x", left)("y", top)("height", height)("width", width);
+    React::JSValueObject layout{{"x", left}, {"y", top}, {"height", height}, {"width", width}};
 
-    folly::dynamic eventData = folly::dynamic::object("target", tag)("layout", std::move(layout));
+    React::JSValueObject eventData{{"target", tag}, {"layout", std::move(layout)}};
 
-    m_context->DispatchEvent(tag, "topLayout", std::move(eventData));
+    m_batchingEventEmitter->DispatchCoalescingEvent(tag, L"topLayout", MakeJSValueWriter(std::move(eventData)));
   }
 }
 
@@ -366,10 +368,11 @@ bool ViewManagerBase::IsNativeControlWithSelfLayout() const {
   return GetYogaCustomMeasureFunc() != nullptr;
 }
 
-void ViewManagerBase::DispatchEvent(int64_t viewTag, std::string &&eventName, folly::dynamic &&eventData)
-    const noexcept {
-  folly::dynamic params = folly::dynamic::array(viewTag, std::move(eventName), std::move(eventData));
-  m_context->CallJSFunction("RCTEventEmitter", "receiveEvent", std::move(params));
+void ViewManagerBase::DispatchEvent(
+    int64_t viewTag,
+    winrt::hstring &&eventName,
+    const React::JSValueArgWriter &eventDataWriter) const noexcept {
+  m_batchingEventEmitter->DispatchEvent(viewTag, std::move(eventName), eventDataWriter);
 }
 
 } // namespace Microsoft::ReactNative

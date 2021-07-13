@@ -417,8 +417,7 @@ void ScrollViewShadowNode::UpdateZoomMode(const winrt::ScrollViewer &scrollViewe
                                                                    : winrt::ZoomMode::Disabled);
 }
 
-ScrollViewManager::ScrollViewManager(const Mso::React::IReactContext &context)
-    : Super(context), m_batchingEventEmitter{std::make_shared<BatchingEventEmitter>(Mso::CntPtr(&context))} {}
+ScrollViewManager::ScrollViewManager(const Mso::React::IReactContext &context) : Super(context) {}
 
 const wchar_t *ScrollViewManager::GetName() const {
   return L"RCTScrollView";
