@@ -54,6 +54,9 @@
     "**/@react-native/tester/ws": "^6.2.2",
     "**/detox/ws": "^5.2.3"
   },
+  "beachball": {
+    "gitTags": false
+  },
   "engines": {
     "node": ">12.0.0"
   }

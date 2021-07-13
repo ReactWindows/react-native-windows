@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Revert Pre-RC CLI Workaround",
+  "packageName": "@react-native-windows/cli",
+  "email": "ngerlem@microsoft.com",
+  "dependentChangeType": "patch"
+}
