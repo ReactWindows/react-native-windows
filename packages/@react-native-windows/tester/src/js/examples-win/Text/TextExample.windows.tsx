@@ -686,6 +686,19 @@ export class TextExample extends React.Component<
             This text will have a orange highlight on selection.
           </Text>
         </RNTesterBlock>
+        <RNTesterBlock title="selectable onPress">
+          <Text
+            selectable
+            testID={'text-selection-onPress'}>
+            Pressing{' '}
+            <Text
+              style={{color: 'blue', textDecorationLine: 'underline'}}
+              onPress={() => alert('Pressed!')}>
+                here
+              </Text>
+              {' '}text will show an alert.
+          </Text>
+        </RNTesterBlock>
         <RNTesterBlock title="Inline images">
           <Text>
             This text contains an inline image{' '}
