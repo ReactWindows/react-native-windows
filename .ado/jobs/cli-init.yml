@@ -144,13 +144,16 @@ jobs:
             projectType: app
             additionalInitArguments: --useHermes
             additionalRunArguments:
-          X64ReleaseCsHermes:
-            language: cs
-            configuration: Release
-            platform: x64
-            projectType: app
-            additionalInitArguments: --useHermes
-            additionalRunArguments:
+          # --useHermes and language:cs doesn't work together in RN64 and older. 
+          # This needs to be enabled in RN65 once the init-cli is made version aware
+          # X64ReleaseCsHermes:
+          #   language: cs
+          #   configuration: Release
+          #   platform: x64
+          #   projectType: app
+          #   additionalInitArguments: --useHermes
+          #   additionalRunArguments:
+          # 
           # ARM64ReleaseCsHermes:
           #   language: cs
           #   configuration: Release

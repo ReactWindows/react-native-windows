@@ -1,0 +1,7 @@
+{
+  "type": "none",
+  "comment": "Re-adding the compatibility checks on --useHermes and language:cs as the CLI is shared across RN versions",
+  "packageName": "react-native-windows-init",
+  "email": "email not defined",
+  "dependentChangeType": "none"
+}

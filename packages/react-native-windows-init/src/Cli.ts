@@ -385,6 +385,22 @@ function isProjectUsingYarn(cwd: string): boolean {
       );
     }
 
+    if (argv.useHermes && argv.experimentalNuGetDependency) {
+      throw new CodedError(
+        'IncompatibleOptions',
+        "Error: Incompatible options specified. Options '--useHermes' and '--experimentalNuGetDependency' are incompatible",
+        {detail: 'useHermes and experimentalNuGetDependency'},
+      );
+    }
+
+    if (argv.useHermes && argv.language === 'cs') {
+      throw new CodedError(
+        'IncompatibleOptions',
+        "Error: Incompatible options specified. Options '--useHermes' and '--language cs' are incompatible",
+        {detail: 'useHermes and C#'},
+      );
+    }
+
     if (!useDevMode) {
       if (!version) {
         const rnVersion = getReactNativeVersion();
