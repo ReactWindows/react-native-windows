@@ -60,9 +60,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Filter Include="Source Files">
       <UniqueIdentifier>{5b1c3733-0130-4c1f-95a2-f833b71340e8}</UniqueIdentifier>
     </Filter>

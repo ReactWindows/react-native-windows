@@ -2,9 +2,9 @@ parameters:
   - name: buildEnvironment
     type: string
     default : PullRequest
-    values: 
-     - PullRequest 
-     - Continuous 
+    values:
+     - PullRequest
+     - Continuous
 
 jobs:
   - job: Playground
@@ -64,12 +64,16 @@ jobs:
           script: |
             echo ##vso[task.setvariable variable=BuildWinUI3Properties]/p:AppxPackageSigningEnabled=false /p:UseWinUI3=true
 
-      - task: NuGetCommand@2
-        displayName: NuGet restore - Playground
+      - task: MSBuild@1
+        displayName: Restore NuGet packages
         inputs:
-          command: restore
-          restoreSolution: packages/playground/windows/$(SolutionFile)
-          verbosityRestore: Detailed # Options: quiet, normal, detailed
+          solution: packages/playground/windows/$(SolutionFile)
+          msbuildArchitecture: x64
+          platform: $(BuildPlatform)
+          configuration: $(BuildConfiguration)
+          msbuildArguments:
+            /t:Restore
+            $(BuildWinUI3Properties)
 
       - template: ../templates/setup-certificate.yml
         parameters:

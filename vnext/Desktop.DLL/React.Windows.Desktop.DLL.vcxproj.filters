@@ -8,7 +8,6 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="react-native-win32.x64.def" />
     <None Include="react-native-win32.x86.def" />
   </ItemGroup>

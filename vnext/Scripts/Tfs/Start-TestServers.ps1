@@ -5,11 +5,13 @@
 # Start-TestServers.ps1
 #
 param (
-	[System.IO.DirectoryInfo] $SourcesDirectory = ($PSScriptRoot | Split-Path | Split-Path | Split-Path),
+	[System.IO.DirectoryInfo] $SourcesDirectory = ($PSScriptRoot | Split-Path | Split-Path),
 
 	[switch] $Preload,
 
-	[int] $SleepSeconds = 10
+	[int] $SleepSeconds = 10,
+
+	[switch] $UseNodeWsServer
 )
 
 Write-Host "Starting packager"
@@ -24,14 +26,16 @@ Start-Process npm	-PassThru `
 
 Write-Host 'Started packager'
 
-Write-Host 'Starting WebSocket server'
+if ($UseNodeWsServer.IsPresent) {
+	Write-Host 'Starting WebSocket server'
 
-Start-Process	-PassThru `
-				-FilePath (Get-Command node.exe).Definition `
-				-ArgumentList "${SourcesDirectory}\IntegrationTests\websocket_integration_test_server.js" `
-				-OutVariable wsProc
-
-Write-Host 'Started WebSocket server'
+	Start-Process	-PassThru `
+					-FilePath (Get-Command node.exe).Definition `
+					-ArgumentList "${SourcesDirectory}\IntegrationTests\websocket_integration_test_server.js" `
+					-OutVariable wsProc
+	
+	Write-Host 'Started WebSocket server'
+}
 
 if ($Preload) {
 	Write-Host 'Preloading bundles'
@@ -46,6 +50,10 @@ if ($Preload) {
 
 # Use the environment variables input below to pass secret variables to this script.
 Write-Host "##vso[task.setvariable variable=PackagerId;]$($packagerProc.Id)"
-Write-Host "##vso[task.setvariable variable=WebSocketServerId;]$($wsProc.Id)"
 
-return ($packagerProc, $wsProc)
+if ($UseNodeWsServer.IsPresent) {
+	Write-Host "##vso[task.setvariable variable=WebSocketServerId;]$($wsProc.Id)"
+	return ($packagerProc, $wsProc)
+} else {
+	return ($packagerProc)
+}

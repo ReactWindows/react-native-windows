@@ -539,7 +539,4 @@
   <ItemGroup>
     <Natvis Include="Folly.natvis" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
 </Project>

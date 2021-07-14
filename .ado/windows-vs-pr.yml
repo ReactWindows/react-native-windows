@@ -10,6 +10,9 @@ pr:
 variables:
   - template: variables/msbuild.yml
   - group: platform-override-zero-permission-token
+  #TODO: DELETE BEFORE MERGING
+  - name: system.debug
+    value: true
 
 stages:
   - stage: Setup
@@ -41,7 +44,7 @@ stages:
               buildEnvironment: Continuous
 
           - template: templates/publish-version-vars.yml
-          
+
   - template: stages.yml
     parameters:
       buildEnvironment: PullRequest

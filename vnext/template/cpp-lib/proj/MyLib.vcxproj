@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(SolutionDir)\ExperimentalFeatures.props" Condition="Exists('$(SolutionDir)\ExperimentalFeatures.props')" />
-  {{#cppNugetPackages}}
-  {{#propsTopOfFile}}
-  <Import Project="$(SolutionDir)\packages\{{ id }}.{{ version }}\build\native\{{ id }}.props" Condition="Exists('$(SolutionDir)\packages\{{ id }}.{{ version }}\build\native\{{ id }}.props')" />
-  {{/propsTopOfFile}}
-  {{/cppNugetPackages}}
   <PropertyGroup Label="Globals">
     <CppWinRTOptimized>true</CppWinRTOptimized>
     <CppWinRTRootNamespaceAutoMerge>true</CppWinRTRootNamespaceAutoMerge>
@@ -22,6 +17,9 @@
     <WindowsTargetPlatformMinVersion>10.0.16299.0</WindowsTargetPlatformMinVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="NuGet">
+    <ResolveNuGetPackages>false</ResolveNuGetPackages>
+  </PropertyGroup>
   <PropertyGroup Label="ReactNativeWindowsProps">
     <ReactNativeWindowsDir Condition="'$(ReactNativeWindowsDir)' == ''">$([MSBuild]::GetDirectoryNameOfFileAbove($(SolutionDir), 'node_modules\react-native-windows\package.json'))\node_modules\react-native-windows\</ReactNativeWindowsDir>
     {{#useExperimentalNuget}}
@@ -68,11 +66,6 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
-  {{#cppNugetPackages}}
-  {{#propsMiddleOfFile}}
-  <Import Project="$(SolutionDir)\packages\{{ id }}.{{ version }}\build\native\{{ id }}.props" Condition="Exists('$(SolutionDir)\packages\{{ id }}.{{ version }}\build\native\{{ id }}.props')" />
-  {{/propsMiddleOfFile}}
-  {{/cppNugetPackages}}
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings"></ImportGroup>
   <ImportGroup Label="PropertySheets">
@@ -83,9 +76,7 @@
   </ImportGroup>
   <ImportGroup Label="ReactNativeWindowsPropertySheets">
     <Import Project="$(ReactNativeWindowsDir)\PropertySheets\external\Microsoft.ReactNative.Uwp.CppLib.props" Condition="Exists('$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Uwp.CppLib.props')" />
-    <Import Project="$(SolutionDir)\packages\$(WinUIPackageProps)" Condition="'$(WinUIPackageProps)'!='' And Exists('$(SolutionDir)\packages\$(WinUIPackageProps)')" />
   </ImportGroup>
-
   <PropertyGroup Label="UserMacros" />
   <ItemDefinitionGroup>
     <ClCompile>
@@ -134,8 +125,13 @@
     <Midl Include="ReactPackageProvider.idl" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="PropertySheet.props" />
+  </ItemGroup>
+  <ItemGroup>
+    {{#cppNugetPackages}}
+    <PackageReference Include="{{ id }}" Version="{{ version }}" />
+    {{/cppNugetPackages}}
+    <PackageReference Include="$(WinUIPackageName)" Version="$(WinUIPackageVersion)" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ReactNativeWindowsTargets">
@@ -147,27 +143,5 @@
     </PropertyGroup>
     <Error Condition="!Exists('$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Uwp.CppLib.props')" Text="$([System.String]::Format('$(ErrorText)', '$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Uwp.CppLib.props'))" />
     <Error Condition="!Exists('$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Uwp.CppLib.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(ReactNativeWindowsDir)\PropertySheets\External\Microsoft.ReactNative.Uwp.CppLib.targets'))" />
-  </Target>
-  <ImportGroup Label="ExtensionTargets">
-    {{#cppNugetPackages}}
-    {{#hasTargets}}
-    <Import Project="$(SolutionDir)\packages\{{ id }}.{{ version }}\build\native\{{ id }}.targets" Condition="Exists('$(SolutionDir)\packages\{{ id }}.{{ version }}\build\native\{{ id }}.targets')" />
-    {{/hasTargets}}
-    {{/cppNugetPackages}}
-    <Import Project="$(SolutionDir)\packages\$(WinUIPackageName).$(WinUIPackageVersion)\build\native\$(WinUIPackageName).targets" Condition="Exists('$(SolutionDir)\packages\$(WinUIPackageName).$(WinUIPackageVersion)\build\native\$(WinUIPackageName).targets')" />
-  </ImportGroup>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    {{#cppNugetPackages}}
-    {{#hasProps}}
-    <Error Condition="!Exists('$(SolutionDir)\packages\{{ id }}.{{ version }}\build\native\{{ id }}.props')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\packages\{{ id }}.{{ version }}\build\native\{{ id }}.props'))" />
-    {{/hasProps}}
-    {{#hasTargets}}
-    <Error Condition="!Exists('$(SolutionDir)\packages\{{ id }}.{{ version }}\build\native\{{ id }}.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\packages\{{ id }}.{{ version }}\build\native\{{ id }}.targets'))" />
-    {{/hasTargets}}
-    {{/cppNugetPackages}}
-    <Error Condition="!Exists('$(SolutionDir)\packages\$(WinUIPackageName).$(WinUIPackageVersion)\build\native\$(WinUIPackageName).targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\packages\$(WinUIPackageName).$(WinUIPackageVersion)\build\native\$(WinUIPackageName).targets'))" />
   </Target>
 </Project>

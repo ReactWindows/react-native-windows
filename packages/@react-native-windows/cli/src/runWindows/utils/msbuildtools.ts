@@ -104,7 +104,7 @@ export default class MSBuildTools {
     }
 
     if (target === 'build') {
-      args.push('/restore', '/p:RestorePackagesConfig=true');
+      args.push('/restore');
     } else {
       args.push(`/t:Deploy`);
     }

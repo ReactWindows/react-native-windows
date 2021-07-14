@@ -31,7 +31,6 @@
     <ClInclude Include="SampleModuleCpp.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="SampleLibraryCpp.def" />
   </ItemGroup>
   <ItemGroup>

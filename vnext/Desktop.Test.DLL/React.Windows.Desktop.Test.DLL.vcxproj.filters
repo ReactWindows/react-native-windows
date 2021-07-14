@@ -3,7 +3,6 @@
   <ItemGroup>
     <None Include="React.Windows.Desktop.Test.x64.def" />
     <None Include="React.Windows.Desktop.Test.x86.def" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">

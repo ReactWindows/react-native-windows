@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.Windows.CppWinRT.2.0.210312.4\build\native\Microsoft.Windows.CppWinRT.props" Condition="Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.210312.4\build\native\Microsoft.Windows.CppWinRT.props')" />
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
@@ -96,9 +95,6 @@
     <ClCompile Include="WebSocketResourcePerformanceTests.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Desktop.DLL\React.Windows.Desktop.DLL.vcxproj">
       <Project>{88bab0fa-e1ac-4da7-a30c-f91702a8eadb}</Project>
     </ProjectReference>
@@ -122,29 +118,14 @@
     <ClInclude Include="Modules\TestDevSettingsModule.h" />
     <ClInclude Include="Modules\TestImageLoaderModule.h" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="boost" Version="1.76.0.0" />
+    <PackageReference Include="ChakraCore.Debugger" Version="0.0.0.44" />
+    <PackageReference Include="Microsoft.ChakraCore.vc140" Version="1.11.24" />
+    <PackageReference Include="ReactWindows.ChakraCore.ARM64" Version="1.11.20" Condition="'$(Platform)' == 'ARM64'" />
+    <PackageReference Include="ReactWindows.OpenSSL.StdCall.Static" Version="1.0.2-p.5" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-    <Import Project="$(SolutionDir)packages\ReactWindows.OpenSSL.StdCall.Static.1.0.2-p.5\build\native\ReactWindows.OpenSSL.StdCall.Static.targets" Condition="Exists('$(SolutionDir)packages\ReactWindows.OpenSSL.StdCall.Static.1.0.2-p.5\build\native\ReactWindows.OpenSSL.StdCall.Static.targets')" />
-    <Import Project="$(SolutionDir)packages\boost.1.76.0.0\build\boost.targets" Condition="Exists('$(SolutionDir)packages\boost.1.76.0.0\build\boost.targets')" />
-    <Import Project="$(SolutionDir)packages\Microsoft.ChakraCore.vc140.1.11.24\build\native\Microsoft.ChakraCore.vc140.targets" Condition="Exists('$(SolutionDir)packages\Microsoft.ChakraCore.vc140.1.11.24\build\native\Microsoft.ChakraCore.vc140.targets')" />
-    <Import Project="$(SolutionDir)packages\ChakraCore.Debugger.0.0.0.44\build\native\ChakraCore.Debugger.targets" Condition="Exists('$(SolutionDir)packages\ChakraCore.Debugger.0.0.0.44\build\native\ChakraCore.Debugger.targets')" />
-    <Import Project="$(SolutionDir)packages\Microsoft.Windows.CppWinRT.2.0.210312.4\build\native\Microsoft.Windows.CppWinRT.targets" Condition="Exists('$(SolutionDir)packages\Microsoft.Windows.CppWinRT.2.0.210312.4\build\native\Microsoft.Windows.CppWinRT.targets')" />
-    <Import Project="$(V8Package)\build\native\ReactNative.V8JSI.Windows.targets" Condition="Exists('$(V8Package)\build\native\ReactNative.V8JSI.Windows.targets') AND '$(UseV8)' == 'true'" />
-    <Import Project="$(SolutionDir)\packages\ReactWindows.ChakraCore.ARM64.1.11.20\build\native\ReactWindows.ChakraCore.ARM64.targets" Condition="'$(Platform)' == 'ARM64' AND Exists('$(SolutionDir)\packages\ReactWindows.ChakraCore.ARM64.1.11.20\build\native\ReactWindows.ChakraCore.ARM64.targets')" />
-  </ImportGroup>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('$(SolutionDir)packages\ReactWindows.OpenSSL.StdCall.Static.1.0.2-p.5\build\native\ReactWindows.OpenSSL.StdCall.Static.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\ReactWindows.OpenSSL.StdCall.Static.1.0.2-p.5\build\native\ReactWindows.OpenSSL.StdCall.Static.targets'))" />
-    <Error Condition="!Exists('$(SolutionDir)packages\boost.1.76.0.0\build\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\boost.1.76.0.0\build\boost.targets'))" />
-    <Error Condition="!Exists('$(SolutionDir)packages\Microsoft.ChakraCore.vc140.1.11.24\build\native\Microsoft.ChakraCore.vc140.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\Microsoft.ChakraCore.vc140.1.11.24\build\native\Microsoft.ChakraCore.vc140.targets'))" />
-    <Error Condition="!Exists('$(SolutionDir)packages\ChakraCore.Debugger.0.0.0.44\build\native\ChakraCore.Debugger.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\ChakraCore.Debugger.0.0.0.44\build\native\ChakraCore.Debugger.targets'))" />
-    <Error Condition="!Exists('$(SolutionDir)packages\Microsoft.Windows.CppWinRT.2.0.210312.4\build\native\Microsoft.Windows.CppWinRT.props')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\Microsoft.Windows.CppWinRT.2.0.210312.4\build\native\Microsoft.Windows.CppWinRT.props'))" />
-    <Error Condition="!Exists('$(SolutionDir)packages\Microsoft.Windows.CppWinRT.2.0.210312.4\build\native\Microsoft.Windows.CppWinRT.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\Microsoft.Windows.CppWinRT.2.0.210312.4\build\native\Microsoft.Windows.CppWinRT.targets'))" />
-    <Error Condition="!Exists('$(V8Package)\build\native\ReactNative.V8JSI.Windows.targets') AND '$(UseV8)' == 'true'" Text="$([System.String]::Format('$(ErrorText)', '$(V8Package)\build\native\ReactNative.V8JSI.Windows.targets'))" />
-    <Error Condition="'$(Platform)' == 'ARM64' AND !Exists('$(SolutionDir)\packages\ReactWindows.ChakraCore.ARM64.1.11.20\build\native\ReactWindows.ChakraCore.ARM64.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\packages\ReactWindows.ChakraCore.ARM64.1.11.20\build\native\ReactWindows.ChakraCore.ARM64.targets'))" />
-  </Target>
   <Target Name="Test">
     <Exec Command="$(OutDir)$(TargetFileName)" IgnoreStandardErrorWarningFormat="true" />
   </Target>

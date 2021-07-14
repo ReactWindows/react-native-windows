@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Use PackageReference for NuGet Dependencies",
+  "packageName": "react-native-windows",
+  "email": "julio.rocha@microsoft.com",
+  "dependentChangeType": "patch"
+}

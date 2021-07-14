@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Use PackageReference for C++ dependencies",
+  "packageName": "@react-native-windows/cli",
+  "email": "julio.rocha@microsoft.com",
+  "dependentChangeType": "patch"
+}

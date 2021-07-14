@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
 
-  <!-- 
+  <!--
     Due to the mono-repo setup in this repo, we should ensure that all the projects
     are pointing to the same place for react-native and react-native-windows.
     -->
@@ -12,5 +12,16 @@
     <RootIntDir>$(ReactNativeWindowsDir)\build</RootIntDir>
     <RootOutDir>$(ReactNativeWindowsDir)\target</RootOutDir>
   </PropertyGroup>
+
+  <PropertyGroup Label="NuGet">
+    <MSBuildProjectExtensionsPath>$(RootIntDir)\ProjectExtensions\$(MSBuildProjectName)\</MSBuildProjectExtensionsPath>
+
+    <!-- https://github.com/NuGet/Home/issues/10511#issuecomment-778400668 -->
+    <AssetTargetFallback>$(AssetTargetFallback);native</AssetTargetFallback>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectCapability Include="PackageReferences" />
+  </ItemGroup>
 
 </Project>

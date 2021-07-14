@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-      <!-- Ideally we target 17763, but we can't do that 
+      <!-- Ideally we target 17763, but we can't do that
       until https://github.com/microsoft/ProjectReunion/issues/921 is fixed -->
     <TargetFramework>net5.0-windows10.0.18362.0</TargetFramework>
     <Platforms>x64</Platforms>
@@ -9,6 +9,11 @@
   <PropertyGroup>
     <CsWinRTIncludes>Microsoft.ReactNative</CsWinRTIncludes>
     <CsWinRTGeneratedFilesDir>$(OutDir)</CsWinRTGeneratedFilesDir>
+  </PropertyGroup>
+
+  <PropertyGroup Label="NuGet">
+    <!-- https://github.com/NuGet/Home/issues/10511#issuecomment-778400668 -->
+    <AssetTargetFallback>$(AssetTargetFallback);native</AssetTargetFallback>
   </PropertyGroup>
 
   <ItemGroup>
@@ -33,7 +38,7 @@
   </PropertyGroup>
 
   <Target Name="CopyOutputDll" AfterTargets="CopyFilesToOutputDirectory">
-    <Copy 
+    <Copy
       SourceFiles="..\build\$(Platform)\$(Configuration)\Microsoft.ReactNative.ProjectReunion\Microsoft.ReactNative.ProjectReunion\bin\Microsoft.ReactNative.ProjectReunion.dll"
       DestinationFolder="..\target\$(Platform)\$(Configuration)\Microsoft.ReactNative.ProjectReunion"
       SkipUnchangedFiles="true" />

@@ -116,9 +116,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Filter Include="jsi">
       <UniqueIdentifier>{cb6089d5-c5db-4090-93b4-2454ca9411bc}</UniqueIdentifier>
     </Filter>

@@ -13,7 +13,7 @@
     <!-- This property sets the CscTask to print the full path of the csharp file on errors and warnings rather than just the filename. -->
     <GenerateFullPaths>true</GenerateFullPaths>
 
-    <!-- 
+    <!--
       SourceLink is disabled by default since customer projects are still building our projects and therefore we don't want to force customers to use this.
       The PR (windows-vs-pr.yml) and CI (publish.yml() turn it back on.
     -->

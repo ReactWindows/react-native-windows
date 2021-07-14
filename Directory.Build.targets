@@ -12,8 +12,8 @@
     </ItemGroup>
   </Target>
 
-  <!-- 
-    This target checks if Yarn install needs to run or not. 
+  <!--
+    This target checks if Yarn install needs to run or not.
     This is a common cause of failed builds for developers not used to running it after syncing...
     This check does not run during design time build and in our CI validation runs (detected via PublishToolDuringBuild because we know yarn install runs there.
   -->
@@ -27,7 +27,7 @@
     >
 
     <Message Text="Checking if yarn is 'up to date' by running a 'dry-run' version of `yarn install` and checking the exit code" />
-    <Exec 
+    <Exec
       ContinueOnError="True"
       Command="npx yarn install --offline --cache-folder $(RootIntDir)\JsUpToDateCheck\Cache"
       WorkingDirectory="$(MSBuildThisFileDirectory)"
@@ -36,13 +36,13 @@
     </Exec>
 
     <!-- Fail the build if yarn needs to install packages. -->
-    <Error 
+    <Error
       Condition="'%(_YarnExitCode.Identity)' != '0'"
-      Text="Yarn packages are out of date. Please run `yarn install &amp;&amp; yarn build` in the root of the repo to ensure the generated files are up to date" 
+      Text="Yarn packages are out of date. Please run `yarn install &amp;&amp; yarn build` in the root of the repo to ensure the generated files are up to date"
     />
 
-    <!-- 
-      Copy the yarn.lock file to prevent this task from running over and over again, and only rerun the check with yarn.lock or any package.json changes. 
+    <!--
+      Copy the yarn.lock file to prevent this task from running over and over again, and only rerun the check with yarn.lock or any package.json changes.
       This will likely miss a few corner cases with local changes to package.json but should catch the most important case after syncing
     -->
     <Copy
@@ -57,5 +57,100 @@
 
   </Target>
 
+  <!-- For build debugging purposes. -->
+  <Target Name="Vars">
+    <Message Text="General" />
+    <Message Text="=> ApplicationType         [$(ApplicationType)]" />
+    <Message Text="=> Configuration           [$(Configuration)]" />
+    <Message Text="=> Platform                [$(Platform)]" />
+    <Message Text="=> PlatformTarget          [$(PlatformTarget)]" />
+    <Message Text="=> PlatformName            [$(PlatformName)]" />
+    <Message Text="=> DefaultPlatformToolset  [$(DefaultPlatformToolset)]" />
+    <Message Text="=> PlatformToolset         [$(PlatformToolset)]" />
+    <Message Text="=> SolutionDir             [$(SolutionDir)]" />
+    <Message Text="=> RootDir                 [$(RootDir)]" />
+    <Message Text="=> RootIntDir              [$(RootIntDir)]" />
+    <Message Text="=> RootOutDir              [$(RootOutDir)]" />
+    <Message Text="=> BaseIntDir              [$(BaseIntDir)]" />
+    <Message Text="=> BaseOutDir              [$(BaseOutDir)]" />
+    <Message Text="=> IntDir                  [$(IntDir)]" />
+    <Message Text="=> OutDir                  [$(OutDir)]" />
+    <Message Text="=> TargetDir               [$(TargetDir)]" />
+    <Message Text="=> TargetPath              [$(TargetPath)]" />
+    <Message Text="=> TLogLocation            [$(TLogLocation)]" />
+    <Message Text="=> LastBuildUnsuccessful   [$(LastBuildUnsuccessful)]" />
+    <Message Text="=> LastBuildState          [$(LastBuildState)]" />
+    <Message Text="=> GeneratedFilesDir       [$(GeneratedFilesDir)]" />
+    <Message Text="=> WinVer                  [$(WinVer)]" />
+
+    <Message Text="%0A" />
+    <Message Text="Microsoft.CppBuild.targets/MakeDirsForCl" />
+    <Message Text="=> PrecompiledHeaderOutputFile [@(CLCompile->Metadata('PrecompiledHeaderOutputFile')->DirectoryName()->Distinct())]" />
+    <Message Text="=> AssemblerListingLocation    [@(CLCompile->Metadata('AssemblerListingLocation')->DirectoryName()->Distinct())]" />
+    <Message Text="=> ObjectFileName              [@(CLCompile->Metadata('ObjectFileName')->DirectoryName()->Distinct())]" />
+    <Message Text="=> ProgramDataBaseFileName     [@(CLCompile->Metadata('ProgramDataBaseFileName')->DirectoryName()->Distinct())]" />
+    <Message Text="=> XMLDocumentationFileName    [@(CLCompile->Metadata('XMLDocumentationFileName')->DirectoryName()->Distinct())]" />
+    <Message Text="=> BrowseInformationFile       [@(CLCompile->Metadata('BrowseInformationFile')->DirectoryName()->Distinct())]" />
+    <Message Text="=> PreprocessOutputPath        [@(CLCompile->Metadata('PreprocessOutputPath')->DirectoryName()->Distinct())]" />
+    <Message Text="=> PreprocessorDefinitions     [@(CLCompile->Metadata('PreprocessorDefinitions')->Distinct())]" />
+    <Message Text="=> ClDirsToMake                [@(ClDirsToMake)]" />
+
+    <Message Text="%0A" />
+    <Message Text="=> UnmergedWinmdDirectory  [$(UnmergedWinmdDirectory)]" />
+    <Message Text="=> MergedWinmdDirectory    [$(MergedWinmdDirectory)]" />
+    <Message Text="=> FollyDir                [$(FollyDir)]" />
+    <Message Text="=> ReactNativeWindowsDir   [$(ReactNativeWindowsDir)]" />
+    <Message Text="=> ReactNativeDir          [$(ReactNativeDir)]" />
+    <Message Text="=> YogaDir                 [$(YogaDir)]" />
+    <Message Text="=> ProjectHome             [$(ProjectHome)]" />
+    <Message Text="=> UserRootDir             [$(UserRootDir)]" />
+    <Message Text="=> MSBuildExtensionsPath   [$(MSBuildExtensionsPath)]" />
+    <Message Text="=> MSBuildExtensionsPath32 [$(MSBuildExtensionsPath32)]" />
+    <Message Text="=> MSBuildExtensionsPath64 [$(MSBuildExtensionsPath64)]" />
+    <Message Text="=> VCTargetsPath           [$(VCTargetsPath)]" />
+
+    <Message Text="%0A" />
+    <Message Text="JS Engine" />
+    <Message Text="=> PkgReactNative_Hermes_Windows        [$(PkgReactNative_Hermes_Windows)]" />
+    <Message Text="=> EnableHermesInspectorInReleaseFlavor [$(EnableHermesInspectorInReleaseFlavor)]" />
+    <Message Text="=> UseHermes     [$(UseHermes)]" />
+    <Message Text="=> UseFabric     [$(UseFabric)]" />
+    <Message Text="=> HermesVersion [$(HermesVersion)]" />
+    <Message Text="=> HermesPackage [$(HermesPackage)]" />
+    <Message Text="=> HermesArch    [$(HermesArch)]" />
+    <Message Text="=> UseFabric     [$(UseFabric)]" />
+    <Message Text="=> UseV8         [$(UseV8)]" />
+    <Message Text="=> V8Package     [$(V8Package)]" />
+    <Message Text="=> V8Version     [$(V8Version)]" />
+    <Message Text="=> V8AppPlatform [$(V8AppPlatform)]" />
+
+    <Message Text="%0A" />
+    <Message Text="NuGet" />
+    <Message Text="=> AssetTargetFallback                 [$(AssetTargetFallback)]" />
+    <Message Text="=> IncludeFrameworkReferencesFromNuGet [$(IncludeFrameworkReferencesFromNuGet)]" />
+    <Message Text="=> NuGetPackageRoot                    [$(NuGetPackageRoot)]" />
+    <Message Text="=> NuGetPackagesDirectory              [$(NuGetPackagesDirectory)]" />
+    <Message Text="=> NuGetRuntimeIdentifier              [$(NuGetRuntimeIdentifier)]" />
+    <Message Text="=> ProjectLockFile                     [$(ProjectLockFile)]" />
+    <Message Text="=> IntermediateOutputPath              [$(IntermediateOutputPath)]" />
+    <Message Text="=> NuGetTargetMoniker                  [$(NuGetTargetMoniker)]" />
+    <Message Text="=> TargetFramework                     [$(TargetFramework)]" />
+    <Message Text="=> TargetFrameworks                    [$(TargetFrameworks)]" />
+    <Message Text="=> TargetFrameworkIdentifier           [$(TargetFrameworkIdentifier)]" />
+    <Message Text="=> BaseNuGetRuntimeIdentifier          [$(BaseNuGetRuntimeIdentifier)]" />
+    <Message Text="=> NuGetRuntimeIdentifier              [$(NuGetRuntimeIdentifier)]" />
+    <Message Text="=> TargetPlatformIdentifier            [$(TargetPlatformIdentifier)]" />
+    <Message Text="=> MSBuildProjectExtensionsPath        [$(MSBuildProjectExtensionsPath)]" />
+
+    <Message Text="%0A" />
+    <Message Text="WinUI" />
+    <Message Text="=> UseWinUI3           [$(UseWinUI3)]" />
+    <Message Text="=> WinUI3Version       [$(WinUI3Version)]" />
+    <Message Text="=> WinUI2xVersion      [$(WinUI2xVersion)]" />
+    <Message Text="=> WinUIPackageName    [$(WinUIPackageName)]" />
+    <Message Text="=> WinUIPackageVersion [$(WinUIPackageVersion)]" />
+    <Message Text="=> IsWinUIAlpha        [$(IsWinUIAlpha)]" />
+
+  </Target>
 
 </Project>

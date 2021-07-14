@@ -2,9 +2,9 @@
     - name: buildEnvironment
       type: string
       default : PullRequest
-      values: 
-      - PullRequest 
-      - Continuous 
+      values:
+      - PullRequest
+      - Continuous
     - name: buildMatrix
       type: object
       default:
@@ -63,6 +63,11 @@
             - job: UniversalBuild${{ matrix.Name }}
               variables:
                 - template: ../variables/vs2019.yml
+
+                # Some tasks run on a different user (VssAdministrator) instead of the default user (AzDevOps).
+                # Keep NuGet cache independent from the user directory.
+                - name: NUGET_PACKAGES
+                  value: D:\NugetPackages
               displayName: Universal Build ${{ matrix.Name }}
               pool: $(AgentPool.Large)
               timeoutInMinutes: 60
@@ -99,12 +104,18 @@
                       Microsoft.ReactNative\**
                       Microsoft.ReactNative.Managed\**
                       Microsoft.ReactNative.Managed.CodeGen\**
-                
+
                 - template: ../templates/component-governance.yml
 
             - job: UniversalTest${{ matrix.Name }}
               variables:
                 - template: ../variables/vs2019.yml
+
+                # Some tasks run on a different user (VssAdministrator) instead of the default user (AzDevOps).
+                # Keep NuGet cache independent from the user directory.
+                - name: NUGET_PACKAGES
+                  value: D:\NugetPackages
+
               displayName: Universal Test ${{ matrix.Name }}
               dependsOn:
                 - UniversalBuild${{ matrix.Name }}
@@ -124,19 +135,18 @@
                     targetType: filePath
                     filePath: $(Build.SourcesDirectory)\vnext\Scripts\rnw-dependencies.ps1
                     arguments: -NoPrompt -Tags buildLab
-                    
+
                 - template: ../templates/prepare-env.yml
 
-                - task: NuGetCommand@2
-                  displayName: NuGet restore
+                - task: MSBuild@1
+                  displayName: Restore NuGet packages
                   inputs:
-                    command: restore
-                    restoreSolution: vnext/Microsoft.ReactNative.sln
-                    feedsToUse: config
-                    nugetConfigPath: $(Build.SourcesDirectory)/vnext/NuGet.config
-                    restoreDirectory: packages/
-                    verbosityRestore: Detailed # Options: quiet, normal, detailed
-                    
+                    solution: vnext/Microsoft.ReactNative.sln
+                    msbuildArchitecture: x64
+                    platform: ${{ matrix.BuildPlatform }}
+                    configuration: ${{ matrix.BuildConfiguration }}
+                    msbuildArguments: /t:Restore
+
                 - task: DownloadPipelineArtifact@1
                   displayName: "Download binaries for testing"
                   inputs:
@@ -216,7 +226,7 @@
       displayName: Universal Build 🏗
       variables:
         - template: ../variables/vs2019.yml
-      dependsOn: 
+      dependsOn:
         - ${{ each config in parameters.buildMatrix }}:
           - ${{ if eq(config.BuildEnvironment, parameters.buildEnvironment) }}:
             - ${{ each matrix in config.Matrix }}:

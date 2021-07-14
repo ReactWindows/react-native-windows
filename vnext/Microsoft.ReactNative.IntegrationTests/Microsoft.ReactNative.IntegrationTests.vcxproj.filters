@@ -45,9 +45,6 @@
     <None Include="JsiTurboModuleTests.js" />
     <None Include="ReactNativeHostTests.js" />
     <None Include="TurboModuleTests.js" />
-    <None Include="packages.config">
-      <Filter>Other Files</Filter>
-    </None>
     <None Include="JsiSimpleTurboModuleTests.js" />
     <None Include="ReactNotificationServiceTests.js" />
   </ItemGroup>

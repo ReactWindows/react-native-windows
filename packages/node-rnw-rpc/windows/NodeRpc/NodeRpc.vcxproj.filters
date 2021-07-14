@@ -12,7 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="PropertySheet.props" />
-    <None Include="packages.config" />
     <None Include="NodeRpc.def" />
   </ItemGroup>
   <ItemGroup>

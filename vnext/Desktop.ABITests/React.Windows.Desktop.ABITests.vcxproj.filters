@@ -61,9 +61,6 @@
     </Manifest>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config">
-      <Filter>Other files</Filter>
-    </None>
     <None Include="..\Microsoft.ReactNative.IntegrationTests\ReactNativeHostTests.js" />
   </ItemGroup>
 </Project>

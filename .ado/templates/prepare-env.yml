@@ -31,7 +31,7 @@ steps:
   - task: NodeTool@0
     displayName: Installing Node
     inputs:
-      versionSpec: '14.x' 
+      versionSpec: '14.x'
 
   - task: CmdLine@2
     displayName: Installing Yarm

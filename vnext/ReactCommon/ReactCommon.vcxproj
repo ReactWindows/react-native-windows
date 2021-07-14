@@ -186,19 +186,13 @@
     <CLCompile Include="$(ReactNativeDir)\ReactCommon\react\nativemodule\samples\ReactCommon\SampleTurboCxxModule.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Folly\Folly.vcxproj">
       <Project>{A990658C-CE31-4BCC-976F-0FC6B1AF693D}</Project>
     </ProjectReference>
   </ItemGroup>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('$(SolutionDir)packages\boost.1.76.0.0\build\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\boost.1.76.0.0\build\boost.targets'))" />
-  </Target>
+  <ItemGroup>
+    <PackageReference Include="boost" Version="1.76.0.0" />
+  </ItemGroup>
   <Target Name="EnsureNodeModuleBuildImports" BeforeTargets="PrepareForBuild">
     <Error Condition="!Exists('$(ReactNativePackageDir)')" Text="This project references code in the node_modules folder that is missing on this computer.  Use `yarn install` to download them." />
     <Error Condition="!Exists('$(YogaDir)')" Text="This project references code in the node_modules folder that is missing on this computer.  Use `yarn install` to download them." />

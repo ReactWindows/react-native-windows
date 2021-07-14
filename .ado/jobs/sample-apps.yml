@@ -56,13 +56,14 @@ jobs:
 
       - template: ../templates/prepare-env.yml
 
-      - task: NuGetCommand@2
-        displayName: NuGet restore - SampleApps
+      - task: MSBuild@1
+        displayName: Restore NuGet packages
         inputs:
-          command: restore
-          restoreSolution: packages/sample-apps/windows/SampleApps.sln
-          verbosityRestore: Detailed # Options: quiet, normal, detailed
-        condition: succeeded()
+          solution: packages/sample-apps/windows/SampleApps.sln
+          msbuildArchitecture: x64
+          platform: $(BuildPlatform)
+          configuration: $(BuildConfiguration)
+          msbuildArguments: /t:Restore
 
       - template: ../templates/run-windows-with-certificates.yml
         parameters:
